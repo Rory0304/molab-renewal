@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #38bdf8;
+    --color-danger: #dc4c64;
+    --sticky-header-height: 80px;
+  }
+}
+
+@layer components {
+  .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: brightness(0.75);
+    border-radius: 0.75rem;
+  }
+
+  .required-star {
+    line-height: 28px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 4px;
+    color: #dc4c64;
+    content: "*";
+  }
+}
