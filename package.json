@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf .next && rm -rf .next-server",
+    "dev": "yarn clean && next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@hookform/error-message": "^2.0.1",
+    "@rory0304/molab-renewal-types": "1.0.2",
+    "@rory0304/rory-project-types": "^1.0.0",
+    "@rorysa/prettier-config": "^1.0.2",
+    "@supabase/auth-helpers-nextjs": "latest",
+    "@supabase/supabase-js": "latest",
+    "autoprefixer": "10.4.14",
+    "draft-js": "^0.11.7",
+    "framer-motion": "^10.12.17",
+    "next": "latest",
+    "postcss": "8.4.24",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-hook-form": "^7.45.1",
+    "react-quill": "^2.0.0",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.3",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "@types/node": "20.3.1",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
+    "@types/uuid": "^9.0.2",
+    "daisyui": "^3.1.7"
+  }
+}
