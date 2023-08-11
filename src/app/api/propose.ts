@@ -2,6 +2,8 @@ import { getServerSupabase } from "src/utils/supabase";
 import type { ProjectFormValues } from "src/types/project";
 import type { Row } from "src/types/supabase";
 
+export type Proposetype = Row<"Propose">;
+
 const supabase = getServerSupabase();
 
 /**
@@ -105,15 +107,48 @@ export const fetchMyProposeList = async (
 /**
  *
  */
-export const fetchProposeById = async (projectId: string, userId: string) => {
+export const fetchProposeById = async (projectId: string) => {
   const { data, error } = await supabase
     .from("Propose")
     .select("*")
     // Filters
-    .eq("userId", userId)
     .eq("uuid", projectId)
     .limit(1)
     .single<Row<"Propose">>();
   if (error) throw new Error("fail to fetch propose");
   return { data };
+};
+
+/**
+ * Fetch Propose List by area option
+ */
+export const fetchProposeList = async (
+  offset: number,
+  pageCount: number,
+  siDo?: string,
+  siGunGu?: string
+) => {
+  const fetchTotal = supabase.from("Propose").select("*").eq("isOpen", true);
+  let fetchList = supabase.from("Propose").select("*").eq("isOpen", true);
+
+  if (siDo) {
+    fetchList = fetchList.eq("siDo", siDo);
+  }
+  if (siGunGu) {
+    fetchList = fetchList.eq("siGunGu", siGunGu);
+  }
+
+  const [total, proposeList] = await Promise.all([
+    fetchTotal,
+    fetchList
+      // Pagination
+      .range(offset, offset + pageCount),
+  ]);
+
+  const { data, error } = proposeList;
+  const { count } = total;
+
+  if (error) throw new Error("fail to fetch my propose list");
+
+  return { data, count };
 };
