@@ -3,7 +3,11 @@ const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/**/*.{js,ts,jsx,tsx,mdx}"],
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("daisyui"),
+    require("tailwind-scrollbar-hide"),
+  ],
   // ref: https://daisyui.com/docs/config/
   daisyui: {
     darkTheme: "light",
@@ -24,7 +28,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        environmentIcon: "url('/environment-icon.svg')",
+        banner: "url('/point.png')",
       },
       backgroundSize: {
         "100%": "100%",
