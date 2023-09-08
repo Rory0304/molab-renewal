@@ -23,10 +23,16 @@ const QUILL_MODULES = {
 interface EditorProps {
   value: string;
   placeholder: string;
+  editorStyles?: React.CSSProperties;
   onChange: (value: string) => void;
 }
 
-const Editor: React.FC<EditorProps> = ({ value, placeholder, onChange }) => {
+const Editor: React.FC<EditorProps> = ({
+  value,
+  placeholder,
+  editorStyles,
+  onChange,
+}) => {
   const ReactQuill = React.useMemo(
     () => dynamic(() => import("react-quill"), { ssr: false }),
     []
@@ -40,8 +46,7 @@ const Editor: React.FC<EditorProps> = ({ value, placeholder, onChange }) => {
       modules={QUILL_MODULES}
       placeholder={placeholder}
       style={{
-        width: "100%",
-        height: "100%",
+        ...editorStyles,
       }}
     />
   );
