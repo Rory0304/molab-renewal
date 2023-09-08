@@ -1,10 +1,15 @@
 "use client";
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 
-interface TextInputProps {
+interface TextInputProps
+  extends Pick<
+    InputHTMLAttributes<HTMLInputElement>,
+    "onChange" | "type" | "name" | "value"
+  > {
   label: string;
-  labelTextAlt: string;
   placeholder: string;
+  labelTextAlt?: string;
+  required?: boolean;
   error?: boolean;
   ErrorMessage?: React.ReactElement;
 }
@@ -15,6 +20,7 @@ const TextInput = React.forwardRef(
       label,
       labelTextAlt,
       placeholder,
+      required,
       ErrorMessage,
       error = false,
       ...props
@@ -24,13 +30,18 @@ const TextInput = React.forwardRef(
     return (
       <div className="pb-8">
         <label className="label">
-          <span className="text-lg font-bold label-text after:required-star">
+          <span
+            className={`text-lg font-bold label-text ${
+              required ? "after:required-star" : ""
+            }`}
+          >
             {label}
           </span>
-          <span className="label-text-alt">{labelTextAlt}</span>
+          {labelTextAlt ? (
+            <span className="label-text-alt">{labelTextAlt}</span>
+          ) : null}
         </label>
         <input
-          type="text"
           className={`w-full input input-bordered ${
             error ? "input-error" : ""
           }`}

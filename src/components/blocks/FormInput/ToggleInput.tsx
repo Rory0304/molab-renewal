@@ -1,28 +1,26 @@
-"use client";
-
 import React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 interface ToggleInputProps {
   labelText: string;
-  checked: boolean;
-  onChange: () => void;
+  checked?: boolean;
+  toggleInputRegister?: UseFormRegisterReturn;
 }
 
 const ToggleInput: React.FC<ToggleInputProps> = ({
   labelText,
-  checked,
-  onChange,
+  checked = false,
+  toggleInputRegister,
 }) => {
   return (
-    <div className="form-control w-fit">
+    <div className="pb-8 w-fit">
       <label className="cursor-pointer label">
         <span className="mr-4 text-lg font-bold label-text">{labelText}</span>
         <input
           type="checkbox"
           className="toggle toggle-primary"
-          checked={checked}
-          onChange={onChange}
           aria-pressed={checked}
+          {...toggleInputRegister}
         />
       </label>
     </div>
