@@ -3,5 +3,4 @@ export { default as ProposeProjectInformationEditor } from "./ProjectInformation
 export { default as ProposeProjectParticipationEditor } from "./ParticipationEditor";
 export { default as ProposeProjectDetailEditor } from "./ProjectDetailEditor";
 export { default as ProposeProjectToc } from "./ProjectToc";
-export { default as ProposeSubmitButton } from "./ProposeSubmitButton";
-export { default as ProposePageHeader } from "./ProposePageHeader";
+export { default as ProjectEidtorHeader } from "./ProjectEidtorHeader";

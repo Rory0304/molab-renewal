@@ -22,7 +22,7 @@ const ProjectToc: React.FC<ProjectTocParams> = ({ currentStep }) => {
   const uuid = watch("payload.uuid");
 
   return (
-    <aside className="sticky right-0 top-0 w-80 self-start border-r bg-neutral-100/30  borer-neutral-300 h-[calc(100vh-var(--sticky-header-height))]">
+    <aside className="sticky right-0 top-0 w-96 self-start border-r bg-neutral-100/30  borer-neutral-300 h-[calc(100vh-var(--sticky-header-height))]">
       <div className="p-8">
         <ul>
           {PROPOSE_STEPS.map((step) => (

@@ -1,30 +1,68 @@
 "use client";
 
 import React from "react";
-import { Editor } from "src/components/blocks/Editor";
+import { Editor, DeferredLoading, OverlayLoading } from "src/components/blocks";
 import { useFormContext } from "react-hook-form";
+import type { ProjectFormValues } from "src/types/project";
+import useUpdateProject from "src/hooks/useUpdateProject";
 
 const ParticipationEditor: React.FC = () => {
-  const { setValue } = useFormContext();
+  const {
+    watch,
+    setValue,
+    getValues,
+    formState: { isDirty },
+  } = useFormContext<ProjectFormValues>();
 
-  const [editorContent, setEditorContent] = React.useState("");
+  const projectId = getValues("payload.uuid");
+  const refetch = watch("refetch");
+  const watchedEditorContent = watch("payload.howTo.content");
+  const watchedIsFetching = watch("isFetching");
 
-  const handleEditorContentChange = (value: string) => {
-    setEditorContent(value);
-    setValue(`payload.howTo.content`, value);
-  };
+  const { isLoading, mutate } = useUpdateProject({
+    projectId,
+    refetch,
+  });
 
   return (
-    <section>
-      <h4 className="pb-6 text-2xl font-bold text-neutral-600">참여 방법</h4>
-      <div className="min-h-[500px]">
-        <Editor
-          value={editorContent}
-          placeholder={"프로젝트 참여 방법을 작성해주세요."}
-          onChange={handleEditorContentChange}
-        />
-      </div>
-    </section>
+    <>
+      {watchedIsFetching ? (
+        <DeferredLoading timedOut={200}>
+          <OverlayLoading />
+        </DeferredLoading>
+      ) : null}
+      <section className="w-[900px]">
+        <h4 className="pb-6 text-2xl font-bold text-neutral-600">참여 방법</h4>
+        <div className="h-[500px]">
+          <Editor
+            value={watchedEditorContent as string}
+            placeholder={"프로젝트 참여 방법을 작성해주세요."}
+            onChange={(value) =>
+              setValue(`payload.howTo.content`, value, { shouldDirty: true })
+            }
+            editorStyles={{
+              height: "450px",
+            }}
+          />
+        </div>
+        <div className="mt-8">
+          <button
+            disabled={!isDirty}
+            className="btn btn-primary w-fit"
+            onClick={(e) => {
+              e.preventDefault();
+              mutate(watch());
+            }}
+          >
+            {isLoading ? (
+              <span className="loading loading-spinner loading-md"></span>
+            ) : (
+              <span>저장</span>
+            )}
+          </button>
+        </div>
+      </section>
+    </>
   );
 };
 
