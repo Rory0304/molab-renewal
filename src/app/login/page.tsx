@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import TextInput from "src/components/blocks/FormInput/TextInput";
-import { ApiStatusType } from "src/types/apiStatus";
+import { ApiStatus } from "src/types/common";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
   const supabase = createClientComponentClient();
 
   const [view, setView] = useState<AUTH_VIEW_TYPE>("sign-in");
-  const [status, setStatus] = React.useState<ApiStatusType>("idle");
+  const [status, setStatus] = React.useState<ApiStatus>("Idle");
 
   const {
     formState: { errors },
@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
             }
           });
       } catch (err) {
-        setStatus("fail");
+        setStatus("Fail");
       }
     }
   };
@@ -98,7 +98,7 @@ const LoginPage: React.FC = () => {
 
     if (email && password) {
       try {
-        setStatus("pending");
+        setStatus("Pending");
 
         await supabase.auth
           .signInWithPassword({
@@ -109,7 +109,7 @@ const LoginPage: React.FC = () => {
             if (res.data.session) {
               router.refresh();
               router.push("/");
-              setStatus("success");
+              setStatus("Success");
               return;
             }
             if (!!res.error?.name) {
@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
             }
           });
       } catch (err) {
-        setStatus("fail");
+        setStatus("Fail");
       }
     }
   };
@@ -145,7 +145,7 @@ const LoginPage: React.FC = () => {
                 onClick={() => {
                   reset();
                   setView("sign-up");
-                  setStatus("idle");
+                  setStatus("Idle");
                 }}
               >
                 회원가입
@@ -175,7 +175,7 @@ const LoginPage: React.FC = () => {
                 onClick={() => {
                   reset();
                   setView("sign-in");
-                  setStatus("idle");
+                  setStatus("Idle");
                 }}
               >
                 로그인
@@ -249,7 +249,7 @@ const LoginPage: React.FC = () => {
                 />
               }
             />
-            {status === "fail" ? (
+            {status === "Fail" ? (
               <div className="pb-8">
                 <p className="text-sm text-danger">
                   아이디 또는 비밀번호를 잘못 입력했습니다.
@@ -258,7 +258,7 @@ const LoginPage: React.FC = () => {
                 </p>
               </div>
             ) : null}
-            {renderAuthAction(view, status === "pending")}
+            {renderAuthAction(view, status === "Pending")}
           </form>
         </section>
       )}
