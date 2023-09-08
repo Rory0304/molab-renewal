@@ -149,11 +149,6 @@
   resolved "https://npm.pkg.github.com/download/@rory0304/molab-renewal-types/1.0.6/bc1ce51b4fe7e07e2a865b0c7896891cc3e2fc40#bc1ce51b4fe7e07e2a865b0c7896891cc3e2fc40"
   integrity sha512-GYMljg8AAOh6AG1IpYhWfX278Dv+p4HrECOY2iXG44boiXfiGIz/wMyCGl5X72ikm5hyrbLCKUZVPNlaMO5AQQ==
 
-"@rory0304/rory-project-types@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@rory0304/rory-project-types/1.0.0/4c521d885e1d04d48c44d8a593fe2ec0bf354e49#4c521d885e1d04d48c44d8a593fe2ec0bf354e49"
-  integrity sha512-7b4kzBw4XKXuJVRXy2g0jVcNy8NeofWRja2Jzj2EWp5jFSvgOvOZkqnsP9ZDbfuC7uYsIDuSOT3TLE+T8E79IQ==
-
 "@rorysa/prettier-config@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@rorysa/prettier-config/-/prettier-config-1.0.2.tgz#39fcab971cae141d8b31e9168d6ca32ffe0a4c51"
