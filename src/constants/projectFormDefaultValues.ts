@@ -9,6 +9,8 @@ export const PROJECT_FORM_DEFAULT_VALUES: ProjectFormValues = {
     siGunGu: "",
     projectStatus: ProjectStatus.ONGOING,
     isOpen: false,
+    startDate: "",
+    endDate: "",
     howTo: {
       content: "",
     },
