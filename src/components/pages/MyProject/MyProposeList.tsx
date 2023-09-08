@@ -1,131 +1,228 @@
 "use client";
 
 import React from "react";
-import { fetchMyProposeList } from "src/app/api/propose";
-import Pagination from "src/components/blocks/Pagination/Pagination";
-import { useAuth } from "src/context/auth-context";
+import { useQuery } from "@tanstack/react-query";
+import { deleteProposeById, fetchMyProposeList } from "src/app/api/propose";
+import {
+  Pagination,
+  SpinnerBox,
+  DeferredLoading,
+  Modal,
+  ErrorBox,
+} from "src/components/blocks";
+import { useAuth } from "src/context/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 
 import type { Row } from "src/types/supabase";
 import { EyeSlashIcon, EyeIcon } from "src/components/icons";
+import { enqueueSnackbar } from "notistack";
+
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import { isBrowser } from "src/utils/browser";
 
 const COUNT_PER_PROPOSE = 8;
 
-interface MyProposeCardProps extends Row<"Propose"> {}
+interface MyProposeCardProps extends Row<"Propose"> {
+  onModalOpen: () => void;
+}
 
 const MyProposeCard: React.FC<MyProposeCardProps> = ({
   uuid,
   title,
   thumbnail,
   isOpen,
+  onModalOpen,
 }) => {
   return (
-    <div className="overflow-hidden bg-white rounded-xl">
-      <div className="relative min-h-[225px]">
-        {thumbnail ? (
-          <Image
-            fill
-            src={`https://xmkqclhjjvshhgohnwrg.supabase.co/storage/v1/object/public/propose_thumbnail/${thumbnail}`}
-            alt={title}
-            style={{
-              objectFit: "cover",
-            }}
-          />
-        ) : (
-          <div className="flex justify-center items-center min-h-[225px] bg-gray-200">
-            <span className="text-neutral-500">대표 이미지 등록 필요</span>
-          </div>
-        )}
-      </div>
-      <div className="flex flex-col justify-between p-4 h-[calc(100% - 225px)]">
-        <div>
-          <h4 className="order-2 mb-2 text-lg font-bold">{title || "무제"}</h4>
-          <p className="order-1 mb-6">
-            {isOpen ? (
-              <span className="flex items-center gap-2 text-sm text-neutral-500">
-                <EyeIcon />
-                공개
-              </span>
-            ) : (
-              <span className="flex items-center gap-2 text-sm text-neutral-500">
-                <EyeSlashIcon />
-                비공개
-              </span>
-            )}
-          </p>
-        </div>
-        <Link
-          href={`/project/${uuid}/base`}
-          className="btn-block btn btun-neutral"
+    <div className="relative overflow-hidden bg-white group rounded-xl">
+      <div>
+        <button
+          tabIndex={0}
+          className="absolute z-10 hidden btn-sm btn btn-neutral top-4 right-4 group-hover:flex"
+          onClick={onModalOpen}
         >
-          수정하기
-        </Link>
+          <TrashIcon aria-hidden="true" width={16} height={16} />
+          삭제
+        </button>
+        <div className="relative min-h-[225px]">
+          {thumbnail ? (
+            <Image
+              fill
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${thumbnail}`}
+              alt={title}
+              style={{
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <div className="flex justify-center items-center min-h-[225px] bg-gray-200">
+              <span className="text-neutral-500">대표 이미지 등록 필요</span>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col justify-between p-4 h-[calc(100% - 225px)]">
+          <div>
+            <h4 className="order-2 mb-2 text-lg font-bold line-clamp-2">
+              {title || "무제"}
+            </h4>
+            <p className="order-1 mb-6">
+              {isOpen ? (
+                <span className="flex items-center gap-2 text-sm text-neutral-500">
+                  <EyeIcon />
+                  공개
+                </span>
+              ) : (
+                <span className="flex items-center gap-2 text-sm text-neutral-500">
+                  <EyeSlashIcon />
+                  비공개
+                </span>
+              )}
+            </p>
+          </div>
+          <Link
+            href={`/project/${uuid}/base`}
+            className="btn-block btn btun-neutral"
+          >
+            수정하기
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
 const MyProposeList: React.FC = () => {
+  const deleteModalRef = React.useRef<HTMLDialogElement>(null);
+  const selectedProjectId = React.useRef<string>("");
+
   const { userInfo } = useAuth();
 
-  const [page, setPage] = React.useState(0);
-  const [proposeListTotal, setProposeListTotal] = React.useState(0);
-  const [proposeList, setProposeList] = React.useState<MyProposeCardProps[]>(
-    []
+  const [page, setPage] = React.useState(1);
+  const offset = (page - 1) * COUNT_PER_PROPOSE;
+  const { isError, data, refetch, isInitialLoading } = useQuery(
+    ["fetch-my-propose-list", page, userInfo],
+    async () =>
+      await fetchMyProposeList(
+        userInfo?.id ?? "",
+        offset,
+        COUNT_PER_PROPOSE
+      ).then((res) => ({
+        proposeList: res?.data,
+        count: res?.count,
+      })),
+    {
+      keepPreviousData: true,
+    }
   );
 
-  const offset = (page - 1) * COUNT_PER_PROPOSE + 1;
+  const proposeList = data?.proposeList ?? [];
+  const total = data?.count ?? 0;
 
   React.useEffect(() => {
-    (async () => {
-      try {
-        if (userInfo) {
-          const { data, count } = await fetchMyProposeList(
-            userInfo.id,
-            offset,
-            COUNT_PER_PROPOSE
-          );
-          console.log(data);
-          setProposeList(data ?? []);
-          setProposeListTotal(count ?? 0);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    })();
+    if (isBrowser) window.scrollTo(0, 0);
   }, [page]);
 
+  //
+  //
+  //
+  const handleDeleteProject = async (uuid: string) => {
+    try {
+      await deleteProposeById(uuid);
+      enqueueSnackbar("삭제되었습니다", { variant: "success" });
+      refetch();
+    } catch (err) {
+      enqueueSnackbar("삭제에 실패했습니다", { variant: "error" });
+    } finally {
+      selectedProjectId.current = "";
+      deleteModalRef?.current?.close();
+    }
+  };
+
+  //
+  //
+  //
   const renderProposeList = () => {
     if (proposeList.length === 0) {
       return (
-        <div className="text-center pt-28">아직 생성된 제안이 없습니다.</div>
+        <div className="w-full py-10 text-center">
+          아직 생성된 제안이 없습니다.
+        </div>
       );
     }
     return (
-      <div className="grid grid-cols-4 gap-x-6">
+      <div className="grid w-full grid-cols-1 gap-6 py-10 sm:grid-cols-2 lg:grid-cols-4">
         {proposeList.map((item, index) => (
-          <MyProposeCard key={`propose-list=${index}`} {...item} />
+          <MyProposeCard
+            key={`propose-list=${index}`}
+            {...item}
+            onModalOpen={() => {
+              deleteModalRef?.current?.showModal();
+              selectedProjectId.current = item.uuid;
+            }}
+          />
         ))}
       </div>
     );
   };
 
   return (
-    <div className="w-full pt-10 pb-40 bg-gray-50">
-      <div className="container max-w-screen-xl mx-auto">
+    <div className="w-full min-h-[500px] bg-gray-50 pt-10 pb-20">
+      <div className="h-full content-layout">
         {/* PropsoeList */}
-        {renderProposeList()}
-        {/* Pagination */}
-        {proposeList.length > 0 ? (
-          <Pagination
-            page={page}
-            total={proposeListTotal}
-            count={COUNT_PER_PROPOSE}
-            onPageChange={(page: number) => setPage(page)}
+        {isError ? (
+          <ErrorBox
+            title="데이터를 가져오는데 실패했습니다."
+            onRefetch={refetch}
           />
-        ) : null}
+        ) : isInitialLoading ? (
+          <DeferredLoading timedOut={200}>
+            <SpinnerBox />
+          </DeferredLoading>
+        ) : (
+          renderProposeList()
+        )}
+        {/* Pagination */}
+        <Pagination
+          page={page}
+          total={total}
+          count={COUNT_PER_PROPOSE}
+          visiblePages={5}
+          onPageChange={(value) => setPage(value)}
+        />
       </div>
+      <Modal
+        ref={deleteModalRef}
+        ModalBody={
+          <div>
+            <p>
+              프로젝트를 삭제하시겠습니까?
+              <br />
+              프로젝트를 삭제하시면, 작성했던 모든 내용이 삭제됩니다.
+            </p>
+          </div>
+        }
+        ModalAction={
+          <div>
+            <button
+              type="button"
+              className="mr-1 btn btn-neutral"
+              onClick={() => deleteModalRef?.current?.close()}
+            >
+              취소
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                handleDeleteProject(selectedProjectId.current);
+              }}
+            >
+              확인
+            </button>
+          </div>
+        }
+      />
     </div>
   );
 };
