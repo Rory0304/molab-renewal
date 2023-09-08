@@ -1,6 +1,7 @@
 import React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { XMarkIcon, UploadIcon } from "src/components/icons";
+import UploadIcon from "@heroicons/react/20/solid/ArrowUpOnSquareIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Image from "next/image";
 
 interface ThumbnailInputProps {
