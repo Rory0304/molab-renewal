@@ -23,3 +23,8 @@ export type ProduceStepType =
   | "base"
   | "participation"
   | "introduce";
+
+/**
+ * Api Status
+ */
+export type ApiStatus = "Idle" | "Pending" | "Success" | "Fail";
