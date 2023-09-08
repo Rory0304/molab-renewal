@@ -6,6 +6,7 @@ import { Row } from "src/types/supabase";
 import { getNoticeStatus } from "src/utils/notice";
 import { NoticeStatus } from "src/types/notice";
 import { calculateDaysLeft } from "src/utils/date";
+import { NoticeCategory } from "src/types/notice";
 
 type NoticeCardVaraintType = "horizontal" | "vertical";
 
@@ -19,9 +20,10 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
   category,
   content,
   thumbnail,
-  end_at,
+  endDate,
+  area,
 }) => {
-  const noticeStatus = getNoticeStatus(new Date(end_at as string));
+  const noticeStatus = getNoticeStatus(new Date(endDate as string));
 
   const renderNoticeStatusBadge = (date: Date, noticeStatus: NoticeStatus) => {
     switch (noticeStatus) {
@@ -54,24 +56,22 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
 
   if (variant === "horizontal") {
     return (
-      <div className="flex items-center bg-white shadow-lg cursor-pointer rounded-xl">
-        <div className="w-[250px]">
+      <div className="flex items-center overflow-hidden bg-white shadow-lg cursor-pointer rounded-xl">
+        <div className="relative pt-[30%] w-[30%]">
           {thumbnail ? (
             <Image
-              src={thumbnail}
-              width={250}
-              height={250}
+              fill
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/notice_thumbnail${thumbnail}`}
               alt={`${title} 공고 썸네일`}
               style={{
-                maxWidth: "250px",
                 objectFit: "cover",
               }}
             />
           ) : null}
         </div>
-        <div className="flex flex-col px-6 pl-6">
+        <div className="flex flex-col p-6 w-[70%]">
           <em className="text-sm not-italic color text-neutral-500">
-            {category}
+            {NoticeCategory[category ?? "Etc"]}
           </em>
           <strong className="pt-1 text-lg">{title}</strong>
           <p className="pt-1 text-neutral-600 line-clamp-3">{content}</p>
@@ -84,24 +84,26 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
     return (
       <div
         className={`relative flex flex-col items-center overflow-hidden bg-white border border-gray-300 border-solid cursor-pointer rounded-xl ${
-          noticeStatus === NoticeStatus.ENDED ? "after:card-overlay" : ""
+          noticeStatus === NoticeStatus.ENDED
+            ? "after:overlay after:rounded-[0.75rem]"
+            : ""
         }`}
       >
-        <div className="relative w-full h-56">
-          {renderNoticeStatusBadge(new Date(end_at as string), noticeStatus)}
+        <div className="relative w-full pt-[81%]">
+          {renderNoticeStatusBadge(new Date(endDate), noticeStatus)}
           {thumbnail ? (
             <Image
               fill
-              src={thumbnail}
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/notice_thumbnail${thumbnail}`}
               alt={`${title} 공고 썸네일`}
               style={{ objectFit: "cover" }}
             />
           ) : null}
         </div>
         <div className="flex flex-col w-full px-5 py-6">
-          <em className="text-sm not-italic color text-neutral-500">
-            {category}
-          </em>
+          <span className="text-sm not-italic color text-neutral-500">
+            {NoticeCategory[category ?? "Etc"]} | {area}
+          </span>
           <strong className="pt-1 text-lg">{title}</strong>
         </div>
       </div>
