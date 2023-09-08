@@ -1,13 +1,15 @@
+"use client";
+
 import React from "react";
 
 import { ProjectContent } from "src/types/project";
 import { PROJECT_STEPS } from "src/constants/projectSteps";
 
 interface ProjectStepsBoxProps {
-  contents: ProjectContent["stepDetail"];
+  content: ProjectContent["stepDetail"];
 }
 
-const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ contents }) => {
+const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
   const [selectedStep, setSelectedStep] = React.useState(PROJECT_STEPS[0].key);
 
   return (
@@ -30,7 +32,7 @@ const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ contents }) => {
       <div className="py-8">
         <div
           dangerouslySetInnerHTML={{
-            __html: contents[selectedStep].content ?? "",
+            __html: content?.[selectedStep].content ?? "",
           }}
         />
       </div>
