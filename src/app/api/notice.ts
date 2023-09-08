@@ -26,8 +26,8 @@ export const fetchAllNotice = async ({
     // Filters
     .like("title", `%${keyword}%`)
     .like("category", `%${category}%`)
-    .order("startDate", { ascending: ascending })
-    .range(offset - 1, offset + pageCount);
+    .order("created_at", { ascending: ascending })
+    .range(offset, offset + pageCount);
 
   if (error) {
     throw new Error("fail to fetch all notices");

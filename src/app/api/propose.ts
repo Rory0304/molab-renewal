@@ -12,7 +12,8 @@ const supabase = getServerSupabase();
 export const createPropose = async (uuid: string, userId: string) => {
   const { data, error } = await supabase
     .from("Propose")
-    .insert({ uuid: uuid, userId: userId });
+    .insert({ uuid: uuid, userId: userId })
+    .select();
 
   if (error) {
     throw new Error("fail to create propose");
@@ -85,7 +86,7 @@ export const fetchMyProposeList = async (
   const [total, proposeList] = await Promise.all([
     supabase
       .from("Propose")
-      .select("*")
+      .select("*", { count: "exact", head: true })
       // Filters
       .eq("userId", userId),
     supabase
@@ -93,7 +94,8 @@ export const fetchMyProposeList = async (
       .select("*")
       // Filters
       .eq("userId", userId)
-      .range(offset, offset + pageCount),
+      .order("created_at", { ascending: true })
+      .range(offset, offset + pageCount - 1),
   ]);
 
   const { data, error } = proposeList;
@@ -102,6 +104,22 @@ export const fetchMyProposeList = async (
   if (error) throw new Error("fail to fetch my propose list");
 
   return { data, count };
+};
+
+/**
+ *
+ */
+export const deleteProposeById = async (projectId: string) => {
+  const { data, error } = await supabase
+    .from("Propose")
+    .delete()
+    .eq("uuid", projectId);
+
+  if (error) {
+    throw new Error("fail to delete propose");
+  }
+
+  return data;
 };
 
 /**
@@ -122,12 +140,17 @@ export const fetchProposeById = async (projectId: string) => {
 /**
  * Fetch Propose List by area option
  */
-export const fetchProposeList = async (
-  offset: number,
-  pageCount: number,
-  siDo?: string,
-  siGunGu?: string
-) => {
+export const fetchProposeList = async ({
+  offset,
+  pageCount,
+  siDo,
+  siGunGu,
+}: {
+  offset: number;
+  pageCount: number;
+  siDo?: string;
+  siGunGu?: string;
+}) => {
   const fetchTotal = supabase.from("Propose").select("*").eq("isOpen", true);
   let fetchList = supabase.from("Propose").select("*").eq("isOpen", true);
 
@@ -142,7 +165,7 @@ export const fetchProposeList = async (
     fetchTotal,
     fetchList
       // Pagination
-      .range(offset, offset + pageCount),
+      .range(offset, offset + pageCount - 1),
   ]);
 
   const { data, error } = proposeList;

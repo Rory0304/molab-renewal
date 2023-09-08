@@ -27,25 +27,32 @@ export const fetchReviewById = async ({ uuid }: { uuid: string }) => {
  *
  */
 export const fetchReviewList = async ({
-  projectId,
   offset,
   pageCount,
+  select,
+  projectId,
 }: {
-  projectId: string;
+  select: string;
   offset: number;
   pageCount: number;
+  projectId?: string;
 }) => {
-  const { data, error } = await supabase
+  let query = supabase
     .from("Review")
-    .select(`thumbnail, uuid`)
+    .select(select)
     // Filters
-    .eq("projectId", projectId)
     .range(offset, offset + pageCount);
+
+  if (projectId) {
+    query = query.eq("uuid", projectId);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     throw Error("fail to fetch review list");
   }
-  return data;
+  return data as Partial<ReviewType>[];
 };
 
 /**
