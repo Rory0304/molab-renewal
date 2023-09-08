@@ -1,40 +1,25 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import {
   MainBanner,
-  MainRecentNoticeList,
   MainAboutLivingLabBanner,
-  MainReviewList,
+  HydrateMainReviewList,
+  HydrateMainNoticeList,
 } from "src/components/pages";
 
-import { supabase } from "src/utils/supabase";
-
-export default async function Index() {
-  // const supabase = createServerComponentClient({ cookies });
-
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
-
-  let { data: noticeList, error } = await supabase
-    .from("Notice")
-    .select("*")
-    .range(0, 9);
-
+const MainPage: React.FC = () => {
   return (
-    <div className="container flex flex-col justify-between w-full max-w-screen-xl">
-      <section>
-        <MainBanner />
-      </section>
-      <div className="flex flex-row justify-between my-8">
-        <section className="w-[850px]">
-          {noticeList ? <MainRecentNoticeList noticeList={noticeList} /> : null}
+    <div className="content-layout">
+      <div className="flex flex-col justify-between my-12 lg:flex-row">
+        <section className="w-full lg:w-[800px] lg:mb-0 mb-10 lg:mr-8 mr-0">
+          <MainBanner />
+          <HydrateMainNoticeList />
         </section>
-        <section className="w-[370px]">
-          <MainReviewList />
+        <section className="w-full lg:w-[370px]">
+          <HydrateMainReviewList />
           <MainAboutLivingLabBanner />
         </section>
       </div>
     </div>
   );
-}
+};
+
+export default MainPage;
