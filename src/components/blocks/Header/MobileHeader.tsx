@@ -21,7 +21,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
   isLoading,
   onProposeBtnClick,
 }) => {
-    const pathname = usePathname();
+  const pathname = usePathname();
 
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
@@ -29,8 +29,8 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
 
   React.useEffect(() => {
     // reset drawer
-    setIsDrawerOpen(false)
-  }, [pathname])
+    setIsDrawerOpen(false);
+  }, [pathname]);
 
   return (
     <div className="flex items-center justify-between py-5 md:hidden content-layout">
@@ -45,13 +45,13 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
+          onChange={() => setIsDrawerOpen((current) => !current)}
         />
         <div className="drawer-content">
           {/* Page content here */}
           <label
             htmlFor="my-drawer"
             className="px-1 py-1 cursor-pointer drawer-button btn btn-ghost btn-square w-fit h-fit"
-            onClick={() => setIsDrawerOpen(true)}
           >
             <Bars3Icon width={32} height={32} />
           </label>
