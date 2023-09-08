@@ -15,6 +15,8 @@ export interface ProjectContent {
   siGunGu: string;
   projectStatus: ProjectStatus;
   isOpen: boolean;
+  startDate: string;
+  endDate: string;
   howTo: {
     content: Content;
   };
@@ -32,4 +34,6 @@ export interface ProjectContent {
 
 export interface ProjectFormValues {
   payload: ProjectContent;
+  isFetching?: boolean;
+  refetch?: () => void;
 }
