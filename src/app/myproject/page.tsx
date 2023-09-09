@@ -7,7 +7,8 @@ import { cookies } from "next/headers";
 import { MyProposeList } from "src/components/pages/MyProject";
 
 const MyProjectPage: React.FC = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
     data: { session },

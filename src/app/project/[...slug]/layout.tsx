@@ -12,7 +12,8 @@ interface ProjectLayoutProps {
 //
 //
 const ProjectLayout: React.FC<ProjectLayoutProps> = async ({ children }) => {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
     data: { user },
