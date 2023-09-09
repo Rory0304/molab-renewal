@@ -1,4 +1,6 @@
 {
+  "name": "molab-renewal",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "clean": "rm -rf .next && rm -rf .next-server",
@@ -6,7 +8,7 @@
     "build": "next build",
     "start": "next start"
   },
-  "dependencies": {
+  "dependenciess": {
     "@heroicons/react": "^2.0.18",
     "@hookform/error-message": "^2.0.1",
     "@rory0304/molab-renewal-types": "^1.0.6",
