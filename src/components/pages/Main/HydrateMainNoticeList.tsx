@@ -1,7 +1,7 @@
 import { dehydrate, Hydrate } from "@tanstack/react-query";
 import getQueryClient from "src/utils/queryClient";
 import { fetchAllNotice } from "src/app/api/notice";
-import RecentNoticeList from "./MainNoticeList";
+import MainNoticeList from "./MainNoticeList";
 
 const HydrateMainReviewList: React.FC = async () => {
   const queryClient = getQueryClient();
@@ -20,7 +20,7 @@ const HydrateMainReviewList: React.FC = async () => {
 
   return (
     <Hydrate state={dehydratedState}>
-      <RecentNoticeList />
+      <MainNoticeList />
     </Hydrate>
   );
 };
