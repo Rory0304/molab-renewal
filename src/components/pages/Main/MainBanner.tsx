@@ -3,7 +3,7 @@
 import React from "react";
 import { Variants } from "framer-motion";
 
-const MainBanner: React.FC = async () => {
+const MainBanner: React.FC = () => {
   const animatedText = ["우리 동네,", "우리 도시,", "우리 공동체"];
 
   const textContainerVariants: Variants = {
