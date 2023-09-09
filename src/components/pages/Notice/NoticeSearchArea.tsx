@@ -139,7 +139,7 @@ const NoticeSearchArea: React.FC = () => {
       <div className="py-8">
         <ul className="justify-end w-full join gap-x-4">
           {Object.keys(NoticeSort).map((sort) => (
-            <li>
+            <li key={sort}>
               <button
                 className={`before:small-circle before:mt-[0.52em] before:mr-[0.62em] before:w-2 before:h-2 ${
                   selectedSortOption === sort
