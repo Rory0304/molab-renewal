@@ -24,7 +24,7 @@ const CommunicationDetailPage = async ({
   return (
     <div className="relative w-full">
       {isPreview ? (
-        <div className="sticky top-0 left-0 flex justify-center w-full p-5 text-center text-red-400 bg-red-100 border border-red-400">
+        <div className="sticky top-0 left-0 z-50 flex justify-center w-full p-5 text-center text-red-400 bg-red-100 border border-red-400">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ const CommunicationDetailPage = async ({
               />
             </svg>
           </span>
-          <strong className="pl-2">미리보기 모드입니다</strong>
+          <p className="pl-2">미리보기 모드입니다</p>
         </div>
       ) : null}
       <div className="content-layout">
