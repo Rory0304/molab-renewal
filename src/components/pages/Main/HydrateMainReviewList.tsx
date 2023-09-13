@@ -9,7 +9,7 @@ const HydrateMainReviewList: React.FC = async () => {
     ["reviewList"],
     async () =>
       await fetchReviewList({
-        select: "content",
+        select: `thumbnail, content, uuid`,
         offset: 0,
         pageCount: 3,
       })

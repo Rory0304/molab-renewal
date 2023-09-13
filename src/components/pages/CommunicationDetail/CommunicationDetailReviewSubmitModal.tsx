@@ -89,7 +89,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
       } else {
         if (!userInfo?.id) throw Error("fail to get user id");
 
-        uploadReview({
+        await uploadReview({
           projectId,
           userId: userInfo?.id,
           uuid: uuidV4(),

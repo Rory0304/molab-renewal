@@ -36,6 +36,7 @@ const NoticeDetailInfoSection: React.FC<NoticeDetailInfoSectionProps> = ({
 
       // Clean up by revoking the object URL
       URL.revokeObjectURL(downloadUrl);
+      enqueueSnackbar("파일 다운로드에 성공했습니다.", { variant: "success" });
     } catch (err) {
       enqueueSnackbar("파일 다운로드에 실패했습니다", { variant: "error" });
     } finally {
@@ -53,7 +54,7 @@ const NoticeDetailInfoSection: React.FC<NoticeDetailInfoSectionProps> = ({
             onClick={() => handleFileDownload(attachmentFile)}
           >
             {loading ? (
-              <span className="loading loading-spinner loading-lg"></span>
+              <span className="loading loading-spinner loading-md"></span>
             ) : (
               "다운로드"
             )}

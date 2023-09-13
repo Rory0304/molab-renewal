@@ -20,9 +20,9 @@ const NoticeDetailAsideSection: React.FC<NoticeDetailAsideSectionProps> = ({
   contact,
 }) => {
   return (
-    <aside>
+    <aside className="w-full md:w-[380px]">
       {/* Poster Area */}
-      <div className="relative mb-9 h-[275px]">
+      <div className="relative mb-9 pt-[85%] w-full">
         <Image
           fill
           sizes="300/275"

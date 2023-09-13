@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import Modal from "src/components/blocks/Modal/Modal";
+import { Modal, SpinnerBox, DeferredLoading } from "src/components/blocks";
 import { fetchReviewById } from "src/app/api/review";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,7 +14,7 @@ interface CommunicationDetailReviewModalProps {
 const CommunicationDetailReviewModal: React.FC<
   CommunicationDetailReviewModalProps
 > = ({ uuid, modalRef }) => {
-  const { data } = useQuery(["review", uuid], async () => {
+  const { data, isFetching } = useQuery(["review", uuid], async () => {
     if (uuid) return await fetchReviewById({ uuid });
     return null;
   });
@@ -30,6 +30,11 @@ const CommunicationDetailReviewModal: React.FC<
 
   const modalBody = (
     <article className="py-5">
+      {isFetching ? (
+        <DeferredLoading timedOut={200}>
+          <SpinnerBox />
+        </DeferredLoading>
+      ) : null}
       {!!thumbnail ? (
         <div className="relative w-full pt-[50%]">
           <Image
@@ -42,9 +47,11 @@ const CommunicationDetailReviewModal: React.FC<
           />
         </div>
       ) : null}
-      <div className="pt-5">
-        <p>{content}</p>
-      </div>
+      {!!content ? (
+        <div className="pt-5">
+          <p>{content}</p>
+        </div>
+      ) : null}
     </article>
   );
 

@@ -56,7 +56,7 @@ const MainNoticeList: React.FC = () => {
         category: "",
         ascending: true,
         offset: 0,
-        pageCount: 10,
+        pageCount: 8,
       }).then((res) => res.data),
   });
 

@@ -62,7 +62,7 @@ const ProposeUnsaveModal: React.FC = () => {
 
   const modalAction = (
     <div>
-      <Link href="/" className="mr-3 btn btn-netural btn-outline">
+      <Link href="/myproject" className="mr-3 btn btn-netural btn-outline">
         바로 이동하기
       </Link>
       <button className={`btn btn-primary`} onClick={handleFormSave}>

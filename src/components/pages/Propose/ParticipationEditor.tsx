@@ -35,6 +35,7 @@ const ParticipationEditor: React.FC = () => {
         <h4 className="pb-6 text-2xl font-bold text-neutral-600">참여 방법</h4>
         <div className="h-[500px]">
           <Editor
+            key="payload.howTo.content"
             value={watchedEditorContent as string}
             placeholder={"프로젝트 참여 방법을 작성해주세요."}
             onChange={(value) =>

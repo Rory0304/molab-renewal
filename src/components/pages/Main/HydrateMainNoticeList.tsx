@@ -13,7 +13,7 @@ const HydrateMainReviewList: React.FC = async () => {
         category: "",
         ascending: true,
         offset: 0,
-        pageCount: 10,
+        pageCount: 8,
       }).then((res) => res.data)
   );
   const dehydratedState = dehydrate(queryClient);

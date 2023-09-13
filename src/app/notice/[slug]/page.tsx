@@ -9,7 +9,13 @@ import { NoticeCategory } from "src/types/notice";
 
 import type { NoticeDetailAsideSectionProps } from "src/components/pages/Notice/NoticeDetailAsideSection";
 
-const NoticeDetailPage = async ({ params }: { params: { slug: string } }) => {
+const NoticeDetailPage = async ({
+  params,
+}: {
+  params: {
+    slug: string;
+  };
+}) => {
   const noticeId = params.slug;
 
   const noticeData = await fetchNoticeById(noticeId).then((res) => res.data);

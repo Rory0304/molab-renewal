@@ -1,9 +1,9 @@
 "use client";
-import React, { InputHTMLAttributes } from "react";
+import React from "react";
 
 interface TextInputProps
   extends Pick<
-    InputHTMLAttributes<HTMLInputElement>,
+    React.InputHTMLAttributes<HTMLInputElement>,
     "onChange" | "type" | "name" | "value"
   > {
   label: string;

@@ -50,12 +50,12 @@ const NoticeDetailHeaderInfoSection: React.FC<
         >
           <h2
             className={`${
-              isIntersecting ? "mb-2" : ""
-            }  text-lg md:text-3xl font-bold`}
+              isIntersecting ? "mb-2" : "md:pr-2"
+            }  text-lg md:text-2xl font-bold`}
           >
             {title}
           </h2>
-          <p className="text-neutral-500">
+          <p className="flex-auto flex-grow-0 flex-shrink-0 text-neutral-500">
             <span>{area}</span> | <span>{category}</span>
           </p>
         </div>
