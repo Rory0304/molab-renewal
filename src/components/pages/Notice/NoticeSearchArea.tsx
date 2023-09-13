@@ -32,27 +32,30 @@ const NOTICE_CATEGORY_ICON: Record<
 };
 
 const NoticeSearchArea: React.FC = () => {
-  const noticeListRef = React.useRef<HTMLDivElement>(null);
+  const lastNoticeItemRef = React.useRef<HTMLDivElement>(null);
 
   // Search State (keyword, category, sort)
   const [searchKeyword, setSearchKeyword] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
   const [selectedSortOption, setSelectedSortOption] =
-    React.useState<SortOptionType>("asc");
+    React.useState<SortOptionType>("desc");
   const [debouncedSearchKeyword, setDebouncedSearchKeyword] =
     React.useState("");
 
   //
   // Check if communication list fully intersected
-  const noticeListObserver = useIntersection(noticeListRef, {
+  //
+  const lastNoticeItemObserver = useIntersection(lastNoticeItemRef, {
     root: null,
     rootMargin: "0px",
     threshold: 0.8,
   });
 
-  const isIntersecting = Boolean(noticeListObserver?.isIntersecting);
+  const isIntersecting = Boolean(lastNoticeItemObserver?.isIntersecting);
 
-  // debounce search
+  //
+  // Debounced keyword search
+  //
   useDebounce(() => setDebouncedSearchKeyword(searchKeyword), 200, [
     searchKeyword,
   ]);
@@ -82,7 +85,6 @@ const NoticeSearchArea: React.FC = () => {
       }),
     {
       retry: 3,
-      keepPreviousData: true,
       getNextPageParam: (lastPage, list) => {
         const offset = list.length + 1;
         return lastPage.data.length === 0 ? undefined : offset;
@@ -155,7 +157,7 @@ const NoticeSearchArea: React.FC = () => {
         </ul>
       </div>
       {/* NOTICE LIST */}
-      <div ref={noticeListRef}>
+      <div>
         {isError ? (
           <ErrorBox
             title="데이터를 가져오는데 실패했습니다."
@@ -170,6 +172,7 @@ const NoticeSearchArea: React.FC = () => {
         ) : (
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
             <NoticeList noticeList={noticeList} />
+            <div ref={lastNoticeItemRef} />
             {isFetching ? (
               <DeferredLoading timedOut={200}>
                 {[...Array(COUNT_PER_NOTICE)].map((_, index) => (

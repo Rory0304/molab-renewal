@@ -59,7 +59,6 @@ const CommunicationSearchArea: React.FC = () => {
       }),
     {
       retry: 3,
-      keepPreviousData: true,
       getNextPageParam: (lastPage, list) => {
         const offset = list.length + 1;
         return lastPage.data.length === 0 ? undefined : offset;
@@ -102,16 +101,15 @@ const CommunicationSearchArea: React.FC = () => {
             onRefetch={refetch}
           />
         ) : null}
-        <div ref={communicationListRef}>
+        <div>
           {isSuccess && communicationList.length === 0 ? (
             <div className="w-full text-center">
               <strong>검색 결과가 없습니다.</strong>
             </div>
           ) : (
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
-              {isSuccess ? (
-                <CommunicationList communicationList={communicationList} />
-              ) : null}
+              <CommunicationList communicationList={communicationList} />
+              <div ref={communicationListRef} />
               {isFetching ? (
                 <DeferredLoading timedOut={200}>
                   {[...Array(COUNT_PER_COMMUNCATION)].map((_, index) => (
