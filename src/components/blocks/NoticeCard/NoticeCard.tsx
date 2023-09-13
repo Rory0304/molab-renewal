@@ -30,14 +30,14 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
       case NoticeStatus.ONGOING:
         const daysLeft = calculateDaysLeft(date);
         return (
-          <span className="absolute z-10 font-semibold tracking-wide top-4 right-4 badge badge-outline badge-info badge-lg opacity-90">
+          <span className="absolute z-10 font-semibold tracking-wide top-4 right-4 badge badge-ghost badge-lg opacity-90">
             D-{daysLeft}
           </span>
         );
 
       case NoticeStatus.D_DAY:
         return (
-          <span className="absolute z-10 font-semibold tracking-wide badge-error top-4 right-4 badge-ghost badge badge-lg opacity-90">
+          <span className="absolute z-10 font-semibold tracking-wide text-neutral-100 badge-error top-4 right-4 badge badge-lg opacity-90">
             D-Day
           </span>
         );
@@ -83,7 +83,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
   if (variant === "vertical") {
     return (
       <div
-        className={`relative flex flex-col items-center overflow-hidden bg-white border border-gray-300 border-solid cursor-pointer rounded-xl ${
+        className={`h-full relative flex flex-col items-center overflow-hidden bg-white border border-gray-300 border-solid cursor-pointer rounded-xl ${
           noticeStatus === NoticeStatus.ENDED
             ? "after:overlay after:rounded-[0.75rem]"
             : ""
@@ -104,7 +104,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
           <span className="text-sm not-italic color text-neutral-500">
             {NoticeCategory[category ?? "Etc"]} | {area}
           </span>
-          <strong className="pt-1 text-lg">{title}</strong>
+          <strong className="pt-1 text-lg line-clamp-2">{title}</strong>
         </div>
       </div>
     );
