@@ -1,6 +1,8 @@
 "use client";
 
+import { isBrowser } from "src/utils/browser";
 import React from "react";
+import ReactDOM from "react-dom";
 
 interface ModalProps {
   open?: boolean;
@@ -31,7 +33,15 @@ const Modal = React.forwardRef(
     }: ModalProps,
     ref: React.Ref<HTMLDialogElement>
   ) => {
-    return (
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+      setMounted(true);
+    }, []);
+
+    if (!isBrowser || !mounted) return <></>;
+
+    return ReactDOM.createPortal(
       <dialog
         ref={ref}
         id={id}
@@ -57,7 +67,8 @@ const Modal = React.forwardRef(
             </button>
           ) : null}
         </form>
-      </dialog>
+      </dialog>,
+      document.body
     );
   }
 );
