@@ -20,6 +20,6 @@ export const NoticeCategory: Record<Row<"NoticeCategory">["Category"], string> =
   };
 
 export const NoticeSort: Record<SortOptionType, string> = {
-  asc: "최신순",
-  desc: "오래된순",
+  desc: "최신순",
+  asc: "오래된순",
 };
