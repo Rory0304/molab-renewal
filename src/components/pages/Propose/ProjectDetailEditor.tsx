@@ -9,15 +9,19 @@ import {
   Modal,
 } from "src/components/blocks";
 import { PROJECT_STEPS } from "src/constants/projectSteps";
-import type { ProjectFormValues } from "src/types/project";
+import type { ProjectFormValues, ProjectStepType } from "src/types";
 import useUpdateProject from "src/hooks/useUpdateProject";
+
+const EDITOR_PLACE_HOLDER =
+  "[문제 해결의 필요성 : 왜 문제에 관심을 가지게 되었고, 왜 해결되어야 하는가?]\n[문제와 관련된 이해관계자]\n[실행 계획]";
 
 const ProjectDetailEditor: React.FC = () => {
   const {
     getValues,
-    setValue,
     watch,
     reset,
+    setValue,
+    control,
     formState: { isDirty, dirtyFields },
   } = useFormContext<ProjectFormValues>();
 
@@ -32,6 +36,77 @@ const ProjectDetailEditor: React.FC = () => {
     projectId,
     refetch,
   });
+
+  const renderEditor = (currentStep: ProjectStepType) => {
+    switch (currentStep) {
+      case "execution":
+        return (
+          <Editor
+            value={getValues(`payload.stepDetail.execution.content`) || ""}
+            placeholder={EDITOR_PLACE_HOLDER}
+            onChange={(value) => {
+              setValue(`payload.stepDetail.execution.content`, value, {
+                shouldDirty: true,
+              });
+            }}
+            editorStyles={{
+              height: "450px",
+            }}
+          />
+        );
+
+      case "completion":
+        return (
+          <Editor
+            value={getValues(`payload.stepDetail.completion.content`) || ""}
+            placeholder={EDITOR_PLACE_HOLDER}
+            onChange={(value) => {
+              setValue(`payload.stepDetail.completion.content`, value, {
+                shouldDirty: true,
+              });
+            }}
+            editorStyles={{
+              height: "450px",
+            }}
+          />
+        );
+
+      case "definition":
+        return (
+          <Editor
+            value={getValues(`payload.stepDetail.definition.content`) || ""}
+            placeholder={EDITOR_PLACE_HOLDER}
+            onChange={(value) => {
+              setValue(`payload.stepDetail.definition.content`, value, {
+                shouldDirty: true,
+              });
+            }}
+            editorStyles={{
+              height: "450px",
+            }}
+          />
+        );
+
+      case "preparation":
+        return (
+          <Editor
+            value={getValues(`payload.stepDetail.preparation.content`) || ""}
+            placeholder={EDITOR_PLACE_HOLDER}
+            onChange={(value) => {
+              setValue(`payload.stepDetail.preparation.content`, value, {
+                shouldDirty: true,
+              });
+            }}
+            editorStyles={{
+              height: "450px",
+            }}
+          />
+        );
+
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
@@ -63,24 +138,7 @@ const ProjectDetailEditor: React.FC = () => {
             </li>
           ))}
         </ul>
-        <div className="pt-7 h-[500px]">
-          <Editor
-            value={
-              getValues(`payload.stepDetail.${currentStep.key}.content`) ?? ""
-            }
-            placeholder={
-              "[문제 해결의 필요성 : 왜 문제에 관심을 가지게 되었고, 왜 해결되어야 하는가?]\n[문제와 관련된 이해관계자]\n[실행 계획]"
-            }
-            onChange={(value) => {
-              setValue(`payload.stepDetail.${currentStep.key}.content`, value, {
-                shouldDirty: true,
-              });
-            }}
-            editorStyles={{
-              height: "450px",
-            }}
-          />
-        </div>
+        <div className="pt-7 h-[500px]">{renderEditor(currentStep.key)}</div>
         <button
           disabled={!isDirty}
           className="block mt-8 btn btn-primary w-fit"
@@ -90,7 +148,7 @@ const ProjectDetailEditor: React.FC = () => {
           }}
         >
           {isLoading ? (
-            <span className="loading loading-spinner loading-lg"></span>
+            <span className="loading loading-spinner loading-md"></span>
           ) : (
             <span>저장</span>
           )}
@@ -112,7 +170,10 @@ const ProjectDetailEditor: React.FC = () => {
             <button
               className={`btn btn-outline btn-neutral mr-2`}
               type="button"
-              onClick={() => reset()}
+              onClick={() => {
+                reset();
+                setIsUnsaveModalOpen(false);
+              }}
             >
               삭제
             </button>
