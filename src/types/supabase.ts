@@ -7,4 +7,3 @@ export type StorageType =
   | "review_thumbnail"
   | "propose_thumbnail"
   | "project_image";
-s;
