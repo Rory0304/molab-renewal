@@ -44,7 +44,7 @@ export const fetchReviewList = async ({
     .range(offset, offset + pageCount);
 
   if (projectId) {
-    query = query.eq("uuid", projectId);
+    query = query.eq("projectId", projectId);
   }
 
   const { data, error } = await query;
@@ -74,7 +74,7 @@ export const uploadReview = async ({
   // upload image
   const thumbnailFilePath = imageFile
     ? await handleImageUpload(
-        "review_thumbnail",
+        'review_thumbnail',
         `${uuid}-thumbnail`,
         imageFile
       )
