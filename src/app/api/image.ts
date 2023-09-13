@@ -1,4 +1,5 @@
 import { getServerSupabase } from "src/utils/supabase";
+import type { StorageType } from "src/types/supabase";
 
 const supabase = getServerSupabase();
 
@@ -6,7 +7,7 @@ const supabase = getServerSupabase();
  *
  */
 export const handleImageUpload = async (
-  from: string,
+  from: StorageType,
   fileName: string,
   file: File
 ) => {
