@@ -68,11 +68,7 @@ const Editor: React.FC<EditorProps> = ({
         },
         {
           ssr: false,
-          loading: () => (
-            <div className="relative pt-7 h-[500px]">
-              <OverlayLoading />
-            </div>
-          ),
+          loading: () => <p>에디터를 불러오는 중입니다.</p>,
         }
       ),
     []
