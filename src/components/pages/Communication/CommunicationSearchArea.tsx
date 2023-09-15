@@ -60,7 +60,7 @@ const CommunicationSearchArea: React.FC = () => {
     {
       retry: 3,
       getNextPageParam: (lastPage, list) => {
-        const offset = list.length + 1;
+        const offset = list.length * COUNT_PER_COMMUNCATION;
         return lastPage.data.length === 0 ? undefined : offset;
       },
       select: (data) => ({
@@ -107,17 +107,19 @@ const CommunicationSearchArea: React.FC = () => {
               <strong>검색 결과가 없습니다.</strong>
             </div>
           ) : (
-            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
-              <CommunicationList communicationList={communicationList} />
+            <>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
+                <CommunicationList communicationList={communicationList} />
+                {isFetching ? (
+                  <DeferredLoading timedOut={200}>
+                    {[...Array(COUNT_PER_COMMUNCATION)].map((_, index) => (
+                      <LaodingProjectCard key={index} />
+                    ))}
+                  </DeferredLoading>
+                ) : null}
+              </ul>
               <div ref={communicationListRef} />
-              {isFetching ? (
-                <DeferredLoading timedOut={200}>
-                  {[...Array(COUNT_PER_COMMUNCATION)].map((_, index) => (
-                    <LaodingProjectCard key={index} />
-                  ))}
-                </DeferredLoading>
-              ) : null}
-            </ul>
+            </>
           )}
         </div>
       </div>

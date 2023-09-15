@@ -86,7 +86,7 @@ const NoticeSearchArea: React.FC = () => {
     {
       retry: 3,
       getNextPageParam: (lastPage, list) => {
-        const offset = list.length + 1;
+        const offset = list.length * COUNT_PER_NOTICE;
         return lastPage.data.length === 0 ? undefined : offset;
       },
       select: (data) => ({
@@ -111,7 +111,7 @@ const NoticeSearchArea: React.FC = () => {
         <div className="pb-6 w-full md:w-[620px]">
           <input
             type="text"
-            placeholder="제목 혹은 주변 지역을 검색해보세요"
+            placeholder="주변 지역을 검색해보세요"
             className="w-full input input-bordered"
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
@@ -170,17 +170,19 @@ const NoticeSearchArea: React.FC = () => {
             <strong>검색 결과가 없습니다.</strong>
           </div>
         ) : (
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-            <NoticeList noticeList={noticeList} />
+          <>
+            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+              <NoticeList noticeList={noticeList} />
+              {isFetching ? (
+                <DeferredLoading timedOut={200}>
+                  {[...Array(COUNT_PER_NOTICE)].map((_, index) => (
+                    <LoadingNoticeCard key={`loading-notice-card-${index}`} />
+                  ))}
+                </DeferredLoading>
+              ) : null}
+            </ul>
             <div ref={lastNoticeItemRef} />
-            {isFetching ? (
-              <DeferredLoading timedOut={200}>
-                {[...Array(COUNT_PER_NOTICE)].map((_, index) => (
-                  <LoadingNoticeCard key={`loading-notice-card-${index}`} />
-                ))}
-              </DeferredLoading>
-            ) : null}
-          </ul>
+          </>
         )}
       </div>
     </div>
