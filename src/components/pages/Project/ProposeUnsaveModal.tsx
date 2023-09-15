@@ -8,9 +8,11 @@ import { useFormContext } from "react-hook-form";
 import type { ProjectFormValues } from "src/types/project";
 import { useSnackbar } from "notistack";
 import useUpdateProject from "src/hooks/useUpdateProject";
+import { useRouter } from "next/navigation";
 
 const ProposeUnsaveModal: React.FC = () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const { modalState, handleModalClose } = useUnsaveModal();
   const {
     trigger,
@@ -30,7 +32,7 @@ const ProposeUnsaveModal: React.FC = () => {
   //
   //
   //
-  const handleFormSave = async () => {
+  const handleFormSave = async (link: string) => {
     if (!isValid) {
       trigger();
       handleModalClose();
@@ -39,6 +41,7 @@ const ProposeUnsaveModal: React.FC = () => {
       });
     } else {
       mutate(watch());
+      router.push(link);
     }
   };
 
@@ -62,12 +65,15 @@ const ProposeUnsaveModal: React.FC = () => {
 
   const modalAction = (
     <div>
-      <Link href="/myproject" className="mr-3 btn btn-netural btn-outline">
+      <Link href={modalState.link} className="mr-3 btn btn-netural btn-outline">
         바로 이동하기
       </Link>
-      <button className={`btn btn-primary`} onClick={handleFormSave}>
+      <button
+        className={`btn btn-primary`}
+        onClick={() => handleFormSave(modalState.link)}
+      >
         {isLoading ? (
-          <span className="loading loading-spinner loading-lg"></span>
+          <span className="loading loading-spinner loading-md"></span>
         ) : (
           <span> 저장 후 이동하기</span>
         )}

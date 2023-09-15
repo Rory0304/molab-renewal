@@ -1,6 +1,9 @@
-import { ProjectStepType } from "src/types/common";
+import { ProjectDetailStepType } from "src/types/common";
 
-export const PROJECT_STEPS: { key: ProjectStepType; title: string }[] = [
+export const PROJETC_DETAIL_STEP: {
+  key: ProjectDetailStepType;
+  title: string;
+}[] = [
   {
     key: "definition",
     title: "문제 정의",

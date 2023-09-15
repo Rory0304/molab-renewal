@@ -3,20 +3,22 @@
 import React from "react";
 
 import { ProjectContent } from "src/types/project";
-import { PROJECT_STEPS } from "src/constants/projectSteps";
+import { PROJETC_DETAIL_STEP } from "src/constants/projectSteps";
 
 interface ProjectStepsBoxProps {
   content: ProjectContent["stepDetail"];
 }
 
 const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
-  const [selectedStep, setSelectedStep] = React.useState(PROJECT_STEPS[0].key);
+  const [selectedStep, setSelectedStep] = React.useState(
+    PROJETC_DETAIL_STEP[0].key
+  );
 
   return (
     <div>
       {/* Step Tabs */}
       <ul className="border-b tabs border-neutral-300">
-        {PROJECT_STEPS.map((step) => (
+        {PROJETC_DETAIL_STEP.map((step) => (
           <li
             key={step.key}
             className={`tab-lg font-semibold text-neutral-600 tab ${

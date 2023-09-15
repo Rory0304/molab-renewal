@@ -106,7 +106,7 @@ const ProjectInformationEditor: React.FC = () => {
           <OverlayLoading />
         </DeferredLoading>
       ) : null}
-      <section className="w-[900px]">
+      <section className="max-w-[900px]">
         <h4 className="pb-6 text-2xl font-bold text-neutral-600">기본 정보</h4>
         <div className="form-control">
           {/* Title Input */}

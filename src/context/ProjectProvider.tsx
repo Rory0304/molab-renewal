@@ -63,8 +63,10 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   // when form data not saved and tab is closed,
   // show default window dialog
   //
-  useBeforeUnload(methods.formState.isDirty, "You have unsaved changes, are you sure?");
-
+  useBeforeUnload(
+    methods.formState.isDirty,
+    "You have unsaved changes, are you sure?"
+  );
 
   //
   //
