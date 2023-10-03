@@ -66,6 +66,7 @@ const CommunicationDetailPage = async ({
           </div>
           <div className="w-full md:w-[30%]">
             <CommunicationDetailReviewBox
+              endDate={projectData.endDate ?? ""}
               projectId={projectData.uuid}
               preview={isPreview}
             />
