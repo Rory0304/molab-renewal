@@ -8,6 +8,7 @@ import { fetchReviewList, ReviewType } from "src/app/api/review";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import SpinnerBox from "src/components/blocks/SpinnerBox/SpinnerBox";
 import { ErrorBox } from "src/components/blocks";
+import { checkIsDatePast } from "src/utils/date";
 
 const DynamicCommunicationDetailReviewSubmitModal = dynamic(
   () =>
@@ -25,13 +26,17 @@ const DynamicCommunicationDetailReviewModal = dynamic(
 
 interface ReviewBoxProps {
   projectId: string;
+  endDate: string;
   preview?: boolean;
 }
 
 const ReviewBox: React.FC<ReviewBoxProps> = ({
   projectId,
+  endDate,
   preview = false,
 }) => {
+  const isProjectEnded = checkIsDatePast(new Date(endDate));
+
   const reviewModalRef = React.useRef<HTMLDialogElement>(null);
   const reviewSubmitModal = React.useRef<HTMLDialogElement>(null);
 
@@ -148,6 +153,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               )}
               <button
                 type="button"
+                disabled={isProjectEnded}
                 className="mt-4 btn btn-block btn-primary"
                 onClick={handleReviewSubmitModalOpen}
               >
