@@ -22,7 +22,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
 }) => {
   return (
     <Link href={`/notice/${id}`}>
-      <div className="flex flex-col items-center overflow-hidden bg-white shadow-lg cursor-pointer md:flex-row rounded-xl">
+      <div className="flex flex-col items-center overflow-hidden bg-white shadow-md cursor-pointer hover:shadow-lg md:flex-row rounded-xl">
         <div className="relative pt-[50%] md:pt-[30%] w-full md:w-[30%]">
           {thumbnail ? (
             <Image
@@ -36,11 +36,11 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
           ) : null}
         </div>
         <div className="flex flex-col py-6 pl-6 pr-8 w-full md:w-[70%]">
-          <em className="text-sm not-italic color text-neutral-500">
+          <span className="pb-1 marker:text-sm text-neutral-500">
             {NoticeCategory[category ?? "Etc"]}
-          </em>
-          <strong className="pt-1 text-lg">{title}</strong>
-          <p className="pt-1 text-neutral-600 line-clamp-3">{content}</p>
+          </span>
+          <strong className="pb-2 text-lg">{title}</strong>
+          <p className=" text-neutral-600 line-clamp-3">{content}</p>
         </div>
       </div>
     </Link>
@@ -56,12 +56,12 @@ const MainNoticeList: React.FC = () => {
         category: "",
         ascending: true,
         offset: 0,
-        pageCount: 8,
+        pageCount: 4,
       }).then((res) => res.data),
   });
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 pb-8">
       {noticeList?.map((notice, index) => (
         <NoticeCard key={index} {...notice} />
       ))}

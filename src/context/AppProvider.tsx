@@ -4,6 +4,7 @@ import React from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SnackbarProvider, closeSnackbar } from "notistack";
+import { LazyMotion, domAnimation } from "framer-motion";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
 interface AppProviderProps {
@@ -40,7 +41,7 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           </button>
         )}
       >
-        {children}
+        <LazyMotion features={domAnimation}>{children}</LazyMotion>
       </SnackbarProvider>
     </QueryClientProvider>
   );

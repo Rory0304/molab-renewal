@@ -1,65 +1,61 @@
 "use client";
 
 import React from "react";
-import { Variants } from "framer-motion";
+import { AnimatePresence, Variants, m } from "framer-motion";
+
+const ANIMATED_TEXT = ["우리 동네 🏘️", "우리 도시 🏙️", "우리 공동체 👩‍👩‍👦‍👦"];
 
 const MainBanner: React.FC = () => {
-  const animatedText = ["우리 동네,", "우리 도시,", "우리 공동체"];
+  const [index, setIndex] = React.useState(0);
 
-  const textContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.12 * i,
-      },
-    }),
-  };
+  React.useEffect(() => {
+    const loop = setTimeout(() => {
+      const next = index === ANIMATED_TEXT.length - 1 ? 0 : index + 1;
+      setIndex(next);
+    }, 3000);
 
-  const textVariants: Variants = {
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 100,
-      },
+    return () => clearTimeout(loop);
+  }, [index, setIndex]);
+
+  const variants: Variants = {
+    enter: (direction) => {
+      return {
+        y: 20,
+        opacity: 0,
+      };
     },
-    hidden: {
-      opacity: 0,
-      x: 20,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 100,
-      },
+    center: {
+      y: 0,
+      opacity: 1,
+    },
+    exit: (direction) => {
+      return {
+        opacity: 0,
+      };
     },
   };
 
   return (
-    <div className="mb-8">
-      <h3 className="text-3xl font-bold">
+    <div className="pb-8">
+      <h3 className="relative pb-10 text-3xl font-bold">
         함께 만들어가는,
-        <div>
-          {animatedText.map((text, index) => (
-            <span key={index} className="mr-2">
-              {text}
-            </span>
-          ))}
-        </div>
-        {/* <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={textContainerVariants}
-        >
-          {animatedText.map((text, index) => (
-            <motion.span key={index} variants={textVariants} className="mr-2">
-              {text}
-            </motion.span>
-          ))}
-        </motion.div> */}
+        <br />
+        <AnimatePresence>
+          <m.span
+            key={index}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              y: { type: "spring", stiffness: 800, damping: 200 },
+              opacity: { duration: 0.2 },
+            }}
+            className="absolute bottom-0 left-0 mr-3 not-italic"
+          >
+            {ANIMATED_TEXT[index]}
+          </m.span>
+        </AnimatePresence>
       </h3>
     </div>
   );

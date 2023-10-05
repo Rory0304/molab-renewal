@@ -9,3 +9,4 @@ export * from "./ProjectCard";
 export * from "./ErrorBox";
 export * from "./SpinnerBox";
 export * from "./DeferredLoading";
+export * from "./Carousel";

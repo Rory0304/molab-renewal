@@ -26,6 +26,11 @@ module.exports = {
       primary: "var(--color-primary)",
       danger: "var(--color-danger)",
     },
+    borderColor: {
+      ...colors,
+      primary: "var(--color-primary)",
+      danger: "var(--color-danger)",
+    },
     extend: {
       backgroundImage: {
         banner: "url('/point.png')",

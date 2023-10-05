@@ -3,7 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import Link from "next/link";
+
+import Carousel from "src/components/blocks/Carousel/Carousel";
 import { useQuery } from "@tanstack/react-query";
 import { fetchReviewList } from "src/app/api/review";
 
@@ -66,32 +67,23 @@ const MainReviewList: React.FC = () => {
   return (
     <div className="px-8 py-8 mb-8 bg-white border-gray-500 shadow-lg rounded-xl">
       <h4 className="mb-3 text-sm font-medium text-gray-400 ">참여 후기</h4>
-      <div className="w-full carousel">
+      <Carousel>
         {data?.map((card, index) => (
-          <div
+          <li
             key={`review-${index}`}
-            id={`review-${index}`}
             className="w-full cursor-pointer carousel-item"
-            onClick={() => {
-              setSelectedReviewId(card?.uuid ?? "");
-              handleDetailReviewModalOpen();
-            }}
           >
-            <ReviewCard content={card.content ?? ""} />
-          </div>
+            <div
+              onClick={() => {
+                setSelectedReviewId(card?.uuid ?? "");
+                handleDetailReviewModalOpen();
+              }}
+            >
+              <ReviewCard content={card.content ?? ""} />
+            </div>
+          </li>
         ))}
-      </div>
-      <div className="flex justify-center w-full gap-2 pt-5">
-        {data?.map((_, index) => (
-          <Link
-            href={`#review-${index}`}
-            key={`#review-${index}`}
-            className="btn btn-xs"
-          >
-            {index + 1}
-          </Link>
-        ))}
-      </div>
+      </Carousel>
       <React.Suspense>
         <DynamicCommunicationDetailReviewModal
           uuid={selectedReviewId}
