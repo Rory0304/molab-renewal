@@ -151,7 +151,6 @@ export const fetchProposeList = async ({
   siDo?: string;
   siGunGu?: string;
 }) => {
-  const fetchTotal = supabase.from("Propose").select("*").eq("isOpen", true);
   let fetchList = supabase.from("Propose").select("*").eq("isOpen", true);
 
   if (siDo) {
@@ -161,17 +160,12 @@ export const fetchProposeList = async ({
     fetchList = fetchList.eq("siGunGu", siGunGu);
   }
 
-  const [total, proposeList] = await Promise.all([
-    fetchTotal,
-    fetchList
-      // Pagination
-      .range(offset, offset + pageCount - 1),
-  ]);
-
+  const proposeList = await fetchList
+    // Pagination
+    .range(offset, offset + pageCount - 1);
   const { data, error } = proposeList;
-  const { count } = total;
 
   if (error) throw new Error("fail to fetch my propose list");
 
-  return { data, count };
+  return data;
 };
