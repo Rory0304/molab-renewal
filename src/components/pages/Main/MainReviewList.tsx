@@ -74,6 +74,7 @@ const MainReviewList: React.FC = () => {
             className="w-full cursor-pointer carousel-item"
           >
             <div
+              className="w-full"
               onClick={() => {
                 setSelectedReviewId(card?.uuid ?? "");
                 handleDetailReviewModalOpen();
