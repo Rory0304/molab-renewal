@@ -61,10 +61,10 @@ const CommunicationSearchArea: React.FC = () => {
       retry: 3,
       getNextPageParam: (lastPage, list) => {
         const offset = list.length * COUNT_PER_COMMUNCATION;
-        return lastPage.data.length === 0 ? undefined : offset;
+        return lastPage.length === 0 ? undefined : offset;
       },
       select: (data) => ({
-        pages: data?.pages.flatMap((page) => page.data),
+        pages: data?.pages.flatMap((page) => page),
         pageParams: data.pageParams,
       }),
     }

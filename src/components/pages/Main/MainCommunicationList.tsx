@@ -54,7 +54,7 @@ const MainCommunicationList: React.FC = () => {
         pageCount: 3,
         siDo: "",
         siGunGu: "",
-      }).then((res) => res.data),
+      }),
   });
 
   return (
