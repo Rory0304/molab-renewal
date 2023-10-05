@@ -6,4 +6,3 @@ export { default as MainCommunicationList } from "./MainCommunicationList";
 
 export { default as HydrateMainReviewList } from "./HydrateMainReviewList";
 export { default as HydrateMainNoticeList } from "./HydrateMainNoticeList";
-export { default as HydrateMainCommunicationList } from "./HydrateMainCommunicationList";
