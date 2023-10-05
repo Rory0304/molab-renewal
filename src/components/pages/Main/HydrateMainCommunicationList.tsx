@@ -1,4 +1,3 @@
-import React from "react";
 import { dehydrate, Hydrate } from "@tanstack/react-query";
 import getQueryClient from "src/utils/queryClient";
 import { fetchProposeList } from "src/app/api/propose";
