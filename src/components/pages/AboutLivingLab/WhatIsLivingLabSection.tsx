@@ -29,8 +29,6 @@ const WhatIsLivingLabSection: React.FC = () => {
   const [viewportW, setViewportW] = React.useState(0);
   const { scrollYProgress } = useScroll();
 
-  console.log("scrollYProgress", scrollYProgress);
-
   React.useEffect(() => {
     scrollRef.current && setScrollRange(scrollRef.current.scrollWidth);
   }, [scrollRef]);

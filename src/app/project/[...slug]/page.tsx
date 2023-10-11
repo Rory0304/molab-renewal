@@ -23,23 +23,26 @@ const ProposeDetailPage = ({ params }: { params: { slug: string[] } }) => {
 
   const isTabletOrSmaller = useMedia("(max-width: 768px)");
 
-  const renderProposeFormSection = (type: ProduceStepType) => {
-    switch (type) {
-      case "base":
-        return <ProposeProjectInformationEditor />;
+  const renderProposeFormSection = React.useCallback(
+    (type: ProduceStepType) => {
+      switch (type) {
+        case "base":
+          return <ProposeProjectInformationEditor />;
 
-      case "participation":
-        return <ProposeProjectParticipationEditor />;
+        case "participation":
+          return <ProposeProjectParticipationEditor />;
 
-      case "detail":
-        const step = params.slug?.[2] || PROJETC_DETAIL_STEP[0].key;
-        return <ProposeProjectDetailEditor currentStep={step} />;
+        case "detail":
+          const step = params.slug?.[2] || PROJETC_DETAIL_STEP[0].key;
+          return <ProposeProjectDetailEditor currentStep={step} />;
 
-      default:
-        router.push(`/project/${projectId}/base`);
-        return null;
-    }
-  };
+        default:
+          router.push(`/project/${projectId}/base`);
+          return null;
+      }
+    },
+    []
+  );
 
   if (isTabletOrSmaller) {
     return (
@@ -55,7 +58,7 @@ const ProposeDetailPage = ({ params }: { params: { slug: string[] } }) => {
     );
   }
   return (
-    <>
+    <div>
       <ProjectEidtorHeader />
       <div className="relative flex w-full overflow-auto h-[calc(100vh-var(--sticky-header-height))]">
         <ProposeProjectToc currentStep={currentStepItem || currentStep} />
@@ -66,7 +69,7 @@ const ProposeDetailPage = ({ params }: { params: { slug: string[] } }) => {
         </div>
       </div>
       <ProposeUnsaveModal />
-    </>
+    </div>
   );
 };
 

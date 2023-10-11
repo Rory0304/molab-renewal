@@ -44,6 +44,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
     },
     {
       enabled: Boolean(projectId && userInfo?.id),
+      refetchOnMount: false,
     }
   );
 

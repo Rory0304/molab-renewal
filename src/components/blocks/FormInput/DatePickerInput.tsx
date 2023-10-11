@@ -1,7 +1,8 @@
 import React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
-interface DatePickerInputProps {
+interface DatePickerInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText: string;
   labelTextAlt?: string;
   dateMin?: string;
@@ -19,6 +20,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
   error,
   dateInputRegister,
   ErrorMessage,
+  ...props
 }) => {
   return (
     <div className="pb-8">
@@ -36,6 +38,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
         min={dateMin}
         max={dateMax}
         {...dateInputRegister}
+        {...props}
       />
       {React.isValidElement(ErrorMessage) ? ErrorMessage : null}
     </div>

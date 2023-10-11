@@ -8,9 +8,17 @@ module.exports = {
     require("daisyui"),
     require("tailwind-scrollbar-hide"),
   ],
-  // ref: https://daisyui.com/docs/config/
   daisyui: {
-    darkTheme: "light",
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["[data-theme=light]"],
+          primary: "#32b5ed",
+          "primary-focus": "#32b5ed",
+          "primary-content": "#d2f2fe",
+        },
+      },
+    ],
   },
   theme: {
     colors: {

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --color-primary: #38bdf8;
+    --color-primary: #32b5ed;
     --color-danger: #dc4c64;
     --sticky-header-height: 80px;
   }

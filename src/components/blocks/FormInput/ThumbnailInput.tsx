@@ -4,7 +4,8 @@ import UploadIcon from "@heroicons/react/20/solid/ArrowUpOnSquareIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Image from "next/image";
 
-interface ThumbnailInputProps {
+interface ThumbnailInputProps
+  extends Pick<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   thumbnailImage?: File | null;
   labelText?: string;
   labelAltText?: string;
@@ -22,7 +23,13 @@ const ThumbnailInput: React.FC<ThumbnailInputProps> = ({
   error,
   ErrorMessage,
   onRemoveThumbnailImage,
+  ...props
 }) => {
+  const thumbnailUrl = React.useMemo(
+    () => (thumbnailImage ? URL.createObjectURL(thumbnailImage) : ""),
+    [thumbnailImage]
+  );
+
   return (
     <div className="pb-8">
       <label className="label" htmlFor="thumbnail_image">
@@ -30,10 +37,10 @@ const ThumbnailInput: React.FC<ThumbnailInputProps> = ({
           {labelText}
         </span>
       </label>
-      {thumbnailImage ? (
+      {!!thumbnailUrl ? (
         <div className="flex justify-center w-full h-32 p-4 bg-white border border-gray-300 rounded-md items center">
           <Image
-            src={URL.createObjectURL(thumbnailImage)}
+            src={thumbnailUrl}
             alt="preview-image"
             width={250}
             height={250}
@@ -46,14 +53,14 @@ const ThumbnailInput: React.FC<ThumbnailInputProps> = ({
             className="ml-2"
             onClick={onRemoveThumbnailImage}
           >
-            <XMarkIcon />
+            <XMarkIcon width={24} height={24} />
           </button>
         </div>
       ) : (
         <div
           className={`relative flex flex-col items-center justify-center w-full h-32 px-4 transition bg-white border-2 ${
             error
-              ? "input-error "
+              ? "input-error"
               : "border-gray-300 hover:border-gray-400 focus:outline-none"
           } border-dashed rounded-md appearance-none `}
         >
@@ -69,7 +76,7 @@ const ThumbnailInput: React.FC<ThumbnailInputProps> = ({
             name="thumbnail_image"
             className="absolute top-0 left-0 block w-full h-full opacity-0 cursor-pointer"
             accept="image/*"
-            {...thumbnailInputRegister}
+            {...props}
           />
         </div>
       )}

@@ -13,7 +13,7 @@ const useUnsaveModal = () => {
         ...current,
         isOpen: false,
       })),
-    [setModalState]
+    []
   );
 
   const handleModalOpen = React.useCallback(
@@ -22,7 +22,7 @@ const useUnsaveModal = () => {
         isOpen: true,
         link: link || "/myproject",
       }),
-    [setModalState]
+    []
   );
 
   return { modalState, handleModalClose, handleModalOpen };

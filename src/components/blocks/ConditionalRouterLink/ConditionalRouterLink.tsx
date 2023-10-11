@@ -1,5 +1,6 @@
 "use clinet";
 
+import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -33,10 +34,10 @@ const ConditionalRouterLink: React.FC<ConditionalRouterLinkProps> = ({
   };
 
   return (
-    <Link href={href} onClick={handleLinkClick} className={className}>
+    <Link href={href} onClick={(e) => handleLinkClick(e)} className={className}>
       {children}
     </Link>
   );
 };
 
-export default ConditionalRouterLink;
+export default React.memo(ConditionalRouterLink);
