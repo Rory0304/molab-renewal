@@ -3,32 +3,33 @@
 import React from "react";
 import Link from "next/link";
 import ConditionalRouterLink from "src/components/blocks/ConditionalRouterLink/ConditionalRouterLink";
-import { useFormContext } from "react-hook-form";
 import useUnsaveModal from "src/hooks/useUnsaveModal";
+import { useFormContext } from "react-hook-form";
+import type { ProjectFormValues } from "src/types/project";
 
 const ProjectEidtorHeader: React.FC = () => {
   const {
-    formState: { defaultValues, isDirty },
-  } = useFormContext();
+    formState: { isDirty, defaultValues },
+  } = useFormContext<ProjectFormValues>();
 
   const { handleModalOpen } = useUnsaveModal();
 
-  const projectTitle = defaultValues?.["payload"]["title"];
-  const projecStatus = defaultValues?.["payload"]["isOpen"];
-  const projectId = defaultValues?.["payload"]["uuid"];
+  const projectTitle = defaultValues?.payload?.title;
+  const projecStatus = defaultValues?.payload?.isOpen;
+  const projectId = defaultValues?.payload?.uuid;
 
   return (
     <header className="sticky top-0 left-0 w-full bg-white shadow-sm">
       <nav className="mx-auto px-8 flex items-center justify-between py-6 max-h-[var(--sticky-header-height)]">
-        <div className="flex lg:flex-1">
+        <div className="flex">
           <span className="text-xl font-black">Living Lab Studio</span>
         </div>
-        <div className="flex items-center lg:flex-1">
+        <div className="flex items-center justify-center lg:flex-1">
           <ConditionalRouterLink
             href="/myproject"
             when={isDirty}
             className="bold btn-link btn-neutral"
-            callback={handleModalOpen}
+            callback={() => handleModalOpen()}
           >
             내 프로젝트
           </ConditionalRouterLink>
@@ -55,7 +56,7 @@ const ProjectEidtorHeader: React.FC = () => {
             href="/myproject"
             when={isDirty}
             className="no-animation btn btn-ghost btn-primary"
-            callback={handleModalOpen}
+            callback={() => handleModalOpen()}
           >
             나가기
           </ConditionalRouterLink>
