@@ -29,12 +29,6 @@ const Carousel: React.FC<CarouselProps> = ({
 
       if (carouselScrollLeft !== undefined && carouselWidth !== undefined) {
         const currentIdx = Math.floor(carouselScrollLeft / carouselWidth);
-        console.log(
-          "currentIdx",
-          carouselScrollLeft,
-          carouselWidth,
-          currentIdx
-        );
         setActiveItemIdx(currentIdx);
       }
     };
