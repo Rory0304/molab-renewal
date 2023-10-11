@@ -1,16 +1,14 @@
 import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
 
-interface ToggleInputProps {
+interface ToggleInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText: string;
   checked?: boolean;
-  toggleInputRegister?: UseFormRegisterReturn;
 }
 
 const ToggleInput: React.FC<ToggleInputProps> = ({
   labelText,
   checked = false,
-  toggleInputRegister,
+  ...props
 }) => {
   return (
     <div className="pb-8 w-fit">
@@ -20,7 +18,8 @@ const ToggleInput: React.FC<ToggleInputProps> = ({
           type="checkbox"
           className="toggle toggle-primary"
           aria-pressed={checked}
-          {...toggleInputRegister}
+          checked={checked}
+          {...props}
         />
       </label>
     </div>
