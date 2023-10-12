@@ -22,7 +22,7 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ content, thumbnail }) => {
   return (
-    <div>
+    <div className="w-full">
       {thumbnail ? (
         <Image
           src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/review_thumbnail/${thumbnail}`}

@@ -42,7 +42,7 @@ const InformationBox: React.FC<InformationBoxProps> = ({
         <h3 className="order-2 mt-6 text-3xl font-bold text-neutral-600">
           {title}
         </h3>
-        <div className="flex order-1">
+        <div className="flex flex-wrap order-1 gap-y-2">
           <span className="px-2 mr-3 font-semibold rounded-md text-md text-primary bg-zinc-800">
             {siDo} {siGunGu}
           </span>

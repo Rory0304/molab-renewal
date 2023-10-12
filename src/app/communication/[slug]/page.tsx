@@ -22,7 +22,7 @@ const CommunicationDetailPage = async ({
   const projectData = await fetchProposeById(projectId).then((res) => res.data);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full pb-16">
       {isPreview ? (
         <div className="sticky top-0 left-0 z-50 flex justify-center w-full p-5 text-center text-red-400 bg-red-100 border border-red-400">
           <span>

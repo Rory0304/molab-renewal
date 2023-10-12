@@ -15,13 +15,13 @@ const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
   );
 
   return (
-    <div>
+    <section>
       {/* Step Tabs */}
-      <ul className="border-b tabs border-neutral-300">
+      <ul className="flex overflow-x-scroll border-b flex-nowrap tabs border-neutral-300 ">
         {PROJETC_DETAIL_STEP.map((step) => (
           <li
             key={step.key}
-            className={`tab-lg font-semibold text-neutral-600 tab ${
+            className={`flex-auto flex-grow-0 flex-shrink-0 tab-lg font-semibold text-neutral-600 tab ${
               selectedStep === step.key ? "tab-active tab-bordered" : ""
             }`}
             onClick={() => setSelectedStep(step.key)}
@@ -38,7 +38,7 @@ const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
           }}
         />
       </div>
-    </div>
+    </section>
   );
 };
 
