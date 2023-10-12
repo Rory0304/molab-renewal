@@ -9,6 +9,8 @@ import {
 import { ProjectContent } from "src/types";
 import { fetchProposeById } from "src/app/api/propose";
 
+export const dynamic = "force-dynamic";
+
 const CommunicationDetailPage = async ({
   params,
   searchParams,

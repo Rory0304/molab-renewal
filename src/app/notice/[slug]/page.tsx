@@ -9,6 +9,8 @@ import { NoticeCategory } from "src/types/notice";
 
 import type { NoticeDetailAsideSectionProps } from "src/components/pages/Notice/NoticeDetailAsideSection";
 
+export const dynamic = "force-dynamic";
+
 const NoticeDetailPage = async ({
   params,
 }: {
