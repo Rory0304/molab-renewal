@@ -2,7 +2,6 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { OverlayLoading } from "src/components/blocks/OverlayLoading";
 import { enqueueSnackbar } from "notistack";
 import type ReactQuillType from "react-quill";
 import { editorImageHandler } from "src/utils/editor";

@@ -40,7 +40,7 @@ const GlobalHeader: React.FC = () => {
   );
 
   const [isLoading, setIsLoading] = React.useState(false);
-  const { authorized, userInfo, signOut } = React.useContext(AuthContext);
+  const { authorized, userInfo } = React.useContext(AuthContext);
 
   /**
    *
