@@ -10,11 +10,14 @@ import ProjectToggleInput from "./FormParts/ProjectToggleInput";
 import ProjectTitleInput from "./FormParts/ProjectTitleInput";
 import ProjectDatePickerInput from "./FormParts/ProjectDatePickerInput";
 import ProjectThumbnailInput from "./FormParts/ProjectThumbnailInput";
-import ProjectSubmitButton from './FormParts/ProjectSubmitButton';
+import ProjectSubmitButton from "./FormParts/ProjectSubmitButton";
 
 const ProjectInformationEditor: React.FC = () => {
   const methods = useFormContext<ProjectFormValues>();
-  const watchedIsFetching = useWatch({ control: methods.control, name: "isFetching" });
+  const watchedIsFetching = useWatch({
+    control: methods.control,
+    name: "isFetching",
+  });
 
   return (
     <>
