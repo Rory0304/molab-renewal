@@ -153,7 +153,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               )}
               <button
                 type="button"
-                disabled={isProjectEnded}
+                disabled={isProjectEnded || preview}
                 className="mt-4 btn btn-block btn-primary"
                 onClick={handleReviewSubmitModalOpen}
               >
