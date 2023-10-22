@@ -86,7 +86,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
               </div>
             </button>
             {openProfileDropdown ? (
-              <div className="absolute top-[40px] right-[-20px]">
+              <div className="absolute top-[40px] right-[-20px] w-32">
                 <ul
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-3 bg-gray-50 rounded-box shadow-sm"
