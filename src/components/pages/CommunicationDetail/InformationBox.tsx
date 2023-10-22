@@ -62,7 +62,7 @@ const InformationBox: React.FC<InformationBoxProps> = ({
         {thumbnail ? (
           <Image
             fill
-            alt={title}
+            alt={`${title} 썸네일`}
             src={thumbnail}
             style={{ objectFit: "cover" }}
           />

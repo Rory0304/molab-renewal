@@ -17,7 +17,7 @@ const CommunicationList: React.FC<CommunicationListProps> = ({
         <li key={`communication-list-${index}`}>
           <ProjectCard
             link={`/communication/${data.uuid}`}
-            title={data.title}
+            title={data.title || "무제"}
             thumbnail={
               `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${data.thumbnail}` ??
               ""

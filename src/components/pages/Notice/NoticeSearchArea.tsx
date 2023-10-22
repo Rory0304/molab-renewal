@@ -4,7 +4,12 @@ import React from "react";
 import { useIntersection, useUpdateEffect } from "react-use";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { NoticeCategory, NoticeSort, SortOptionType } from "src/types/notice";
+import {
+  NoticeCategory,
+  NoticeSort,
+  SortOptionType,
+  NoticeCategoryKeyType,
+} from "src/types/notice";
 import {
   DeferredLoading,
   LoadingNoticeCard,
@@ -23,12 +28,14 @@ const COUNT_PER_NOTICE = 8;
 
 const NOTICE_CATEGORY_ICON: Record<
   keyof typeof NoticeCategory,
-  React.ReactElement
+  React.ReactElement | null
 > = {
   Environmnet: <GlobeAsiaAustraliaIcon width={20} height={20} />,
   Traffic: <TruckIcon width={20} height={20} />,
   Welfare: <UserGroupIcon width={20} height={20} />,
   Energy: <BoltIcon width={20} height={20} />,
+  All: null,
+  Etc: null,
 };
 
 const NoticeSearchArea: React.FC = () => {
@@ -118,22 +125,32 @@ const NoticeSearchArea: React.FC = () => {
         </div>
         <div className="flex justify-center w-full">
           <ul className="overflow-scroll join gap-x-3 scrollbar-hide">
-            {Object.keys(NoticeCategory).map((category) => (
-              <li key={category} className="grow-0 shrink-0">
-                <button
-                  type="button"
-                  className={`btn btn-outline ${
-                    category === selectedCategory ? "btn-active" : "btn-neutral"
-                  } rounded-[30px] min-w-[85px] flex`}
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {NOTICE_CATEGORY_ICON[category] ? (
-                    <span>{NOTICE_CATEGORY_ICON[category]}</span>
-                  ) : null}
-                  {NoticeCategory[category]}
-                </button>
-              </li>
-            ))}
+            {Object.keys(NoticeCategory).map((category) => {
+              return (
+                <li key={category} className="grow-0 shrink-0">
+                  <button
+                    type="button"
+                    className={`btn btn-outline ${
+                      category === selectedCategory
+                        ? "btn-active"
+                        : "btn-neutral"
+                    } rounded-[30px] min-w-[85px] flex`}
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    {NOTICE_CATEGORY_ICON[category as NoticeCategoryKeyType] ? (
+                      <span>
+                        {
+                          NOTICE_CATEGORY_ICON[
+                            category as NoticeCategoryKeyType
+                          ]
+                        }
+                      </span>
+                    ) : null}
+                    {NoticeCategory[category as NoticeCategoryKeyType]}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

@@ -28,7 +28,11 @@ const NoticeDetailPage = async ({
         <div className="w-[950px] max-w-full md:pr-12">
           <NoticeDetailHeaderInfoSection
             title={noticeData.title}
-            category={NoticeCategory[noticeData.category ?? "Etc"]}
+            category={
+              NoticeCategory[
+                (noticeData.category as keyof typeof NoticeCategory) ?? "Etc"
+              ]
+            }
             area={noticeData.area}
           />
           <NoticeDetailInfoSection
