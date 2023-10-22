@@ -37,7 +37,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
         </div>
         <div className="flex flex-col py-6 pl-6 pr-8 w-full md:w-[70%]">
           <span className="pb-1 marker:text-sm text-neutral-500">
-            {NoticeCategory[category ?? "Etc"]}
+            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? "Etc"]}
           </span>
           <strong className="pb-2 text-lg">{title}</strong>
           <p className=" text-neutral-600 line-clamp-3">{content}</p>

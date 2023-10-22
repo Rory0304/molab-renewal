@@ -64,7 +64,7 @@ const MainCommunicationList: React.FC = () => {
           <li className="w-full cursor-pointer carousel-item">
             <MainCommunicationCard
               link={`/communication/${item.uuid}`}
-              title={item.title}
+              title={item.title || ""}
               thumbnail={
                 `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${item.thumbnail}` ??
                 ""

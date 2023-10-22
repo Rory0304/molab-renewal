@@ -50,7 +50,7 @@ const MyProposeCard: React.FC<MyProposeCardProps> = ({
             <Image
               fill
               src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${thumbnail}`}
-              alt={title}
+              alt={`${title} 의 썸네일`}
               style={{
                 objectFit: "cover",
               }}

@@ -71,7 +71,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
         </div>
         <div className="flex flex-col p-6 w-[70%]">
           <em className="text-sm not-italic color text-neutral-500">
-            {NoticeCategory[category ?? "Etc"]}
+            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? "Etc"]}
           </em>
           <strong className="pt-1 text-lg">{title}</strong>
           <p className="pt-1 text-neutral-600 line-clamp-3">{content}</p>
@@ -102,7 +102,8 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
         </div>
         <div className="flex flex-col w-full px-5 py-6">
           <span className="text-sm not-italic color text-neutral-500">
-            {NoticeCategory[category ?? "Etc"]} | {area}
+            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? "Etc"]}{" "}
+            | {area}
           </span>
           <strong className="pt-1 text-lg line-clamp-2">{title}</strong>
         </div>
