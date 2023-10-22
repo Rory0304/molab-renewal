@@ -11,7 +11,7 @@ import {
   ProjectEidtorHeader,
   ProposeUnsaveModal,
 } from "src/components/pages";
-
+import ProjectTutorial from "src/components/pages/Project/Tutorial/ProjectTutorial";
 import { ProduceStepType } from "src/types/common";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import { PROJETC_DETAIL_STEP } from "src/constants/projectSteps";
@@ -65,6 +65,7 @@ const ProposeDetailPage = ({ params }: { params: { slug: string[] } }) => {
         <div className="w-full">
           <form className="relative flex flex-col p-10">
             {renderProposeFormSection(currentStep as ProduceStepType)}
+            <ProjectTutorial />
           </form>
         </div>
       </div>

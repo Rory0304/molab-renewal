@@ -4,6 +4,7 @@ import React from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { ProjectFormValues } from "src/types/project";
 import useUpdateProject from "src/hooks/useUpdateProject";
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
 
 interface ProjectSubmitButtonProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;
@@ -47,7 +48,7 @@ const ProjectSubmitButton: React.FC<ProjectSubmitButtonProps> = ({
   return (
     <button
       disabled={!isDirty}
-      className="mt-8 btn btn-primary w-fit"
+      className={`${PROPOSE_TUTORIAL_STEPS_SELECTORS[2]} mt-8 btn btn-primary w-fit`}
       onClick={(e) => handleSubmit(e, isValid)}
     >
       {isLoading ? (
