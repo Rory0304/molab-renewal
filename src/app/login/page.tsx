@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
     required: "이메일을 입력해주세요.",
     validate: {
       validEmail: (value) =>
-        EMAIL_VALID_REGEX.test(value) || "잚못된 이메일 형식입니다.",
+        EMAIL_VALID_REGEX.test(value) || "잘못된 이메일 형식입니다.",
     },
   });
 
