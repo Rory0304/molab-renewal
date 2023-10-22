@@ -6,6 +6,7 @@ import { ToggleInput } from "src/components/blocks";
 
 import type { ProjectFormValues } from "src/types/project";
 import type { UseFormReturn } from "react-hook-form";
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
 
 interface ProjectToggleInputProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;
@@ -21,6 +22,7 @@ const ProjectToggleInput: React.FC<ProjectToggleInputProps> = ({
       render={({ field: { onChange, value } }) => (
         <ToggleInput
           onChange={(e) => onChange(e.target.checked)}
+          className={PROPOSE_TUTORIAL_STEPS_SELECTORS[1]}
           labelText={"공개 여부"}
           checked={value}
         />

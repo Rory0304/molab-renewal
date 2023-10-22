@@ -6,6 +6,7 @@ import ConditionalRouterLink from "src/components/blocks/ConditionalRouterLink/C
 import useUnsaveModal from "src/hooks/useUnsaveModal";
 import { useFormContext } from "react-hook-form";
 import type { ProjectFormValues } from "src/types/project";
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
 
 const ProjectEidtorHeader: React.FC = () => {
   const {
@@ -48,7 +49,7 @@ const ProjectEidtorHeader: React.FC = () => {
             }}
             target="_blank"
             rel="noreferrer noopener"
-            className="mr-2 no-animation btn btn-outline btn-primary"
+            className={`${PROPOSE_TUTORIAL_STEPS_SELECTORS[3]} mr-2 no-animation btn btn-outline btn-primary`}
           >
             미리보기
           </Link>

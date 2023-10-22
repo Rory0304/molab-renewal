@@ -7,6 +7,7 @@ import { ErrorMessage } from "@hookform/error-message";
 
 import type { ProjectFormValues } from "src/types/project";
 import type { UseFormReturn } from "react-hook-form";
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
 
 const PROJECT_TITLE_MAX_LENGTH = 200;
 
@@ -30,6 +31,7 @@ const ProjectTitleInput: React.FC<ProjectTitleInputProps> = ({
       }}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <TextInput
+          className={PROPOSE_TUTORIAL_STEPS_SELECTORS[0]}
           value={value}
           onChange={onChange}
           placeholder={"제목을 입력하세요"}

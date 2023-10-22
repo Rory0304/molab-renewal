@@ -4,7 +4,7 @@ import React from "react";
 interface TextInputProps
   extends Pick<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "type" | "name" | "value"
+    "onChange" | "type" | "name" | "value" | "className"
   > {
   label: string;
   placeholder: string;
@@ -23,6 +23,7 @@ const TextInput = React.forwardRef(
       required,
       ErrorMessage,
       error = false,
+      className,
       ...props
     }: TextInputProps,
     ref: React.Ref<HTMLInputElement>
@@ -42,7 +43,7 @@ const TextInput = React.forwardRef(
           ) : null}
         </label>
         <input
-          className={`w-full input input-bordered ${
+          className={`${className} w-full input input-bordered ${
             error ? "input-error" : ""
           }`}
           placeholder={placeholder}
