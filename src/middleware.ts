@@ -13,5 +13,14 @@ export async function middleware(req: NextRequest) {
   // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
   await supabase.auth.getSession();
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // if user is signed in and the current path is / redirect the user to /account
+  if (user && req.nextUrl.pathname === "/login") {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
   return res;
 }
