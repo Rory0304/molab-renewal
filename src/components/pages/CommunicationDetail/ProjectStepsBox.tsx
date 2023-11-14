@@ -5,6 +5,8 @@ import React from "react";
 import { ProjectContent } from "src/types/project";
 import { PROJETC_DETAIL_STEP } from "src/constants/projectSteps";
 
+import "react-quill/dist/quill.snow.css";
+
 interface ProjectStepsBoxProps {
   content: ProjectContent["stepDetail"];
 }
@@ -31,12 +33,15 @@ const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
         ))}
       </ul>
       {/* Step Detail */}
-      <div className="py-8">
-        <div
-          dangerouslySetInnerHTML={{
-            __html: content?.[selectedStep].content ?? "",
-          }}
-        />
+      <div className="py-8 quill">
+        <div className="ql-snow">
+          <div
+            className="ql-editor"
+            dangerouslySetInnerHTML={{
+              __html: content?.[selectedStep].content ?? "",
+            }}
+          />
+        </div>
       </div>
     </section>
   );
