@@ -29,6 +29,7 @@
     "react-draft-wysiwyg": "^1.15.0",
     "react-error-boundary": "^4.0.10",
     "react-hook-form": "^7.45.1",
+    "react-lottie-player": "^1.5.5",
     "react-quill": "^2.0.0",
     "react-use": "^17.4.0",
     "reactour": "^1.19.2",
