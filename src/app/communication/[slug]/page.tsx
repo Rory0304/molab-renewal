@@ -7,7 +7,9 @@ import {
 } from "src/components/pages";
 
 import { ProjectContent } from "src/types";
-import { fetchProposeById } from "src/app/api/propose";
+import { molabApi } from "src/utils/supabase";
+import {  createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from 'next/headers'
 
 export const dynamic = "force-dynamic";
 
@@ -18,10 +20,13 @@ const CommunicationDetailPage = async ({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
+  const cookieStore = cookies()
+  const supabaeClient = createServerComponentClient({ cookies: () => cookieStore });
+
   const projectId = params.slug;
   const isPreview = searchParams?.["preview"] === "Y" ? true : false;
 
-  const projectData = await fetchProposeById(projectId).then((res) => res.data);
+  const projectData = await molabApi.molabApiFetchProposeById(supabaeClient)(projectId).then((res) => res.data);
 
   return (
     <div className="relative w-full pb-16">
@@ -51,7 +56,10 @@ const CommunicationDetailPage = async ({
           <div className="w-full md:w-[70%] mr-8">
             <CommunicationDetailInformationBox
               title={projectData.title}
-              thumbnail={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${projectData.thumbnail}`}
+              thumbnail={
+                `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${projectData.thumbnail}` ??
+                ""
+              }
               siDo={projectData.siDo}
               siGunGu={projectData.siGunGu}
               startDate={projectData.startDate}

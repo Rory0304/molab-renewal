@@ -2,13 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
-import { fetchAllNotice } from "src/app/api/notice";
 import { useQuery } from "@tanstack/react-query";
-import { Row } from "src/types/supabase";
 import { NoticeCategory } from "src/types/notice";
 import Link from "next/link";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { molabApi } from "src/utils/supabase";
+import type {NoticeType} from 'src/types/notice';
 
-interface NoticeCardProps extends Row<"Notice"> {}
+interface NoticeCardProps extends NoticeType {}
 
 //
 // If larger than `md`, then show `vertical` card, else show `horizontal`
@@ -48,10 +49,12 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
 };
 
 const MainNoticeList: React.FC = () => {
+  const supabaseClient = createClientComponentClient();
+
   const { data: noticeList } = useQuery({
     queryKey: ["noticeList"],
     queryFn: async () =>
-      await fetchAllNotice({
+      await molabApi.molabApiFetchAllNotice(supabaseClient)({
         keyword: "",
         category: "",
         ascending: true,

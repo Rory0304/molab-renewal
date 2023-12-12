@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useIntersection, useUpdateEffect } from "react-use";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import {
@@ -23,6 +24,7 @@ import TruckIcon from "@heroicons/react/20/solid/TruckIcon";
 import BoltIcon from "@heroicons/react/20/solid/BoltIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import GlobeAsiaAustraliaIcon from "@heroicons/react/20/solid/GlobeAsiaAustraliaIcon";
+import { molabApi } from "src/utils/supabase";
 
 const COUNT_PER_NOTICE = 8;
 
@@ -39,6 +41,8 @@ const NOTICE_CATEGORY_ICON: Record<
 };
 
 const NoticeSearchArea: React.FC = () => {
+
+  const supabaseClient =createClientComponentClient();
   const lastNoticeItemRef = React.useRef<HTMLDivElement>(null);
 
   // Search State (keyword, category, sort)
@@ -83,7 +87,7 @@ const NoticeSearchArea: React.FC = () => {
       selectedSortOption,
     ],
     async ({ pageParam = 0 }) =>
-      await fetchAllNotice({
+      await molabApi.molabApiFetchAllNotice(supabaseClient)({
         keyword: debouncedSearchKeyword,
         category: selectedCategory === "All" ? "" : selectedCategory,
         ascending: selectedSortOption === "asc",

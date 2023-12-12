@@ -1,16 +1,13 @@
-import { getServerSupabase } from "src/utils/supabase";
 import { handleImageUpload } from "./image";
 
-import type { Row } from "src/types/supabase";
-
-const supabase = getServerSupabase();
+import type { Row, SupabaseClientType } from "src/types/supabase";
 
 export type ReviewType = Row<"Review">;
 
 /**
  *
  */
-export const fetchReviewById = async ({ uuid }: { uuid: string }) => {
+export const fetchReviewById = (supabase: SupabaseClientType) => async ({ uuid }: { uuid: string }) => {
   const { data, error } = await supabase
     .from("Review")
     .select("*")
@@ -26,7 +23,7 @@ export const fetchReviewById = async ({ uuid }: { uuid: string }) => {
 /**
  *
  */
-export const fetchReviewList = async ({
+export const fetchReviewList = (supabase: SupabaseClientType) => async ({
   offset,
   pageCount,
   select,
@@ -58,7 +55,7 @@ export const fetchReviewList = async ({
 /**
  * Upload Review
  */
-export const uploadReview = async ({
+export const uploadReview = (supabase: SupabaseClientType) => async ({
   projectId,
   uuid,
   userId,
@@ -73,7 +70,7 @@ export const uploadReview = async ({
 }) => {
   // upload image
   const thumbnailFilePath = imageFile
-    ? await handleImageUpload(
+    ? await handleImageUpload(supabase)(
         'review_thumbnail',
         `${uuid}-thumbnail`,
         imageFile

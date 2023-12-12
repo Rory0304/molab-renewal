@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { deleteProposeById, fetchMyProposeList } from "src/app/api/propose";
 import {
   Pagination,
   SpinnerBox,
@@ -20,10 +19,13 @@ import { enqueueSnackbar } from "notistack";
 
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { isBrowser } from "src/utils/browser";
+import { molabApi } from "src/utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import {Proposetype} from 'src/types/project';
 
 const COUNT_PER_PROPOSE = 8;
 
-interface MyProposeCardProps extends Row<"Propose"> {
+interface MyProposeCardProps extends Proposetype {
   onModalOpen: () => void;
 }
 
@@ -93,6 +95,7 @@ const MyProposeCard: React.FC<MyProposeCardProps> = ({
 };
 
 const MyProposeList: React.FC = () => {
+  const supabaseClient = createClientComponentClient();
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
   const selectedProjectId = React.useRef<string>("");
 
@@ -103,7 +106,7 @@ const MyProposeList: React.FC = () => {
   const { isError, data, refetch, isInitialLoading } = useQuery(
     ["fetch-my-propose-list", page, userInfo],
     async () =>
-      await fetchMyProposeList(
+      await molabApi.molabApiFetchMyProposeList(supabaseClient)(
         userInfo?.id ?? "",
         offset,
         COUNT_PER_PROPOSE
@@ -128,7 +131,7 @@ const MyProposeList: React.FC = () => {
   //
   const handleDeleteProject = async (uuid: string) => {
     try {
-      await deleteProposeById(uuid);
+      await molabApi.molabApiDeleteProposeById(supabaseClient)(uuid);
       enqueueSnackbar("삭제되었습니다", { variant: "success" });
       refetch();
     } catch (err) {

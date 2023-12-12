@@ -5,10 +5,11 @@ import { useSearchParams, usePathname } from "next/navigation";
 
 import { AuthContext } from "src/context/AuthProvider";
 import { v4 as uuidV4 } from "uuid";
-import { createPropose } from "src/app/api/propose";
 import { useRouter } from "next/navigation";
 import { DesktopHeader, MobileHeader } from "../Header";
 import { enqueueSnackbar } from "notistack";
+import {molabApi} from 'src/utils/supabase';
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const NO_HEADER_PAGE_PATHNAME_REGEX_LIST = [
   /^\/project.*/,
@@ -35,6 +36,8 @@ const GlobalHeader: React.FC = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const supabaseClient = createClientComponentClient();
+
   const hasHeader = NO_HEADER_PAGE_PATHNAME_REGEX_LIST.every(
     (regex) => !regex.test(`${pathname}?${searchParams}`)
   );
@@ -53,7 +56,7 @@ const GlobalHeader: React.FC = () => {
     try {
       setIsLoading(true);
       const id = uuidV4();
-      await createPropose(id, userInfo?.id).then((data) => {
+      await molabApi.molabApiCreatePropose(supabaseClient)(id, userInfo?.id).then((data) => {
         if (data) {
           router.push(`/project/${id}/base`);
           setIsLoading(false);

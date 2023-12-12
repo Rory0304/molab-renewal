@@ -12,6 +12,8 @@ import { PROJECT_FORM_DEFAULT_VALUES } from "src/constants/projectFormDefaultVal
 import { useBeforeUnload } from "react-use";
 import { enqueueSnackbar } from "notistack";
 import { RecoilRoot } from "recoil";
+import { molabApi } from "src/utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface ProjectProviderProps {
   children: React.ReactNode;
@@ -20,6 +22,7 @@ interface ProjectProviderProps {
 const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   const router = useRouter();
   const params = useParams();
+  const supabaseClient = createClientComponentClient();
 
   const { userInfo } = useAuth();
 
@@ -31,7 +34,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   const { data, isFetching, refetch } = useQuery(
     ["project", projectId, userInfo],
     async () => {
-      return await fetchProposeById(projectId)
+      return await molabApi.molabApiFetchProposeById(supabaseClient)(projectId)
         .then((res) => res.data)
         .catch((err) => {
           enqueueSnackbar("프로젝트를 불러올 수 없습니다", {

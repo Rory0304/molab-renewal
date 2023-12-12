@@ -8,6 +8,8 @@ import {
 import { NoticeCategory } from "src/types/notice";
 
 import type { NoticeDetailAsideSectionProps } from "src/components/pages/Notice/NoticeDetailAsideSection";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { molabApi } from "src/utils/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -18,9 +20,10 @@ const NoticeDetailPage = async ({
     slug: string;
   };
 }) => {
+  const supabaseClient = createClientComponentClient();
   const noticeId = params.slug;
 
-  const noticeData = await fetchNoticeById(noticeId).then((res) => res.data);
+  const noticeData = await molabApi.molabApiFetchNoticeById(supabaseClient)(noticeId).then((res) => res.data);
 
   return (
     <div className="py-16 content-layout">

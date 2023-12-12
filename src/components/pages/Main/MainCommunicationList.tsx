@@ -7,7 +7,8 @@ import { fetchProposeList } from "src/app/api/propose";
 import { useQuery } from "@tanstack/react-query";
 import Carousel from "src/components/blocks/Carousel/Carousel";
 import type { ProjectContent } from "src/types/project";
-
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { molabApi } from "src/utils/supabase";
 interface MainCommunicationCardProps
   extends Pick<ProjectContent, "title" | "siDo" | "siGunGu"> {
   thumbnail: string;
@@ -46,10 +47,12 @@ const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
 };
 
 const MainCommunicationList: React.FC = () => {
+  const supabaseClient =createClientComponentClient();
+
   const { data: communicationList } = useQuery({
     queryKey: ["communicationList"],
     queryFn: async () =>
-      await fetchProposeList({
+      await molabApi.molabApiFetchProposeList(supabaseClient)({
         offset: 0,
         pageCount: 3,
         siDo: "",

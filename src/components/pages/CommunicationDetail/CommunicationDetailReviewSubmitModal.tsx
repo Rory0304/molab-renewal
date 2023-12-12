@@ -13,6 +13,8 @@ import { uploadReview } from "src/app/api/review";
 import { v4 as uuidV4 } from "uuid";
 import { enqueueSnackbar } from "notistack";
 import { useAuth } from "src/context/AuthProvider";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { molabApi } from "src/utils/supabase";
 
 interface CommunicationDetailReviewSubmitModalProps {
   projectId: string;
@@ -28,6 +30,8 @@ interface ReviewFormProps {
 const CommunicationDetailReviewSubmitModal: React.FC<
   CommunicationDetailReviewSubmitModalProps
 > = ({ projectId, modalRef, submitCallback }) => {
+  const supabaseClient = createClientComponentClient();
+
   const { userInfo } = useAuth();
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -89,7 +93,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
       } else {
         if (!userInfo?.id) throw Error("fail to get user id");
 
-        await uploadReview({
+        await molabApi.molabApiUploadReview(supabaseClient)({
           projectId,
           userId: userInfo?.id,
           uuid: uuidV4(),

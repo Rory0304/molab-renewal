@@ -4,8 +4,9 @@ import React from "react";
 import { useIntersection, useUpdateEffect } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AreaSelectInput, ErrorBox } from "src/components/blocks";
-import { fetchProposeList } from "src/app/api/propose";
 import { DeferredLoading } from "src/components/blocks";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { molabApi } from "src/utils/supabase";
 
 const LaodingProjectCard = React.lazy(
   () => import("src/components/blocks/ProjectCard/LoadingProjectCard")
@@ -21,6 +22,7 @@ const COUNT_PER_COMMUNCATION = 6;
 //
 //
 const CommunicationSearchArea: React.FC = () => {
+  const supabaeClient =createClientComponentClient();
   const communicationListRef = React.useRef<HTMLDivElement>(null);
 
   const [selectedSido, setSelectedSido] = React.useState("");
@@ -51,7 +53,7 @@ const CommunicationSearchArea: React.FC = () => {
   } = useInfiniteQuery(
     ["fetch-propose-list", selectedSiGunGu, selectedSido],
     async ({ pageParam = 0 }) =>
-      await fetchProposeList({
+      await molabApi.molabApiFetchProposeList(supabaeClient)({
         offset: pageParam,
         pageCount: COUNT_PER_COMMUNCATION,
         siDo: selectedSido,
