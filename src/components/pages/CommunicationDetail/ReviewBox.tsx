@@ -11,6 +11,7 @@ import { ErrorBox } from "src/components/blocks";
 import { checkIsDatePast } from "src/utils/date";
 import { molabApi } from "src/utils/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useAuth } from "src/context/AuthProvider";
 
 const DynamicCommunicationDetailReviewSubmitModal = dynamic(
   () =>
@@ -26,6 +27,10 @@ const DynamicCommunicationDetailReviewModal = dynamic(
     )
 );
 
+const DynamicLoginRequiredModal = dynamic(
+  () => import(`src/components/pages/Global/LoginRequireModal`)
+);
+
 interface ReviewBoxProps {
   projectId: string;
   endDate: string;
@@ -38,10 +43,14 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   preview = false,
 }) => {
   const supabaseClient = createClientComponentClient();
+
+  const { userInfo } = useAuth();
+
   const isProjectEnded = checkIsDatePast(new Date(endDate));
 
   const reviewModalRef = React.useRef<HTMLDialogElement>(null);
-  const reviewSubmitModal = React.useRef<HTMLDialogElement>(null);
+  const reviewSubmitModalRef = React.useRef<HTMLDialogElement>(null);
+  const loginRequiredModalRef = React.useRef<HTMLDialogElement>(null);
 
   const [selectedReviewId, setSelectedReviewId] = React.useState("");
 
@@ -51,7 +60,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   const { data, isSuccess, isError, isFetching, refetch } = useQuery(
     ["review", projectId],
     async () =>
-      await  molabApi.molabApiFetchReviewList(supabaseClient)({
+      await molabApi.molabApiFetchReviewList(supabaseClient)({
         select: `thumbnail, uuid`,
         offset: 0,
         pageCount: 16,
@@ -64,15 +73,14 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   //
   //
   //
-  const handleDetailReviewModalOpen = () => {
-    if (reviewModalRef.current) {
-      reviewModalRef.current.showModal();
-    }
-  };
 
-  const handleReviewSubmitModalOpen = () => {
-    if (reviewSubmitModal.current) {
-      reviewSubmitModal.current.showModal();
+  const handleReviewSubmitModalOpen = (userId?: string) => {
+    if (!userId && loginRequiredModalRef.current) {
+      return loginRequiredModalRef.current?.showModal();
+    }
+
+    if (reviewSubmitModalRef.current) {
+      return reviewSubmitModalRef.current.showModal();
     }
   };
 
@@ -81,8 +89,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   //
   const renderReviewList = (
     preview: boolean,
-    reviewList: Partial<ReviewType>[],
-    handleDetailReviewModalOpen: () => void
+    reviewList: Partial<ReviewType>[]
   ) => {
     if (preview)
       return (
@@ -96,7 +103,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
           미리보기에서는 참여 인증을 볼 수 없습니다.
         </p>
       );
-    
+
     return reviewList && reviewList?.length > 0 ? (
       <div className="grid w-full grid-cols-4">
         {reviewList.map((item) =>
@@ -106,7 +113,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               className="relative cursor-pointer pt-[100%] bg-gray-200"
               onClick={() => {
                 setSelectedReviewId(item?.uuid ?? "");
-                handleDetailReviewModalOpen();
+                reviewModalRef?.current?.showModal();
               }}
             >
               <Image
@@ -149,16 +156,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
           ) : null}
           {isSuccess ? (
             <>
-              {renderReviewList(
-                preview,
-                reviewList,
-                handleDetailReviewModalOpen
-              )}
+              {renderReviewList(preview, reviewList)}
               <button
                 type="button"
                 disabled={isProjectEnded || preview}
                 className="mt-4 btn btn-block btn-primary"
-                onClick={handleReviewSubmitModalOpen}
+                onClick={() => handleReviewSubmitModalOpen(userInfo?.id)}
               >
                 인증하기
               </button>
@@ -170,15 +173,14 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
       {/* MODAL */}
       <DynamicCommunicationDetailReviewSubmitModal
         projectId={projectId}
-        modalRef={reviewSubmitModal}
+        modalRef={reviewSubmitModalRef}
         submitCallback={refetch}
       />
-      <React.Suspense>
-        <DynamicCommunicationDetailReviewModal
-          uuid={selectedReviewId}
-          modalRef={reviewModalRef}
-        />
-      </React.Suspense>
+      <DynamicCommunicationDetailReviewModal
+        uuid={selectedReviewId}
+        modalRef={reviewModalRef}
+      />
+      <DynamicLoginRequiredModal modalRef={loginRequiredModalRef} />
     </section>
   );
 };
