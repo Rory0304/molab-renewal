@@ -1,6 +1,5 @@
 "use client";
 
-import { Pagination } from "@supabase/supabase-js";
 import React from "react";
 
 type PaginationVariantType = "slider" | "number";

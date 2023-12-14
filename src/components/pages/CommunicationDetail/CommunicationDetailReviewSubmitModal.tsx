@@ -9,7 +9,6 @@ import TextAreaInput from "src/components/blocks/FormInput/TextAreaInput";
 import { useForm } from "react-hook-form";
 import CameraIcon from "@heroicons/react/20/solid/CameraIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { uploadReview } from "src/app/api/review";
 import { v4 as uuidV4 } from "uuid";
 import { enqueueSnackbar } from "notistack";
 import { useAuth } from "src/context/AuthProvider";
@@ -47,18 +46,31 @@ const CommunicationDetailReviewSubmitModal: React.FC<
       reviewImage: null,
       reviewContent: "",
     },
+    mode: "onChange",
   });
 
   const watchedReviewContent = watch("reviewContent");
   const watchedReviewImage = watch("reviewImage");
 
+  const thumbnailUrl = React.useMemo(
+    () =>
+      watchedReviewImage?.[0]
+        ? URL.createObjectURL(watchedReviewImage?.[0])
+        : "",
+    [watchedReviewImage]
+  );
+
+  //
+  //
+  //
   const handleModalClose = () => {
     if (modalRef?.current) {
-      modalRef.current.close();
       reset({
         reviewImage: null,
         reviewContent: "",
       });
+
+      modalRef.current.close();
     }
   };
 
@@ -66,10 +78,14 @@ const CommunicationDetailReviewSubmitModal: React.FC<
   //
   //
   const reviewImageRegister = register("reviewImage", {
+    required: "리뷰 사진을 첨부해주세요.",
     validate: {
+      supportedFileFormat: (file) =>
+        (file?.[0] &&
+          ["image/jpeg", "image/png", "image/jpg"].includes(file[0].type)) ||
+        "지원하지 않는 파일 타입입니다.",
       lessThan10MB: (file) =>
         (file?.[0] && file[0].size < 10000000) ||
-        !file ||
         "10MB 이하 파일만 업로드 가능합니다.",
     },
   });
@@ -85,7 +101,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
   //
   //
   //
-  const handleReviewUpload = async () => {
+  const handleReviewUpload = async (isValid: boolean) => {
     try {
       setIsLoading(true);
       if (!isValid) {
@@ -93,23 +109,26 @@ const CommunicationDetailReviewSubmitModal: React.FC<
       } else {
         if (!userInfo?.id) throw Error("fail to get user id");
 
-        await molabApi.molabApiUploadReview(supabaseClient)({
-          projectId,
-          userId: userInfo?.id,
-          uuid: uuidV4(),
-          content: watchedReviewContent,
-          imageFile: watchedReviewImage?.[0],
-        }).then((res) => {
-          if (typeof submitCallback === "function") {
-            submitCallback();
-          }
-          enqueueSnackbar("성공적으로 업로드 하였습니다.", {
-            variant: "success",
+        await molabApi
+          .molabApiUploadReview(supabaseClient)({
+            projectId,
+            userId: userInfo?.id,
+            uuid: uuidV4(),
+            content: watchedReviewContent,
+            imageFile: watchedReviewImage?.[0],
+          })
+          .then((res) => {
+            if (typeof submitCallback === "function") {
+              submitCallback();
+            }
+            enqueueSnackbar("성공적으로 업로드 하였습니다.", {
+              variant: "success",
+            });
+            handleModalClose();
           });
-          modalRef?.current?.close();
-        });
       }
     } catch (err) {
+      console.error(err);
       enqueueSnackbar("업로드에 실했습니다. 잠시후 다시 시도해주세요", {
         variant: "error",
       });
@@ -118,6 +137,9 @@ const CommunicationDetailReviewSubmitModal: React.FC<
     }
   };
 
+  //
+  //
+  //
   const modalHeader = (
     <div>
       <strong className="text-xl">참여 인증</strong>
@@ -127,10 +149,10 @@ const CommunicationDetailReviewSubmitModal: React.FC<
   const modalBody = (
     <div className="py-4">
       <div className="relative w-full mb-4">
-        {watchedReviewImage?.[0] ? (
+        {thumbnailUrl ? (
           <div className="flex items-start">
             <Image
-              src={URL.createObjectURL(watchedReviewImage[0])}
+              src={thumbnailUrl}
               alt="preview-image"
               width={100}
               height={100}
@@ -160,17 +182,17 @@ const CommunicationDetailReviewSubmitModal: React.FC<
               accept="image/*"
               {...reviewImageRegister}
             />
-            <ErrorMessage
-              errors={errors}
-              name="reviewImage"
-              render={({ message }) =>
-                message ? (
-                  <span className="block mt-2 text-danger">{message}</span>
-                ) : null
-              }
-            />
           </>
         )}
+        <ErrorMessage
+          errors={errors}
+          name="reviewImage"
+          render={({ message }) =>
+            message ? (
+              <span className="block mt-2 text-danger">{message}</span>
+            ) : null
+          }
+        />
       </div>
       <TextAreaInput
         required
@@ -179,6 +201,17 @@ const CommunicationDetailReviewSubmitModal: React.FC<
         labelTextAlt={`${watchedReviewContent?.length ?? 0}/${500}자`}
         placeholder="최대 500자까지 후기를 작성해주세요"
         maxLength={500}
+        ErrorMessage={
+          <ErrorMessage
+            errors={errors}
+            name="reviewContent"
+            render={({ message }) =>
+              message ? (
+                <span className="mt-2 text-danger">{message}</span>
+              ) : null
+            }
+          />
+        }
       />
       <div className="text-sm text-gray-400">
         <p className="relative before:small-circle before:mr-[0.62em] before:mt-[0.62em]">
@@ -197,7 +230,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
       form="review-form"
       className="btn btn-primary"
       disabled={!isDirty}
-      onClick={handleReviewUpload}
+      onClick={() => handleReviewUpload(isValid)}
     >
       {isLoading ? (
         <span className="loading loading-spinner"></span>
