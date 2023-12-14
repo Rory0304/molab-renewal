@@ -11,7 +11,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@hookform/error-message": "^2.0.1",
-    "@rory0304/molab-renewal-types": "^1.0.10",
+    "@rory0304/molab-renewal-types": "^1.0.11",
     "@rorysa/prettier-config": "^1.0.2",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
