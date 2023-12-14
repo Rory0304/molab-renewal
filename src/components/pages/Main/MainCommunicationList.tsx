@@ -3,17 +3,18 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchProposeList } from "src/app/api/propose";
 import { useQuery } from "@tanstack/react-query";
 import Carousel from "src/components/blocks/Carousel/Carousel";
 import type { ProjectContent } from "src/types/project";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { molabApi } from "src/utils/supabase";
+
 interface MainCommunicationCardProps
   extends Pick<ProjectContent, "title" | "siDo" | "siGunGu"> {
   thumbnail: string;
   link: string;
 }
+
 const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
   link,
   thumbnail,
