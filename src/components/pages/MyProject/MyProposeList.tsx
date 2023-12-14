@@ -103,8 +103,9 @@ const MyProposeList: React.FC = () => {
 
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * COUNT_PER_PROPOSE;
+  
   const { isError, data, refetch, isInitialLoading } = useQuery(
-    ["fetch-my-propose-list", page, userInfo],
+    ["fetch-my-propose-list", offset, userInfo],
     async () =>
       await molabApi.molabApiFetchMyProposeList(supabaseClient)(
         userInfo?.id ?? "",
@@ -126,6 +127,7 @@ const MyProposeList: React.FC = () => {
     if (isBrowser) window.scrollTo(0, 0);
   }, [page]);
 
+
   //
   //
   //
@@ -133,7 +135,13 @@ const MyProposeList: React.FC = () => {
     try {
       await molabApi.molabApiDeleteProposeById(supabaseClient)(uuid);
       enqueueSnackbar("삭제되었습니다", { variant: "success" });
-      refetch();
+
+      if(proposeList.length === 1 && page > 1){
+        setPage(page-1);
+      }
+      else{
+        refetch();
+      }
     } catch (err) {
       enqueueSnackbar("삭제에 실패했습니다", { variant: "error" });
     } finally {

@@ -87,7 +87,7 @@ export const fetchMyProposeList = (supabase: SupabaseClientType) =>  async (
       .from("Propose")
       .select("*", { count: "exact", head: true })
       // Filters
-      .eq("userId", userId),
+      .eq('user_id', userId),
     supabase
       .from("Propose")
       .select("*")
@@ -109,6 +109,8 @@ export const fetchMyProposeList = (supabase: SupabaseClientType) =>  async (
  *
  */
 export const deleteProposeById = (supabase: SupabaseClientType) => async (projectId: string) => {
+  console.log(projectId);
+  
   const { data, error } = await supabase
     .from("Propose")
     .delete()

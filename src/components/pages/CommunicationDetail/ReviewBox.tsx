@@ -96,8 +96,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
           미리보기에서는 참여 인증을 볼 수 없습니다.
         </p>
       );
-
-    console.log(reviewList);
     
     return reviewList && reviewList?.length > 0 ? (
       <div className="grid w-full grid-cols-4">
