@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { deleteProposeById, fetchMyProposeList } from "src/app/api/propose";
 import {
   Pagination,
   SpinnerBox,
@@ -20,10 +19,13 @@ import { enqueueSnackbar } from "notistack";
 
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { isBrowser } from "src/utils/browser";
+import { molabApi } from "src/utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import {Proposetype} from 'src/types/project';
 
 const COUNT_PER_PROPOSE = 8;
 
-interface MyProposeCardProps extends Row<"Propose"> {
+interface MyProposeCardProps extends Proposetype {
   onModalOpen: () => void;
 }
 
@@ -93,6 +95,7 @@ const MyProposeCard: React.FC<MyProposeCardProps> = ({
 };
 
 const MyProposeList: React.FC = () => {
+  const supabaseClient = createClientComponentClient();
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
   const selectedProjectId = React.useRef<string>("");
 
@@ -100,10 +103,11 @@ const MyProposeList: React.FC = () => {
 
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * COUNT_PER_PROPOSE;
+  
   const { isError, data, refetch, isInitialLoading } = useQuery(
-    ["fetch-my-propose-list", page, userInfo],
+    ["fetch-my-propose-list", offset, userInfo],
     async () =>
-      await fetchMyProposeList(
+      await molabApi.molabApiFetchMyProposeList(supabaseClient)(
         userInfo?.id ?? "",
         offset,
         COUNT_PER_PROPOSE
@@ -123,14 +127,21 @@ const MyProposeList: React.FC = () => {
     if (isBrowser) window.scrollTo(0, 0);
   }, [page]);
 
+
   //
   //
   //
   const handleDeleteProject = async (uuid: string) => {
     try {
-      await deleteProposeById(uuid);
+      await molabApi.molabApiDeleteProposeById(supabaseClient)(uuid);
       enqueueSnackbar("삭제되었습니다", { variant: "success" });
-      refetch();
+
+      if(proposeList.length === 1 && page > 1){
+        setPage(page-1);
+      }
+      else{
+        refetch();
+      }
     } catch (err) {
       enqueueSnackbar("삭제에 실패했습니다", { variant: "error" });
     } finally {

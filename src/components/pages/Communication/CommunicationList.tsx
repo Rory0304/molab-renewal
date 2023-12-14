@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Proposetype } from "src/app/api/propose";
+import type {Proposetype} from 'src/types/project'
 import { ProjectCard } from "src/components/blocks";
 
 interface CommunicationListProps {

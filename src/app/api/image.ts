@@ -1,12 +1,9 @@
-import { getServerSupabase } from "src/utils/supabase";
-import type { StorageType } from "src/types/supabase";
-
-const supabase = getServerSupabase();
+import type { StorageType, SupabaseClientType } from "src/types/supabase";
 
 /**
  *
  */
-export const handleImageUpload = async (
+export const handleImageUpload = (supabase: SupabaseClientType) => async (
   from: StorageType,
   fileName: string,
   file: File

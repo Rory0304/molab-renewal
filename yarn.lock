@@ -166,10 +166,10 @@
   resolved "https://registry.npmjs.org/@rooks/use-mutation-observer/-/use-mutation-observer-4.11.2.tgz"
   integrity sha512-vpsdrZdr6TkB1zZJcHx+fR1YC/pHs2BaqcuYiEGjBVbwY5xcC49+h0hAUtQKHth3oJqXfIX/Ng8S7s5HFHdM/A==
 
-"@rory0304/molab-renewal-types@^1.0.6":
-  version "1.0.8"
-  resolved "https://npm.pkg.github.com/download/@rory0304/molab-renewal-types/1.0.8/7a60988fb857688fb59992c4aa1e8b6cf03c67b1"
-  integrity sha512-bIapHuWCeiLbU5ihGHsQhDN01wC94Jn7aqSaTCc28lZWkRf3THjZA4yJ9NhrcXTvEcfvk8d+MR+wFwrjouZHBQ==
+"@rory0304/molab-renewal-types@^1.0.10":
+  version "1.0.10"
+  resolved "https://npm.pkg.github.com/download/@rory0304/molab-renewal-types/1.0.10/1c48398b5eae9212e2d5cca10d4f12779b4aad8c#1c48398b5eae9212e2d5cca10d4f12779b4aad8c"
+  integrity sha512-KeeOxoR6EFTW1C7L4k2jZ00JmkG4otewLSBGD0w+wU3VMF3k50UYlqGnzhajgaFW9aDObsd7DJETzjlfHFMecQ==
 
 "@rorysa/prettier-config@^1.0.2":
   version "1.0.2"
@@ -269,6 +269,11 @@
   dependencies:
     "@tanstack/query-core" "4.36.1"
     use-sync-external-store "^1.2.0"
+
+"@types/humps@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@types/humps/-/humps-2.0.6.tgz#a358688fe092e40b5f50261e0a55e2fa6d68cabe"
+  integrity sha512-Fagm1/a/1J9gDKzGdtlPmmTN5eSw/aaTzHtj740oSfo+MODsSY2WglxMmhTdOglC8nxqUhGGQ+5HfVtBvxo3Kg==
 
 "@types/js-cookie@^2.2.6":
   version "2.2.7"
@@ -953,6 +958,11 @@ html-to-draftjs@^1.5.0:
   version "1.5.0"
   resolved "https://registry.npmjs.org/html-to-draftjs/-/html-to-draftjs-1.5.0.tgz"
   integrity sha512-kggLXBNciKDwKf+KYsuE+V5gw4dZ7nHyGMX9m0wy7urzWjKGWyNFetmArRLvRV0VrxKN70WylFsJvMTJx02OBQ==
+
+humps@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
+  integrity sha512-E0eIbrFWUhwfXJmsbdjRQFQPrl5pTEoKlz163j1mTqqUnU9PgR4AgB8AIITzuB3vLBdxZXyZ9TDIrwB2OASz4g==
 
 hyphenate-style-name@^1.0.3:
   version "1.0.4"

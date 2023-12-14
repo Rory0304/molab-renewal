@@ -11,7 +11,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@hookform/error-message": "^2.0.1",
-    "@rory0304/molab-renewal-types": "^1.0.6",
+    "@rory0304/molab-renewal-types": "^1.0.10",
     "@rorysa/prettier-config": "^1.0.2",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
@@ -20,6 +20,7 @@
     "draft-js": "^0.11.7",
     "encoding": "^0.1.13",
     "framer-motion": "^10.12.17",
+    "humps": "^2.0.1",
     "next": "^13.4.12",
     "notistack": "^3.0.1",
     "postcss": "8.4.24",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
+    "@types/humps": "^2.0.6",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",

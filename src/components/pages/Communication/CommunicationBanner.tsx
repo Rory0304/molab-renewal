@@ -4,11 +4,13 @@ import React from "react";
 import { AuthContext } from "src/context/AuthProvider";
 import { useRouter } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
-import { createPropose } from "src/app/api/propose";
 import { enqueueSnackbar } from "notistack";
+import { molabApi } from "src/utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const CommunicationBanner: React.FC = () => {
   const router = useRouter();
+  const supabaeClient = createClientComponentClient();
 
   const { authorized, userInfo } = React.useContext(AuthContext);
 
@@ -25,7 +27,7 @@ const CommunicationBanner: React.FC = () => {
     try {
       setIsLoading(true);
       const id = uuidV4();
-      await createPropose(id, userInfo?.id).then((data) => {
+      await molabApi.molabApiCreatePropose(supabaeClient)(id, userInfo?.id).then((data) => {
         if (data) {
           router.push(`/project/${id}/base`);
           setIsLoading(false);

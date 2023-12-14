@@ -1,31 +1,28 @@
-import { getServerSupabase } from "src/utils/supabase";
 import type { ProjectFormValues } from "src/types/project";
-import type { Row } from "src/types/supabase";
-
-export type Proposetype = Row<"Propose">;
-
-const supabase = getServerSupabase();
+import type { Row, SupabaseClientType} from "src/types/supabase";
+import {camelizeKeys, decamelizeKeys} from 'humps';
+import type {Proposetype} from 'src/types/project'
 
 /**
  *
  */
-export const createPropose = async (uuid: string, userId: string) => {
+export const createPropose = (supabase: SupabaseClientType) =>  async (uuid: string, userId: string) => {
   const { data, error } = await supabase
     .from("Propose")
-    .insert({ uuid: uuid, userId: userId })
+    .insert({ uuid: uuid, user_id: userId })
     .select();
 
   if (error) {
     throw new Error("fail to create propose");
   }
 
-  return data;
+  return camelizeKeys(data);
 };
 
 /**
  *
  */
-export const handleImageUpload = async (
+export const handleImageUpload = (supabase: SupabaseClientType) => async (
   fileName: string,
   file?: File | null
 ) => {
@@ -49,22 +46,24 @@ export const handleImageUpload = async (
 /**
  *
  */
-export const updatePropse = async (
+export const updatePropse = (supabase: SupabaseClientType) => async (
   uuid: string,
   proposeData: ProjectFormValues
 ) => {
-  const thumbnailFilePath = await handleImageUpload(
+  const thumbnailFilePath = await handleImageUpload(supabase)(
     uuid,
     proposeData.payload.thumbnail?.[0]
   );
 
+  const configuredProposeData = decamelizeKeys({
+    ...proposeData["payload"],
+    uuid: uuid,
+    thumbnail: thumbnailFilePath,
+  })
+
   const { data, error } = await supabase
     .from("Propose")
-    .update({
-      ...proposeData["payload"],
-      uuid: uuid,
-      thumbnail: thumbnailFilePath,
-    })
+    .update(configuredProposeData)
     .eq("uuid", uuid)
     .returns<Row<"Propose">>();
 
@@ -72,13 +71,13 @@ export const updatePropse = async (
     throw new Error("fail to update propose");
   }
 
-  return data;
+  return camelizeKeys(data);
 };
 
 /**
  *
  */
-export const fetchMyProposeList = async (
+export const fetchMyProposeList = (supabase: SupabaseClientType) =>  async (
   userId: string,
   offset: number,
   pageCount: number
@@ -88,12 +87,12 @@ export const fetchMyProposeList = async (
       .from("Propose")
       .select("*", { count: "exact", head: true })
       // Filters
-      .eq("userId", userId),
+      .eq('user_id', userId),
     supabase
       .from("Propose")
       .select("*")
       // Filters
-      .eq("userId", userId)
+      .eq('user_id', userId)
       .order("created_at", { ascending: true })
       .range(offset, offset + pageCount - 1),
   ]);
@@ -103,13 +102,15 @@ export const fetchMyProposeList = async (
 
   if (error) throw new Error("fail to fetch my propose list");
 
-  return { data, count };
+  return { data: camelizeKeys(data) as Proposetype[], count };
 };
 
 /**
  *
  */
-export const deleteProposeById = async (projectId: string) => {
+export const deleteProposeById = (supabase: SupabaseClientType) => async (projectId: string) => {
+  console.log(projectId);
+  
   const { data, error } = await supabase
     .from("Propose")
     .delete()
@@ -119,28 +120,31 @@ export const deleteProposeById = async (projectId: string) => {
     throw new Error("fail to delete propose");
   }
 
-  return data;
+  return camelizeKeys(data);
 };
 
 /**
  *
  */
-export const fetchProposeById = async (projectId: string) => {
+export const fetchProposeById = (supabase: SupabaseClientType) => async (projectId: string) => {
   const { data, error } = await supabase
     .from("Propose")
     .select("*")
     // Filters
-    .eq("uuid", projectId)
+    .eq('uuid', projectId)
     .limit(1)
     .single<Row<"Propose">>();
-  if (error) throw new Error("fail to fetch propose");
-  return { data };
+  if (error) {
+    console.log("error", error)
+    throw new Error("fail to fetch propose")
+  };
+  return { data: camelizeKeys(data) as Proposetype};
 };
 
 /**
  * Fetch Propose List by area option
  */
-export const fetchProposeList = async ({
+export const fetchProposeList = (supabase: SupabaseClientType) => async ({
   offset,
   pageCount,
   siDo,
@@ -151,21 +155,22 @@ export const fetchProposeList = async ({
   siDo?: string;
   siGunGu?: string;
 }) => {
-  let fetchList = supabase.from("Propose").select("*").eq("isOpen", true);
+  let fetchList = supabase.from("Propose").select("*").eq('is_open', true);
 
   if (siDo) {
-    fetchList = fetchList.eq("siDo", siDo);
+    fetchList = fetchList.eq('si_do', siDo);
   }
   if (siGunGu) {
-    fetchList = fetchList.eq("siGunGu", siGunGu);
+    fetchList = fetchList.eq('si_gun_gu', siGunGu);
   }
 
   const proposeList = await fetchList
     // Pagination
     .range(offset, offset + pageCount - 1);
-  const { data, error } = proposeList;
+  
+    const { data, error } = proposeList;
 
   if (error) throw new Error("fail to fetch my propose list");
 
-  return data;
+  return camelizeKeys(data) as Proposetype[];
 };

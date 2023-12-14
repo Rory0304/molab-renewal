@@ -4,11 +4,13 @@ import React from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useQuery } from "@tanstack/react-query";
-import { fetchReviewList, ReviewType } from "src/app/api/review";
+import { ReviewType } from "src/app/api/review";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import SpinnerBox from "src/components/blocks/SpinnerBox/SpinnerBox";
 import { ErrorBox } from "src/components/blocks";
 import { checkIsDatePast } from "src/utils/date";
+import { molabApi } from "src/utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const DynamicCommunicationDetailReviewSubmitModal = dynamic(
   () =>
@@ -35,6 +37,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   endDate,
   preview = false,
 }) => {
+  const supabaseClient = createClientComponentClient();
   const isProjectEnded = checkIsDatePast(new Date(endDate));
 
   const reviewModalRef = React.useRef<HTMLDialogElement>(null);
@@ -48,7 +51,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   const { data, isSuccess, isError, isFetching, refetch } = useQuery(
     ["review", projectId],
     async () =>
-      await fetchReviewList({
+      await  molabApi.molabApiFetchReviewList(supabaseClient)({
         select: `thumbnail, uuid`,
         offset: 0,
         pageCount: 16,
@@ -93,7 +96,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
           미리보기에서는 참여 인증을 볼 수 없습니다.
         </p>
       );
-
+    
     return reviewList && reviewList?.length > 0 ? (
       <div className="grid w-full grid-cols-4">
         {reviewList.map((item) =>

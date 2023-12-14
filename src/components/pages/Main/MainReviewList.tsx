@@ -7,6 +7,8 @@ import dynamic from "next/dynamic";
 import Carousel from "src/components/blocks/Carousel/Carousel";
 import { useQuery } from "@tanstack/react-query";
 import { fetchReviewList } from "src/app/api/review";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { molabApi } from "src/utils/supabase";
 
 const DynamicCommunicationDetailReviewModal = dynamic(
   () =>
@@ -40,6 +42,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ content, thumbnail }) => {
 };
 
 const MainReviewList: React.FC = () => {
+  const supabaeClient = createClientComponentClient();
   const reviewModalRef = React.useRef<HTMLDialogElement>(null);
   const [selectedReviewId, setSelectedReviewId] = React.useState("");
 
@@ -48,7 +51,7 @@ const MainReviewList: React.FC = () => {
   const { data } = useQuery({
     queryKey: ["reviewList"],
     queryFn: async () =>
-      await fetchReviewList({
+      await molabApi.molabApiFetchReviewList(supabaeClient)({
         select: `thumbnail, content, uuid`,
         offset: 0,
         pageCount: 3,

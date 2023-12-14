@@ -1,13 +1,11 @@
-import { getServerSupabase } from "src/utils/supabase";
-
-import type { Row } from "src/types/supabase";
-
-const supabase = getServerSupabase();
+import type { Row, SupabaseClientType } from "src/types/supabase";
+import { camelizeKeys } from 'humps';
+import type {NoticeType} from 'src/types/notice';
 
 /**
  *
- */
-export const fetchAllNotice = async ({
+*/
+export const fetchAllNotice =(supabase: SupabaseClientType) => async ({
   keyword,
   category,
   ascending,
@@ -33,13 +31,13 @@ export const fetchAllNotice = async ({
     throw new Error("fail to fetch all notices");
   }
 
-  return { data };
+  return { data: camelizeKeys(data) as NoticeType[]};
 };
 
 /**
  *
  */
-export const fetchNoticeById = async (noticeId: string) => {
+export const fetchNoticeById = (supabase: SupabaseClientType) => async (noticeId: string) => {
   const { data, error } = await supabase
     .from("Notice")
     .select("*")
@@ -52,5 +50,5 @@ export const fetchNoticeById = async (noticeId: string) => {
     throw new Error("fail to fetch notice");
   }
 
-  return { data };
+  return { data: camelizeKeys(data) as NoticeType};
 };

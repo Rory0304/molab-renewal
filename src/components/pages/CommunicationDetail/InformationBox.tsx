@@ -2,13 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
-import { Row } from "src/types/supabase";
 import { getProjectStatus } from "src/utils/project";
 import { calculateDaysLeft } from "src/utils/date";
-import { ProjectStatus } from "src/types";
+import { ProjectStatus,Proposetype } from "src/types";
 interface InformationBoxProps
   extends Pick<
-    Row<"Propose">,
+  Proposetype,
     "title" | "thumbnail" | "siDo" | "siGunGu" | "startDate" | "endDate"
   > {}
 

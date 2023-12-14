@@ -2,15 +2,15 @@
 
 import React from "react";
 import Image from "next/image";
-import { Row } from "src/types/supabase";
 import { getNoticeStatus } from "src/utils/notice";
 import { NoticeStatus } from "src/types/notice";
 import { calculateDaysLeft } from "src/utils/date";
 import { NoticeCategory } from "src/types/notice";
+import { NoticeType } from 'src/types/notice';
 
 type NoticeCardVaraintType = "horizontal" | "vertical";
 
-export interface NoticeCardProps extends Row<"Notice"> {
+export interface NoticeCardProps extends NoticeType {
   variant: NoticeCardVaraintType;
 }
 

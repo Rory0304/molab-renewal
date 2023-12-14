@@ -1,10 +1,15 @@
 import { handleImageUpload } from "src/app/api/image";
+import { SupabaseClientType } from "src/types/supabase";
+
+import { molabApi } from "./supabase";
 
 export const editorImageHandler = ({
+  supabase,
   fileName,
   successCallback,
   errorCallback,
 }: {
+  supabase: SupabaseClientType,
   fileName: string;
   successCallback?: (url: string) => void;
   errorCallback?: () => void;
@@ -19,7 +24,7 @@ export const editorImageHandler = ({
       const imageFile = input?.files[0];
 
       try {
-        const imgUrl = await handleImageUpload(
+        const imgUrl = await molabApi.molabApiHandleImageUpload(supabase)(
           "project_image",
           // encode file name to handle Korean
           fileName,

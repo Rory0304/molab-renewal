@@ -8,6 +8,7 @@ import { editorImageHandler } from "src/utils/editor";
 import { v4 as uuidV4 } from "uuid";
 
 import "react-quill/dist/quill.snow.css";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface IWrappedComponent
   extends React.ComponentProps<typeof ReactQuillType> {
@@ -46,6 +47,7 @@ const Editor: React.FC<EditorProps> = ({
   editorStyles,
   onChange,
 }) => {
+  const supabase = createClientComponentClient();
   const reactQuillRef = React.useRef<ReactQuillType>(null);
 
   const ReactQuill = React.useMemo(
@@ -99,6 +101,7 @@ const Editor: React.FC<EditorProps> = ({
         handlers: {
           image: () =>
             editorImageHandler({
+              supabase: supabase,
               fileName: `project-image-${uuidV4()}`,
               successCallback: (url) => editorImageSuccessCallback(url),
               errorCallback: () => editorImageErrorCallback(),
