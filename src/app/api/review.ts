@@ -1,3 +1,4 @@
+import { decamelizeKeys } from "humps";
 import { handleImageUpload } from "./image";
 
 import type { Row, SupabaseClientType } from "src/types/supabase";
@@ -41,7 +42,7 @@ export const fetchReviewList = (supabase: SupabaseClientType) => async ({
     .range(offset, offset + pageCount);
 
   if (projectId) {
-    query = query.eq("projectId", projectId);
+    query = query.eq('project_id', projectId);
   }
 
   const { data, error } = await query;
@@ -77,15 +78,17 @@ export const uploadReview = (supabase: SupabaseClientType) => async ({
       )
     : "";
 
-  const { data, error } = await supabase
-    .from("Review")
-    .insert({
+    const configuredData = decamelizeKeys({
       projectId,
       content,
       userId,
       uuid: uuid,
       thumbnail: thumbnailFilePath,
-    })
+    }) as ReviewType
+
+  const { data, error } = await supabase
+    .from("Review")
+    .insert(configuredData)
     .returns<Row<"Review">>();
 
   if (error) {
