@@ -1,8 +1,9 @@
-import React from "react";
-import ProjectProvider from "src/context/ProjectProvider";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import React from 'react';
+
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import ProjectProvider from 'src/context/ProjectProvider';
 
 interface ProjectLayoutProps {
   children: React.ReactNode;
@@ -20,7 +21,7 @@ const ProjectLayout: React.FC<ProjectLayoutProps> = async ({ children }) => {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect('/login');
   }
 
   return (

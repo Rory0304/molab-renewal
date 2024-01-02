@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface SpinnerBoxProps {
   width?: string;
@@ -7,8 +7,8 @@ interface SpinnerBoxProps {
 }
 
 const SpinnerBox: React.FC<SpinnerBoxProps> = ({
-  width = "w-full",
-  height = "h-full",
+  width = 'w-full',
+  height = 'h-full',
   spinnerColor,
 }) => {
   return (

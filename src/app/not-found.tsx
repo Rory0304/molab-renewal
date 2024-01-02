@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
 
 const NotFoundPage = () => {
   return (
     <div className="flex flex-col items-center justify-center py-20 content-layout">
       <Image
-        src={"/not-found.svg"}
+        src={'/not-found.svg'}
         alt="not found image"
         width={250}
         height={250}

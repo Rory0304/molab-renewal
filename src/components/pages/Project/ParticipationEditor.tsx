@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Editor, DeferredLoading, OverlayLoading } from "src/components/blocks";
-import { useFormContext } from "react-hook-form";
-import type { ProjectFormValues } from "src/types/project";
-import useUpdateProject from "src/hooks/useUpdateProject";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import { DeferredLoading, Editor, OverlayLoading } from 'src/components/blocks';
+import useUpdateProject from 'src/hooks/useUpdateProject';
+import type { ProjectFormValues } from 'src/types/project';
 
 const ParticipationEditor: React.FC = () => {
   const {
@@ -14,10 +15,10 @@ const ParticipationEditor: React.FC = () => {
     formState: { isDirty },
   } = useFormContext<ProjectFormValues>();
 
-  const projectId = getValues("payload.uuid");
-  const refetch = watch("refetch");
-  const watchedEditorContent = watch("payload.howTo.content");
-  const watchedIsFetching = watch("isFetching");
+  const projectId = getValues('payload.uuid');
+  const refetch = watch('refetch');
+  const watchedEditorContent = watch('payload.howTo.content');
+  const watchedIsFetching = watch('isFetching');
 
   const { isLoading, mutate } = useUpdateProject({
     projectId,
@@ -37,12 +38,12 @@ const ParticipationEditor: React.FC = () => {
           <Editor
             key="payload.howTo.content"
             value={watchedEditorContent as string}
-            placeholder={"프로젝트 참여 방법을 작성해주세요."}
-            onChange={(value) =>
+            placeholder={'프로젝트 참여 방법을 작성해주세요.'}
+            onChange={value =>
               setValue(`payload.howTo.content`, value, { shouldDirty: true })
             }
             editorStyles={{
-              height: "450px",
+              height: '450px',
             }}
           />
         </div>
@@ -50,7 +51,7 @@ const ParticipationEditor: React.FC = () => {
           <button
             disabled={!isDirty}
             className="btn btn-primary w-fit"
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               mutate(watch());
             }}

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 import {
   CommunicationBanner,
   CommunicationSearchArea,
-} from "src/components/pages";
+} from 'src/components/pages';
 
 const CommunicationPage = () => {
   return (

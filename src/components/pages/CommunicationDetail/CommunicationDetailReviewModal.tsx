@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { Modal, SpinnerBox, DeferredLoading } from "src/components/blocks";
-import { useQuery } from "@tanstack/react-query";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { molabApi } from "src/utils/supabase";
+import React from 'react';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { DeferredLoading, Modal, SpinnerBox } from 'src/components/blocks';
+import { molabApi } from 'src/utils/supabase';
 
 interface CommunicationDetailReviewModalProps {
   uuid: string;
@@ -17,14 +18,14 @@ const CommunicationDetailReviewModal: React.FC<
 > = ({ uuid, modalRef }) => {
   const supabaseClient = createClientComponentClient();
 
-  const { data, isFetching } = useQuery(["review", uuid], async () => {
+  const { data, isFetching } = useQuery(['review', uuid], async () => {
     if (uuid)
       return await molabApi.molabApiFetchReviewById(supabaseClient)({ uuid });
     return null;
   });
 
-  const thumbnail = data?.thumbnail ?? "";
-  const content = data?.content ?? "";
+  const thumbnail = data?.thumbnail ?? '';
+  const content = data?.content ?? '';
 
   const handleModalClose = () => {
     if (modalRef.current) {
@@ -46,7 +47,7 @@ const CommunicationDetailReviewModal: React.FC<
             src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/review_thumbnail/${thumbnail}`}
             alt="후기 썸네일"
             style={{
-              objectFit: "cover",
+              objectFit: 'cover',
             }}
           />
         </div>

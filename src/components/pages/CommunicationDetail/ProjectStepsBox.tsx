@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
+import 'react-quill/dist/quill.snow.css';
 
-import { ProjectContent } from "src/types/project";
-import { PROJETC_DETAIL_STEP } from "src/constants/projectSteps";
-
-import "react-quill/dist/quill.snow.css";
+import { PROJETC_DETAIL_STEP } from 'src/constants/projectSteps';
+import { ProjectContent } from 'src/types/project';
 
 interface ProjectStepsBoxProps {
-  content: ProjectContent["stepDetail"];
+  content: ProjectContent['stepDetail'];
 }
 
 const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
@@ -20,11 +19,11 @@ const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
     <section>
       {/* Step Tabs */}
       <ul className="flex overflow-x-scroll border-b flex-nowrap tabs border-neutral-300 ">
-        {PROJETC_DETAIL_STEP.map((step) => (
+        {PROJETC_DETAIL_STEP.map(step => (
           <li
             key={step.key}
             className={`flex-auto flex-grow-0 flex-shrink-0 tab-lg font-semibold text-neutral-600 tab ${
-              selectedStep === step.key ? "tab-active tab-bordered" : ""
+              selectedStep === step.key ? 'tab-active tab-bordered' : ''
             }`}
             onClick={() => setSelectedStep(step.key)}
           >
@@ -38,7 +37,7 @@ const ProjectStepsBox: React.FC<ProjectStepsBoxProps> = ({ content }) => {
           <div
             className="ql-editor"
             dangerouslySetInnerHTML={{
-              __html: content?.[selectedStep].content ?? "",
+              __html: content?.[selectedStep].content ?? '',
             }}
           />
         </div>

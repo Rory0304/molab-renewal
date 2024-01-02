@@ -1,5 +1,5 @@
-import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface DatePickerInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -34,7 +34,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
       </label>
       <input
         type="date"
-        className={`input input-bordered ${error ? "input-error" : ""}`}
+        className={`input input-bordered ${error ? 'input-error' : ''}`}
         min={dateMin}
         max={dateMax}
         {...dateInputRegister}

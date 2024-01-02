@@ -1,5 +1,6 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+
+import Image from 'next/image';
 
 export interface NoticeDetailAsideSectionProps {
   thumbnailSrc: string;
@@ -28,7 +29,7 @@ const NoticeDetailAsideSection: React.FC<NoticeDetailAsideSectionProps> = ({
           sizes="300/275"
           alt="poster"
           src={thumbnailSrc}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: 'cover' }}
         />
       </div>
       {/* Notice Date Area */}
@@ -44,7 +45,7 @@ const NoticeDetailAsideSection: React.FC<NoticeDetailAsideSectionProps> = ({
       <div className="mb-9">
         <h3 className="mb-3 text-xl font-bold text-neutral-600">접수 방법</h3>
         <div className="text-lg font-light">
-          <p>{registration || "--"}</p>
+          <p>{registration || '--'}</p>
         </div>
       </div>
       {/* Contact Area */}

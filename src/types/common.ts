@@ -6,10 +6,10 @@
  * - completion: 실행 완료
  */
 export type ProjectDetailStepType =
-  | "definition"
-  | "preparation"
-  | "execution"
-  | "completion";
+  | 'definition'
+  | 'preparation'
+  | 'execution'
+  | 'completion';
 
 /**
  * Project produce steps
@@ -18,9 +18,9 @@ export type ProjectDetailStepType =
  * - participation: 참여 방법
  * - detail: 프로젝트 소개
  */
-export type ProduceStepType = "setting" | "base" | "participation" | "detail";
+export type ProduceStepType = 'setting' | 'base' | 'participation' | 'detail';
 
 /**
  * Api Status
  */
-export type ApiStatus = "Idle" | "Pending" | "Success" | "Fail";
+export type ApiStatus = 'Idle' | 'Pending' | 'Success' | 'Fail';

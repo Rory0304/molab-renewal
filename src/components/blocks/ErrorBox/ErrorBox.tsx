@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
+import React from 'react';
+
+import ExclamationCircleIcon from '@heroicons/react/24/solid/ExclamationCircleIcon';
 
 interface ErrorBoxProps {
   title: string;
@@ -25,7 +26,7 @@ const ErrorBox: React.FC<ErrorBoxProps> = ({
           {description}
         </p>
       ) : null}
-      {typeof onRefetch ==='function' ? (
+      {typeof onRefetch === 'function' ? (
         <button className="btn btn-outline btn-neutral" onClick={onRefetch}>
           다시 시도
         </button>

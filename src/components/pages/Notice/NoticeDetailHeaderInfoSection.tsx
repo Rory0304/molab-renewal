@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useIntersection } from "react-use";
+import React from 'react';
+import { useIntersection } from 'react-use';
 
 interface NoticeDetailHeaderInfoSectionProps {
   title: string;
@@ -10,13 +10,13 @@ interface NoticeDetailHeaderInfoSectionProps {
 }
 
 const HEADER_INFO_SECTION_STYLES = {
-  shown: "pb-6 border-b-2 border-gray-500",
-  hide: "bg-white w-full py-5 fixed top-0 shadow-lg z-[60] min-h-[var(--sticky-header-height)] left-0",
+  shown: 'pb-6 border-b-2 border-gray-500',
+  hide: 'bg-white w-full py-5 fixed top-0 shadow-lg z-[60] min-h-[var(--sticky-header-height)] left-0',
 };
 
 const HEADER_INFO_SECTION_CONTENT_STYLES = {
-  shown: "",
-  hide: "content-layout flex lg:flex-row flex-col justify-between lg:items-center mx-auto h-full",
+  shown: '',
+  hide: 'content-layout flex lg:flex-row flex-col justify-between lg:items-center mx-auto h-full',
 };
 
 const NoticeDetailHeaderInfoSection: React.FC<
@@ -33,7 +33,7 @@ const NoticeDetailHeaderInfoSection: React.FC<
 
   return (
     <section ref={headerInfoSectionRef}>
-      <div className={`${isIntersecting ? "hidden" : "block"} h-[94px]`} />
+      <div className={`${isIntersecting ? 'hidden' : 'block'} h-[94px]`} />
       <div
         className={
           isIntersecting
@@ -50,7 +50,7 @@ const NoticeDetailHeaderInfoSection: React.FC<
         >
           <h2
             className={`${
-              isIntersecting ? "mb-2" : "md:pr-2"
+              isIntersecting ? 'mb-2' : 'md:pr-2'
             }  text-lg md:text-2xl font-bold`}
           >
             {title}

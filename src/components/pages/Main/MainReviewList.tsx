@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import dynamic from "next/dynamic";
+import React from 'react';
 
-import Carousel from "src/components/blocks/Carousel/Carousel";
-import { useQuery } from "@tanstack/react-query";
-import { fetchReviewList } from "src/app/api/review";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { molabApi } from "src/utils/supabase";
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useQuery } from '@tanstack/react-query';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { fetchReviewList } from 'src/app/api/review';
+import Carousel from 'src/components/blocks/Carousel/Carousel';
+import { molabApi } from 'src/utils/supabase';
 
 const DynamicCommunicationDetailReviewModal = dynamic(
   () =>
@@ -32,7 +32,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ content, thumbnail }) => {
           width={150}
           height={150}
           style={{
-            objectFit: "cover",
+            objectFit: 'cover',
           }}
         />
       ) : null}
@@ -44,12 +44,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ content, thumbnail }) => {
 const MainReviewList: React.FC = () => {
   const supabaeClient = createClientComponentClient();
   const reviewModalRef = React.useRef<HTMLDialogElement>(null);
-  const [selectedReviewId, setSelectedReviewId] = React.useState("");
+  const [selectedReviewId, setSelectedReviewId] = React.useState('');
 
   // This useQuery could just as well happen in some deeper child to
   // the "HydratedPosts"-component, data will be available immediately either way
   const { data } = useQuery({
-    queryKey: ["reviewList"],
+    queryKey: ['reviewList'],
     queryFn: async () =>
       await molabApi.molabApiFetchReviewList(supabaeClient)({
         select: `thumbnail, content, uuid`,
@@ -79,11 +79,11 @@ const MainReviewList: React.FC = () => {
             <div
               className="w-full"
               onClick={() => {
-                setSelectedReviewId(card?.uuid ?? "");
+                setSelectedReviewId(card?.uuid ?? '');
                 handleDetailReviewModalOpen();
               }}
             >
-              <ReviewCard content={card.content ?? ""} />
+              <ReviewCard content={card.content ?? ''} />
             </div>
           </li>
         ))}

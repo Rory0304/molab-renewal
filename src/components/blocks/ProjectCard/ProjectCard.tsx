@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface ProjectCardProps {
   link: string;
@@ -37,10 +38,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               fill
               src={thumbnail}
               alt={title}
-              sizes={"397px"}
+              sizes={'397px'}
               onError={() => setIsThumbnailExist(false)}
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           ) : (

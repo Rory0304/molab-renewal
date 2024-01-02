@@ -1,1 +1,1 @@
-export { default as ErrorBox } from "./ErrorBox";
+export { default as ErrorBox } from './ErrorBox';

@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { enqueueSnackbar } from "notistack";
-import { downloadFile } from "src/utils/file";
+import React from 'react';
+
+import { enqueueSnackbar } from 'notistack';
+import { downloadFile } from 'src/utils/file';
 
 interface NoticeDetailInfoSectionProps {
   content: string;
@@ -20,13 +21,13 @@ const NoticeDetailInfoSection: React.FC<NoticeDetailInfoSectionProps> = ({
 
     try {
       const fileBlob = await downloadFile(
-        "notice_attachmentFile",
+        'notice_attachmentFile',
         attachmentFile
       );
 
       const downloadUrl = URL.createObjectURL(new Blob([fileBlob]));
 
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = downloadUrl;
       link.download = attachmentFile;
 
@@ -36,9 +37,9 @@ const NoticeDetailInfoSection: React.FC<NoticeDetailInfoSectionProps> = ({
 
       // Clean up by revoking the object URL
       URL.revokeObjectURL(downloadUrl);
-      enqueueSnackbar("파일 다운로드에 성공했습니다.", { variant: "success" });
+      enqueueSnackbar('파일 다운로드에 성공했습니다.', { variant: 'success' });
     } catch (err) {
-      enqueueSnackbar("파일 다운로드에 실패했습니다", { variant: "error" });
+      enqueueSnackbar('파일 다운로드에 실패했습니다', { variant: 'error' });
     } finally {
       setLoading(false);
     }
@@ -56,7 +57,7 @@ const NoticeDetailInfoSection: React.FC<NoticeDetailInfoSectionProps> = ({
             {loading ? (
               <span className="loading loading-spinner loading-md"></span>
             ) : (
-              "다운로드"
+              '다운로드'
             )}
           </button>
         </div>

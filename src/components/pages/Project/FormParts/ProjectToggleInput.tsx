@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Controller } from "react-hook-form";
-import { ToggleInput } from "src/components/blocks";
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import type { UseFormReturn } from 'react-hook-form';
 
-import type { ProjectFormValues } from "src/types/project";
-import type { UseFormReturn } from "react-hook-form";
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
+import { ToggleInput } from 'src/components/blocks';
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
+import type { ProjectFormValues } from 'src/types/project';
 
 interface ProjectToggleInputProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;
@@ -21,9 +21,9 @@ const ProjectToggleInput: React.FC<ProjectToggleInputProps> = ({
       control={control}
       render={({ field: { onChange, value } }) => (
         <ToggleInput
-          onChange={(e) => onChange(e.target.checked)}
+          onChange={e => onChange(e.target.checked)}
           className={PROPOSE_TUTORIAL_STEPS_SELECTORS[1]}
-          labelText={"공개 여부"}
+          labelText={'공개 여부'}
           checked={value}
         />
       )}
@@ -34,6 +34,6 @@ const ProjectToggleInput: React.FC<ProjectToggleInputProps> = ({
 export default React.memo(
   ProjectToggleInput,
   (prev, cur) =>
-    JSON.stringify(prev.methods.getFieldState("payload.isOpen")) ===
-    JSON.stringify(cur.methods.getFieldState("payload.isOpen"))
+    JSON.stringify(prev.methods.getFieldState('payload.isOpen')) ===
+    JSON.stringify(cur.methods.getFieldState('payload.isOpen'))
 );

@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
-import type { UseFormReturn } from "react-hook-form";
-import type { ProjectFormValues } from "src/types/project";
-import useUpdateProject from "src/hooks/useUpdateProject";
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
+import React from 'react';
+import type { UseFormReturn } from 'react-hook-form';
+
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
+import useUpdateProject from 'src/hooks/useUpdateProject';
+import type { ProjectFormValues } from 'src/types/project';
 
 interface ProjectSubmitButtonProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;
@@ -24,8 +25,8 @@ const ProjectSubmitButton: React.FC<ProjectSubmitButtonProps> = ({
   //
   //
 
-  const projectId = getValues("payload.uuid");
-  const refetch = getValues("refetch");
+  const projectId = getValues('payload.uuid');
+  const refetch = getValues('refetch');
 
   const { isLoading, mutate } = useUpdateProject({
     projectId,
@@ -49,7 +50,7 @@ const ProjectSubmitButton: React.FC<ProjectSubmitButtonProps> = ({
     <button
       disabled={!isDirty}
       className={`${PROPOSE_TUTORIAL_STEPS_SELECTORS[2]} mt-8 btn btn-primary w-fit`}
-      onClick={(e) => handleSubmit(e, isValid)}
+      onClick={e => handleSubmit(e, isValid)}
     >
       {isLoading ? (
         <span className="loading loading-spinner loading-md"></span>

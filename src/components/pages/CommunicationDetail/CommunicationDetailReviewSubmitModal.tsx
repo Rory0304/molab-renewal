@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { ErrorMessage } from "@hookform/error-message";
+import React from 'react';
+import { useForm } from 'react-hook-form';
 
-import Modal from "src/components/blocks/Modal/Modal";
-import TextAreaInput from "src/components/blocks/FormInput/TextAreaInput";
-import { useForm } from "react-hook-form";
-import CameraIcon from "@heroicons/react/20/solid/CameraIcon";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { v4 as uuidV4 } from "uuid";
-import { enqueueSnackbar } from "notistack";
-import { useAuth } from "src/context/AuthProvider";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { molabApi } from "src/utils/supabase";
+import CameraIcon from '@heroicons/react/20/solid/CameraIcon';
+import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
+import { ErrorMessage } from '@hookform/error-message';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import Image from 'next/image';
+import { enqueueSnackbar } from 'notistack';
+import TextAreaInput from 'src/components/blocks/FormInput/TextAreaInput';
+import Modal from 'src/components/blocks/Modal/Modal';
+import { useAuth } from 'src/context/AuthProvider';
+import { molabApi } from 'src/utils/supabase';
+import { v4 as uuidV4 } from 'uuid';
 
 interface CommunicationDetailReviewSubmitModalProps {
   projectId: string;
@@ -44,19 +44,19 @@ const CommunicationDetailReviewSubmitModal: React.FC<
   } = useForm<ReviewFormProps>({
     defaultValues: {
       reviewImage: null,
-      reviewContent: "",
+      reviewContent: '',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
-  const watchedReviewContent = watch("reviewContent");
-  const watchedReviewImage = watch("reviewImage");
+  const watchedReviewContent = watch('reviewContent');
+  const watchedReviewImage = watch('reviewImage');
 
   const thumbnailUrl = React.useMemo(
     () =>
       watchedReviewImage?.[0]
         ? URL.createObjectURL(watchedReviewImage?.[0])
-        : "",
+        : '',
     [watchedReviewImage]
   );
 
@@ -67,7 +67,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
     if (modalRef?.current) {
       reset({
         reviewImage: null,
-        reviewContent: "",
+        reviewContent: '',
       });
 
       modalRef.current.close();
@@ -77,24 +77,24 @@ const CommunicationDetailReviewSubmitModal: React.FC<
   //
   //
   //
-  const reviewImageRegister = register("reviewImage", {
-    required: "리뷰 사진을 첨부해주세요.",
+  const reviewImageRegister = register('reviewImage', {
+    required: '리뷰 사진을 첨부해주세요.',
     validate: {
-      supportedFileFormat: (file) =>
+      supportedFileFormat: file =>
         (file?.[0] &&
-          ["image/jpeg", "image/png", "image/jpg"].includes(file[0].type)) ||
-        "지원하지 않는 파일 타입입니다.",
-      lessThan10MB: (file) =>
+          ['image/jpeg', 'image/png', 'image/jpg'].includes(file[0].type)) ||
+        '지원하지 않는 파일 타입입니다.',
+      lessThan10MB: file =>
         (file?.[0] && file[0].size < 10000000) ||
-        "10MB 이하 파일만 업로드 가능합니다.",
+        '10MB 이하 파일만 업로드 가능합니다.',
     },
   });
 
-  const reviewContentRegister = register("reviewContent", {
-    required: "필수 입력 항목입니다.",
+  const reviewContentRegister = register('reviewContent', {
+    required: '필수 입력 항목입니다.',
     maxLength: {
       value: 500,
-      message: "500자 이하로 작성해주세요.",
+      message: '500자 이하로 작성해주세요.',
     },
   });
 
@@ -107,7 +107,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
       if (!isValid) {
         trigger();
       } else {
-        if (!userInfo?.id) throw Error("fail to get user id");
+        if (!userInfo?.id) throw Error('fail to get user id');
 
         await molabApi
           .molabApiUploadReview(supabaseClient)({
@@ -117,20 +117,20 @@ const CommunicationDetailReviewSubmitModal: React.FC<
             content: watchedReviewContent,
             imageFile: watchedReviewImage?.[0],
           })
-          .then((res) => {
-            if (typeof submitCallback === "function") {
+          .then(res => {
+            if (typeof submitCallback === 'function') {
               submitCallback();
             }
-            enqueueSnackbar("성공적으로 업로드 하였습니다.", {
-              variant: "success",
+            enqueueSnackbar('성공적으로 업로드 하였습니다.', {
+              variant: 'success',
             });
             handleModalClose();
           });
       }
     } catch (err) {
       console.error(err);
-      enqueueSnackbar("업로드에 실했습니다. 잠시후 다시 시도해주세요", {
-        variant: "error",
+      enqueueSnackbar('업로드에 실했습니다. 잠시후 다시 시도해주세요', {
+        variant: 'error',
       });
     } finally {
       setIsLoading(false);
@@ -157,13 +157,13 @@ const CommunicationDetailReviewSubmitModal: React.FC<
               width={100}
               height={100}
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
             <button
               aria-label="remove thumbnail input"
               className="w-4 h-4 ml-2 min-h-fit btn btn-sm btn-circle btn-ghost"
-              onClick={() => setValue("reviewImage", null)}
+              onClick={() => setValue('reviewImage', null)}
             >
               <XMarkIcon />
             </button>
@@ -244,7 +244,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
     <Modal
       closeBtn
       ref={modalRef}
-      formId={"review-form"}
+      formId={'review-form'}
       ModalHeader={modalHeader}
       ModalBody={modalBody}
       ModalAction={modalAction}

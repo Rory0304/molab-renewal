@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ToggleInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText: string;

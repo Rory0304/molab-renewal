@@ -1,22 +1,23 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useFormContext, useWatch } from "react-hook-form";
-import { OverlayLoading, DeferredLoading } from "src/components/blocks";
-import type { ProjectFormValues } from "src/types/project";
+import React from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
 
-import ProjectAreaSelect from "./FormParts/ProjectAreaSelect";
-import ProjectToggleInput from "./FormParts/ProjectToggleInput";
-import ProjectTitleInput from "./FormParts/ProjectTitleInput";
-import ProjectDatePickerInput from "./FormParts/ProjectDatePickerInput";
-import ProjectThumbnailInput from "./FormParts/ProjectThumbnailInput";
-import ProjectSubmitButton from "./FormParts/ProjectSubmitButton";
+import { DeferredLoading, OverlayLoading } from 'src/components/blocks';
+import type { ProjectFormValues } from 'src/types/project';
+
+import ProjectAreaSelect from './FormParts/ProjectAreaSelect';
+import ProjectDatePickerInput from './FormParts/ProjectDatePickerInput';
+import ProjectSubmitButton from './FormParts/ProjectSubmitButton';
+import ProjectThumbnailInput from './FormParts/ProjectThumbnailInput';
+import ProjectTitleInput from './FormParts/ProjectTitleInput';
+import ProjectToggleInput from './FormParts/ProjectToggleInput';
 
 const ProjectInformationEditor: React.FC = () => {
   const methods = useFormContext<ProjectFormValues>();
   const watchedIsFetching = useWatch({
     control: methods.control,
-    name: "isFetching",
+    name: 'isFetching',
   });
 
   return (

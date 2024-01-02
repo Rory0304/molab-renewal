@@ -1,17 +1,18 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useIntersection, useUpdateEffect } from "react-use";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { AreaSelectInput, ErrorBox } from "src/components/blocks";
-import { DeferredLoading } from "src/components/blocks";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { molabApi } from "src/utils/supabase";
+import React from 'react';
+import { useIntersection, useUpdateEffect } from 'react-use';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { AreaSelectInput, ErrorBox } from 'src/components/blocks';
+import { DeferredLoading } from 'src/components/blocks';
+import { molabApi } from 'src/utils/supabase';
 
 const LaodingProjectCard = React.lazy(
-  () => import("src/components/blocks/ProjectCard/LoadingProjectCard")
+  () => import('src/components/blocks/ProjectCard/LoadingProjectCard')
 );
-const CommunicationList = React.lazy(() => import("./CommunicationList"));
+const CommunicationList = React.lazy(() => import('./CommunicationList'));
 
 //
 //
@@ -22,18 +23,18 @@ const COUNT_PER_COMMUNCATION = 6;
 //
 //
 const CommunicationSearchArea: React.FC = () => {
-  const supabaeClient =createClientComponentClient();
+  const supabaeClient = createClientComponentClient();
   const communicationListRef = React.useRef<HTMLDivElement>(null);
 
-  const [selectedSido, setSelectedSido] = React.useState("");
-  const [selectedSiGunGu, setSelectedSiGunGu] = React.useState("");
+  const [selectedSido, setSelectedSido] = React.useState('');
+  const [selectedSiGunGu, setSelectedSiGunGu] = React.useState('');
 
   //
   // Check if communication list fully intersected
   //
   const communicationListObserver = useIntersection(communicationListRef, {
     root: null,
-    rootMargin: "0px",
+    rootMargin: '0px',
     threshold: 0.8,
   });
 
@@ -51,7 +52,7 @@ const CommunicationSearchArea: React.FC = () => {
     refetch,
     fetchNextPage,
   } = useInfiniteQuery(
-    ["fetch-propose-list", selectedSiGunGu, selectedSido],
+    ['fetch-propose-list', selectedSiGunGu, selectedSido],
     async ({ pageParam = 0 }) =>
       await molabApi.molabApiFetchProposeList(supabaeClient)({
         offset: pageParam,
@@ -65,8 +66,8 @@ const CommunicationSearchArea: React.FC = () => {
         const offset = list.length * COUNT_PER_COMMUNCATION;
         return lastPage.length === 0 ? undefined : offset;
       },
-      select: (data) => ({
-        pages: data?.pages.flatMap((page) => page),
+      select: data => ({
+        pages: data?.pages.flatMap(page => page),
         pageParams: data.pageParams,
       }),
     }

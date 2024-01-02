@@ -1,5 +1,6 @@
-"use client";
-import Image from "next/image";
+'use client';
+
+import Image from 'next/image';
 
 export default function GlobalError({
   error,
@@ -13,7 +14,7 @@ export default function GlobalError({
       <body>
         <div className="flex flex-col items-center justify-center py-20 content-layout">
           <Image
-            src={"/not-found.svg"}
+            src={'/not-found.svg'}
             alt="not found image"
             width={250}
             height={250}

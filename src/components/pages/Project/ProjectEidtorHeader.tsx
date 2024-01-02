@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import ConditionalRouterLink from "src/components/blocks/ConditionalRouterLink/ConditionalRouterLink";
-import useUnsaveModal from "src/hooks/useUnsaveModal";
-import { useFormContext } from "react-hook-form";
-import type { ProjectFormValues } from "src/types/project";
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import Link from 'next/link';
+import ConditionalRouterLink from 'src/components/blocks/ConditionalRouterLink/ConditionalRouterLink';
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
+import useUnsaveModal from 'src/hooks/useUnsaveModal';
+import type { ProjectFormValues } from 'src/types/project';
 
 const ProjectEidtorHeader: React.FC = () => {
   const {
@@ -38,14 +39,14 @@ const ProjectEidtorHeader: React.FC = () => {
           <span className="px-2">/</span>
           <strong>{projectTitle}</strong>
           <span className="ml-2 badge badge-primary">
-            {projecStatus ? "공개" : "비공개"}
+            {projecStatus ? '공개' : '비공개'}
           </span>
         </div>
         <div className="flex lg:justify-end">
           <Link
             href={{
               pathname: `/communication/${projectId}`,
-              query: { preview: "Y" },
+              query: { preview: 'Y' },
             }}
             target="_blank"
             rel="noreferrer noopener"

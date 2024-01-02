@@ -1,13 +1,13 @@
-import type { Row} from "src/types/supabase";
-import { Camelized} from 'humps';
+import { Camelized } from 'humps';
+import type { Row } from 'src/types/supabase';
 
 export enum ProjectStatus {
-  ONGOING = "Ongoing",
-  D_DAY = "D-day",
-  ENDED = "Ended",
+  ONGOING = 'Ongoing',
+  D_DAY = 'D-day',
+  ENDED = 'Ended',
 }
 
-export type Proposetype = Camelized<Row<"Propose">>;
+export type Proposetype = Camelized<Row<'Propose'>>;
 
 export type Content = string | null;
 

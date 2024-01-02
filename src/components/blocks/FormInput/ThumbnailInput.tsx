@@ -1,11 +1,12 @@
-import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
-import UploadIcon from "@heroicons/react/20/solid/ArrowUpOnSquareIcon";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import Image from "next/image";
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
+
+import UploadIcon from '@heroicons/react/20/solid/ArrowUpOnSquareIcon';
+import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
+import Image from 'next/image';
 
 interface ThumbnailInputProps
-  extends Pick<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+  extends Pick<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   thumbnailImage?: File | null;
   labelText?: string;
   labelAltText?: string;
@@ -26,7 +27,7 @@ const ThumbnailInput: React.FC<ThumbnailInputProps> = ({
   ...props
 }) => {
   const thumbnailUrl = React.useMemo(
-    () => (thumbnailImage ? URL.createObjectURL(thumbnailImage) : ""),
+    () => (thumbnailImage ? URL.createObjectURL(thumbnailImage) : ''),
     [thumbnailImage]
   );
 
@@ -45,7 +46,7 @@ const ThumbnailInput: React.FC<ThumbnailInputProps> = ({
             width={250}
             height={250}
             style={{
-              objectFit: "cover",
+              objectFit: 'cover',
             }}
           />
           <button
@@ -60,8 +61,8 @@ const ThumbnailInput: React.FC<ThumbnailInputProps> = ({
         <div
           className={`relative flex flex-col items-center justify-center w-full h-32 px-4 transition bg-white border-2 ${
             error
-              ? "input-error"
-              : "border-gray-300 hover:border-gray-400 focus:outline-none"
+              ? 'input-error'
+              : 'border-gray-300 hover:border-gray-400 focus:outline-none'
           } border-dashed rounded-md appearance-none `}
         >
           <span className="flex items-center">

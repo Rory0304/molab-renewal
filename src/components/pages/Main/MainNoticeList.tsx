@@ -1,13 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
-import { NoticeCategory } from "src/types/notice";
-import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { molabApi } from "src/utils/supabase";
-import type {NoticeType} from 'src/types/notice';
+import React from 'react';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import Link from 'next/link';
+import { NoticeCategory } from 'src/types/notice';
+import type { NoticeType } from 'src/types/notice';
+import { molabApi } from 'src/utils/supabase';
 
 interface NoticeCardProps extends NoticeType {}
 
@@ -31,14 +32,14 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
               src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/notice_thumbnail${thumbnail}`}
               alt={`${title} 공고 썸네일`}
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           ) : null}
         </div>
         <div className="flex flex-col py-6 pl-6 pr-8 w-full md:w-[70%]">
           <span className="pb-1 marker:text-sm text-neutral-500">
-            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? "Etc"]}
+            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? 'Etc']}
           </span>
           <strong className="pb-2 text-lg">{title}</strong>
           <p className=" text-neutral-600 line-clamp-3">{content}</p>
@@ -52,15 +53,17 @@ const MainNoticeList: React.FC = () => {
   const supabaseClient = createClientComponentClient();
 
   const { data: noticeList } = useQuery({
-    queryKey: ["noticeList"],
+    queryKey: ['noticeList'],
     queryFn: async () =>
-      await molabApi.molabApiFetchAllNotice(supabaseClient)({
-        keyword: "",
-        category: "",
-        ascending: true,
-        offset: 0,
-        pageCount: 4,
-      }).then((res) => res.data),
+      await molabApi
+        .molabApiFetchAllNotice(supabaseClient)({
+          keyword: '',
+          category: '',
+          ascending: true,
+          offset: 0,
+          pageCount: 4,
+        })
+        .then(res => res.data),
   });
 
   return (

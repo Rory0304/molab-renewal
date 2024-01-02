@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { getNoticeStatus } from "src/utils/notice";
-import { NoticeStatus } from "src/types/notice";
-import { calculateDaysLeft } from "src/utils/date";
-import { NoticeCategory } from "src/types/notice";
+import React from 'react';
+
+import Image from 'next/image';
+import { NoticeStatus } from 'src/types/notice';
+import { NoticeCategory } from 'src/types/notice';
 import { NoticeType } from 'src/types/notice';
+import { calculateDaysLeft } from 'src/utils/date';
+import { getNoticeStatus } from 'src/utils/notice';
 
-type NoticeCardVaraintType = "horizontal" | "vertical";
+type NoticeCardVaraintType = 'horizontal' | 'vertical';
 
 export interface NoticeCardProps extends NoticeType {
   variant: NoticeCardVaraintType;
@@ -54,7 +55,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
     }
   };
 
-  if (variant === "horizontal") {
+  if (variant === 'horizontal') {
     return (
       <div className="flex items-center overflow-hidden bg-white shadow-lg cursor-pointer rounded-xl">
         <div className="relative pt-[30%] w-[30%]">
@@ -64,14 +65,14 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
               src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/notice_thumbnail${thumbnail}`}
               alt={`${title} 공고 썸네일`}
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           ) : null}
         </div>
         <div className="flex flex-col p-6 w-[70%]">
           <em className="text-sm not-italic color text-neutral-500">
-            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? "Etc"]}
+            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? 'Etc']}
           </em>
           <strong className="pt-1 text-lg">{title}</strong>
           <p className="pt-1 text-neutral-600 line-clamp-3">{content}</p>
@@ -80,13 +81,13 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
     );
   }
 
-  if (variant === "vertical") {
+  if (variant === 'vertical') {
     return (
       <div
         className={`h-full relative flex flex-col items-center overflow-hidden bg-white border border-gray-300 border-solid cursor-pointer rounded-xl ${
           noticeStatus === NoticeStatus.ENDED
-            ? "after:overlay after:rounded-[0.75rem]"
-            : ""
+            ? 'after:overlay after:rounded-[0.75rem]'
+            : ''
         }`}
       >
         <div className="relative w-full pt-[81%]">
@@ -96,13 +97,13 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
               fill
               src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/notice_thumbnail${thumbnail}`}
               alt={`${title} 공고 썸네일`}
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: 'cover' }}
             />
           ) : null}
         </div>
         <div className="flex flex-col w-full px-5 py-6">
           <span className="text-sm not-italic color text-neutral-500">
-            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? "Etc"]}{" "}
+            {NoticeCategory[(category as keyof typeof NoticeCategory) ?? 'Etc']}{' '}
             | {area}
           </span>
           <strong className="pt-1 text-lg line-clamp-2">{title}</strong>

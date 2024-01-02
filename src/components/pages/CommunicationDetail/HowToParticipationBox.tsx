@@ -1,5 +1,6 @@
-import React from "react";
-import type { Content } from "src/types/project";
+import React from 'react';
+
+import type { Content } from 'src/types/project';
 
 interface HowToParticipationBoxProps {
   content: Content;

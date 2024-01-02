@@ -1,38 +1,39 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import { useMedia } from "react-use";
+import React from 'react';
+import { useMedia } from 'react-use';
+
+import ExclamationCircleIcon from '@heroicons/react/24/solid/ExclamationCircleIcon';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
+  ProjectEidtorHeader,
   ProposeProjectDetailEditor,
   ProposeProjectInformationEditor,
   ProposeProjectParticipationEditor,
   ProposeProjectToc,
-  ProjectEidtorHeader,
   ProposeUnsaveModal,
-} from "src/components/pages";
-import ProjectTutorial from "src/components/pages/Project/Tutorial/ProjectTutorial";
-import { ProduceStepType } from "src/types/common";
-import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
-import { PROJETC_DETAIL_STEP } from "src/constants/projectSteps";
-import { useRouter } from "next/navigation";
+} from 'src/components/pages';
+import ProjectTutorial from 'src/components/pages/Project/Tutorial/ProjectTutorial';
+import { PROJETC_DETAIL_STEP } from 'src/constants/projectSteps';
+import { ProduceStepType } from 'src/types/common';
 
 const ProposeDetailPage = ({ params }: { params: { slug: string[] } }) => {
   const router = useRouter();
   const [projectId, currentStep, currentStepItem] = params.slug;
 
-  const isTabletOrSmaller = useMedia("(max-width: 768px)");
+  const isTabletOrSmaller = useMedia('(max-width: 768px)');
 
   const renderProposeFormSection = React.useCallback(
     (type: ProduceStepType) => {
       switch (type) {
-        case "base":
+        case 'base':
           return <ProposeProjectInformationEditor />;
 
-        case "participation":
+        case 'participation':
           return <ProposeProjectParticipationEditor />;
 
-        case "detail":
+        case 'detail':
           const step = params.slug?.[2] || PROJETC_DETAIL_STEP[0].key;
           return <ProposeProjectDetailEditor currentStep={step} />;
 

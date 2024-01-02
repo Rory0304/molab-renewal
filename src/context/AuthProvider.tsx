@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import type { User } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import React from 'react';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import type { User } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
 
 type AuthProviderProps = { children: React.ReactNode };
 
@@ -47,7 +48,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     } = await supabaseClient.auth.getSession();
 
     if (error) {
-      console.error("fail to resolve session key");
+      console.error('fail to resolve session key');
       resetUserInfo();
     }
 
@@ -56,14 +57,14 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const signOut = async () => {
-    console.log("sign out");
+    console.log('sign out');
     try {
-      await supabaseClient.auth.signOut().then((res) => {
+      await supabaseClient.auth.signOut().then(res => {
         if (res.error) {
-          throw new Error("fail to sign out");
+          throw new Error('fail to sign out');
         }
         resetUserInfo();
-        router.push("/login");
+        router.push('/login');
       });
     } catch (err) {
       console.error(err);

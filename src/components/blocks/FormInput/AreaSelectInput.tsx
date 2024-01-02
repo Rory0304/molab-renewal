@@ -1,6 +1,7 @@
-import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
-import { KOREA_ADMNISTRATIVE_DISTRICT } from "src/constants/area";
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
+
+import { KOREA_ADMNISTRATIVE_DISTRICT } from 'src/constants/area';
 
 interface AreaSelectInputProps {
   selectedSido?: string;
@@ -51,7 +52,7 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
           <label className="label">
             <span
               className={`text-lg font-bold label-text ${
-                required ? "after:required-star" : null
+                required ? 'after:required-star' : null
               }`}
             >
               시도
@@ -60,18 +61,18 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
         ) : null}
         <select
           value={selectedSido}
-          onChange={(e) =>
-            typeof onSidoChange === "function"
+          onChange={e =>
+            typeof onSidoChange === 'function'
               ? onSidoChange(e.target.value)
               : null
           }
           className={`select select-bordered ${
-            siDoError ? "select-error" : ""
+            siDoError ? 'select-error' : ''
           }`}
           {...siDoSelectInputRegister}
         >
           <option value="">시도 전체</option>
-          {sido.map((item) => (
+          {sido.map(item => (
             <option key={item} value={item}>
               {item}
             </option>
@@ -84,7 +85,7 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
           <label className="label">
             <span
               className={`text-lg font-bold label-text ${
-                required ? "after:required-star" : null
+                required ? 'after:required-star' : null
               }`}
             >
               시군구
@@ -93,18 +94,18 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
         ) : null}
         <select
           value={selectedSiGunGu}
-          onChange={(e) =>
-            typeof onSiGunGuChange === "function"
+          onChange={e =>
+            typeof onSiGunGuChange === 'function'
               ? onSiGunGuChange(e.target.value)
               : null
           }
           className={`select select-bordered ${
-            siGunGuError ? "select-error" : ""
+            siGunGuError ? 'select-error' : ''
           }`}
           {...siGunGuSelectInputRegister}
         >
           <option value="">시군구 전체</option>
-          {currentSiGunGu.map((item) => (
+          {currentSiGunGu.map(item => (
             <option key={item} value={item}>
               {item}
             </option>

@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import TextInput from "src/components/blocks/FormInput/TextInput";
-import { ApiStatus } from "src/types/common";
-import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
+import React from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-type AUTH_VIEW_TYPE = "check-email" | "sign-in" | "sign-up";
+import { ErrorMessage } from '@hookform/error-message';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
+import TextInput from 'src/components/blocks/FormInput/TextInput';
+import { ApiStatus } from 'src/types/common';
+
+type AUTH_VIEW_TYPE = 'check-email' | 'sign-in' | 'sign-up';
 
 const EMAIL_VALID_REGEX: RegExp =
   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -18,8 +19,8 @@ const LoginPage: React.FC = () => {
   const router = useRouter();
   const supabase = createClientComponentClient();
 
-  const [view, setView] = useState<AUTH_VIEW_TYPE>("sign-in");
-  const [status, setStatus] = React.useState<ApiStatus>("Idle");
+  const [view, setView] = useState<AUTH_VIEW_TYPE>('sign-in');
+  const [status, setStatus] = React.useState<ApiStatus>('Idle');
 
   const {
     formState: { errors },
@@ -30,26 +31,26 @@ const LoginPage: React.FC = () => {
   } = useForm<{
     email: string;
     password: string;
-  }>({ mode: "onChange" });
+  }>({ mode: 'onChange' });
 
-  const emailInputRegister = register("email", {
-    required: "이메일을 입력해주세요.",
+  const emailInputRegister = register('email', {
+    required: '이메일을 입력해주세요.',
     validate: {
-      validEmail: (value) =>
-        EMAIL_VALID_REGEX.test(value) || "잘못된 이메일 형식입니다.",
+      validEmail: value =>
+        EMAIL_VALID_REGEX.test(value) || '잘못된 이메일 형식입니다.',
     },
   });
 
-  const passwordInputRegister = register("password", {
-    required: "비밀번호를 입력해주세요.",
+  const passwordInputRegister = register('password', {
+    required: '비밀번호를 입력해주세요.',
     minLength: {
       value: 6,
-      message: "비밀번호는 최소 6자리 이상이어야 합니다.",
+      message: '비밀번호는 최소 6자리 이상이어야 합니다.',
     },
   });
 
-  const watchedEmail = watch("email");
-  const watchedPassword = watch("password");
+  const watchedEmail = watch('email');
+  const watchedPassword = watch('password');
 
   /**
    * 회원 가입
@@ -72,15 +73,15 @@ const LoginPage: React.FC = () => {
               emailRedirectTo: `${location.origin}/auth/callback`,
             },
           })
-          .then((res) => {
+          .then(res => {
             if (!!res.error) {
-              throw new Error("fail to signup");
+              throw new Error('fail to signup');
             } else {
-              setView("check-email");
+              setView('check-email');
             }
           });
       } catch (err) {
-        setStatus("Fail");
+        setStatus('Fail');
       }
     }
   };
@@ -98,33 +99,33 @@ const LoginPage: React.FC = () => {
 
     if (email && password) {
       try {
-        setStatus("Pending");
+        setStatus('Pending');
 
         await supabase.auth
           .signInWithPassword({
             email,
             password,
           })
-          .then((res) => {
+          .then(res => {
             if (res.data.session) {
               router.refresh();
-              router.push("/");
-              setStatus("Success");
+              router.push('/');
+              setStatus('Success');
               return;
             }
             if (!!res.error?.name) {
-              throw new Error("fail to login");
+              throw new Error('fail to login');
             }
           });
       } catch (err) {
-        setStatus("Fail");
+        setStatus('Fail');
       }
     }
   };
 
   const renderAuthAction = (view: AUTH_VIEW_TYPE, isLoading: boolean) => {
     switch (view) {
-      case "sign-in":
+      case 'sign-in':
         return (
           <div>
             <button
@@ -134,7 +135,7 @@ const LoginPage: React.FC = () => {
               {isLoading ? (
                 <span className="loading loading-spinner loading-md"></span>
               ) : (
-                "로그인"
+                '로그인'
               )}
             </button>
             <p className="text-sm text-center text-neutral-500">
@@ -144,8 +145,8 @@ const LoginPage: React.FC = () => {
                 className="ml-1 underline btn-link"
                 onClick={() => {
                   reset();
-                  setView("sign-up");
-                  setStatus("Idle");
+                  setView('sign-up');
+                  setStatus('Idle');
                 }}
               >
                 회원가입
@@ -154,7 +155,7 @@ const LoginPage: React.FC = () => {
           </div>
         );
 
-      case "sign-up":
+      case 'sign-up':
         return (
           <div>
             <button
@@ -164,7 +165,7 @@ const LoginPage: React.FC = () => {
               {isLoading ? (
                 <span className="loading loading-spinner loading-md"></span>
               ) : (
-                "회원가입"
+                '회원가입'
               )}
             </button>
             <p className="text-sm text-center text-neutral-500">
@@ -174,8 +175,8 @@ const LoginPage: React.FC = () => {
                 className="ml-1 underline btn-link"
                 onClick={() => {
                   reset();
-                  setView("sign-in");
-                  setStatus("Idle");
+                  setView('sign-in');
+                  setStatus('Idle');
                 }}
               >
                 로그인
@@ -191,7 +192,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex flex-col justify-center max-w-lg gap-2 py-16 content-layout">
-      {view === "check-email" ? (
+      {view === 'check-email' ? (
         <div>
           <p className="text-center text-neutral-400">
             <span className="font-bold text-primary">{watchedEmail}</span> 을
@@ -201,12 +202,12 @@ const LoginPage: React.FC = () => {
       ) : (
         <section>
           <h2 className="mb-8 text-4xl font-extrabold">
-            {view === "sign-in" ? "로그인" : "회원가입"}
+            {view === 'sign-in' ? '로그인' : '회원가입'}
           </h2>
           <form
             className="flex flex-col justify-center flex-1 w-full max-w-sm gap-2"
-            onSubmit={(e) =>
-              view === "sign-in"
+            onSubmit={e =>
+              view === 'sign-in'
                 ? handleSignIn(e, watchedEmail, watchedPassword)
                 : handleSignUp(e, watchedEmail, watchedPassword)
             }
@@ -249,7 +250,7 @@ const LoginPage: React.FC = () => {
                 />
               }
             />
-            {status === "Fail" ? (
+            {status === 'Fail' ? (
               <div className="pb-8">
                 <p className="text-sm text-danger">
                   아이디 또는 비밀번호를 잘못 입력했습니다.
@@ -258,7 +259,7 @@ const LoginPage: React.FC = () => {
                 </p>
               </div>
             ) : null}
-            {renderAuthAction(view, status === "Pending")}
+            {renderAuthAction(view, status === 'Pending')}
           </form>
         </section>
       )}

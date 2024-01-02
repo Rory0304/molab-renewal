@@ -1,1 +1,1 @@
-export { default as SpinnerBox } from "./SpinnerBox";
+export { default as SpinnerBox } from './SpinnerBox';

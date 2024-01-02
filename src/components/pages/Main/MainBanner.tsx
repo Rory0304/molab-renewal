@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
-import { AnimatePresence, Variants, m } from "framer-motion";
+import React from 'react';
 
-const ANIMATED_TEXT = ["우리 동네 🏘️", "우리 도시 🏙️", "우리 공동체 👩‍👩‍👦‍👦"];
+import { AnimatePresence, Variants, m } from 'framer-motion';
+
+const ANIMATED_TEXT = ['우리 동네 🏘️', '우리 도시 🏙️', '우리 공동체 👩‍👩‍👦‍👦'];
 
 const MainBanner: React.FC = () => {
   const [index, setIndex] = React.useState(0);
@@ -18,7 +19,7 @@ const MainBanner: React.FC = () => {
   }, [index, setIndex]);
 
   const variants: Variants = {
-    enter: (direction) => {
+    enter: direction => {
       return {
         y: 20,
         opacity: 0,
@@ -28,7 +29,7 @@ const MainBanner: React.FC = () => {
       y: 0,
       opacity: 1,
     },
-    exit: (direction) => {
+    exit: direction => {
       return {
         opacity: 0,
       };
@@ -48,7 +49,7 @@ const MainBanner: React.FC = () => {
             animate="center"
             exit="exit"
             transition={{
-              y: { type: "spring", stiffness: 800, damping: 200 },
+              y: { type: 'spring', stiffness: 800, damping: 200 },
               opacity: { duration: 0.2 },
             }}
             className="absolute bottom-0 left-0 mr-3 not-italic"

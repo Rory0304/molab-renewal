@@ -1,16 +1,17 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import Carousel from "src/components/blocks/Carousel/Carousel";
-import type { ProjectContent } from "src/types/project";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { molabApi } from "src/utils/supabase";
+import React from 'react';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import Link from 'next/link';
+import Carousel from 'src/components/blocks/Carousel/Carousel';
+import type { ProjectContent } from 'src/types/project';
+import { molabApi } from 'src/utils/supabase';
 
 interface MainCommunicationCardProps
-  extends Pick<ProjectContent, "title" | "siDo" | "siGunGu"> {
+  extends Pick<ProjectContent, 'title' | 'siDo' | 'siGunGu'> {
   thumbnail: string;
   link: string;
 }
@@ -31,7 +32,7 @@ const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
             src={thumbnail}
             alt={`${title} 열린 참여 썸네일`}
             style={{
-              objectFit: "cover",
+              objectFit: 'cover',
             }}
           />
         </div>
@@ -48,33 +49,33 @@ const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
 };
 
 const MainCommunicationList: React.FC = () => {
-  const supabaseClient =createClientComponentClient();
+  const supabaseClient = createClientComponentClient();
 
   const { data: communicationList } = useQuery({
-    queryKey: ["communicationList"],
+    queryKey: ['communicationList'],
     queryFn: async () =>
       await molabApi.molabApiFetchProposeList(supabaseClient)({
         offset: 0,
         pageCount: 3,
-        siDo: "",
-        siGunGu: "",
+        siDo: '',
+        siGunGu: '',
       }),
   });
 
   return (
     <div className="overflow-hidden bg-zinc-900 rounded-xl">
       <Carousel paginationVariant="slider">
-        {communicationList?.map((item) => (
+        {communicationList?.map(item => (
           <li className="w-full cursor-pointer carousel-item">
             <MainCommunicationCard
               link={`/communication/${item.uuid}`}
-              title={item.title || ""}
+              title={item.title || ''}
               thumbnail={
                 `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${item.thumbnail}` ??
-                ""
+                ''
               }
-              siDo={item.siDo ?? ""}
-              siGunGu={item.siGunGu ?? ""}
+              siDo={item.siDo ?? ''}
+              siGunGu={item.siGunGu ?? ''}
             />
           </li>
         ))}

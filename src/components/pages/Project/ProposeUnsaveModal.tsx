@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Modal } from "src/components/blocks";
-import Link from "next/link";
-import useUnsaveModal from "src/hooks/useUnsaveModal";
-import { useFormContext } from "react-hook-form";
-import type { ProjectFormValues } from "src/types/project";
-import { useSnackbar } from "notistack";
-import useUpdateProject from "src/hooks/useUpdateProject";
-import { useRouter } from "next/navigation";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSnackbar } from 'notistack';
+import { Modal } from 'src/components/blocks';
+import useUnsaveModal from 'src/hooks/useUnsaveModal';
+import useUpdateProject from 'src/hooks/useUpdateProject';
+import type { ProjectFormValues } from 'src/types/project';
 
 const ProposeUnsaveModal: React.FC = () => {
   const router = useRouter();
@@ -21,8 +22,8 @@ const ProposeUnsaveModal: React.FC = () => {
     formState: { isValid },
   } = useFormContext<ProjectFormValues>();
 
-  const projectId = getValues("payload.uuid");
-  const refetch = watch("refetch");
+  const projectId = getValues('payload.uuid');
+  const refetch = watch('refetch');
 
   const { isLoading, mutate } = useUpdateProject({
     projectId,
@@ -36,8 +37,8 @@ const ProposeUnsaveModal: React.FC = () => {
     if (!isValid) {
       trigger();
       handleModalClose();
-      enqueueSnackbar("필수 입력 항목을 다시 확인해주세요.", {
-        variant: "error",
+      enqueueSnackbar('필수 입력 항목을 다시 확인해주세요.', {
+        variant: 'error',
       });
     } else {
       mutate(watch());
@@ -87,7 +88,7 @@ const ProposeUnsaveModal: React.FC = () => {
   return (
     <Modal
       closeBtn
-      id={"project-unsave-modal"}
+      id={'project-unsave-modal'}
       open={modalState.isOpen}
       ModalHeader={modalHeader}
       ModalBody={modalBody}

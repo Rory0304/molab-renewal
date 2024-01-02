@@ -1,14 +1,16 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { getProjectStatus } from "src/utils/project";
-import { calculateDaysLeft } from "src/utils/date";
-import { ProjectStatus,Proposetype } from "src/types";
+import React from 'react';
+
+import Image from 'next/image';
+import { ProjectStatus, Proposetype } from 'src/types';
+import { calculateDaysLeft } from 'src/utils/date';
+import { getProjectStatus } from 'src/utils/project';
+
 interface InformationBoxProps
   extends Pick<
-  Proposetype,
-    "title" | "thumbnail" | "siDo" | "siGunGu" | "startDate" | "endDate"
+    Proposetype,
+    'title' | 'thumbnail' | 'siDo' | 'siGunGu' | 'startDate' | 'endDate'
   > {}
 
 const InformationBox: React.FC<InformationBoxProps> = ({
@@ -24,9 +26,9 @@ const InformationBox: React.FC<InformationBoxProps> = ({
   const renderProjectStatusBadge = (status: ProjectStatus, endDate: Date) => {
     switch (status) {
       case ProjectStatus.D_DAY:
-        return "D-DAY";
+        return 'D-DAY';
       case ProjectStatus.ENDED:
-        return "종료됨";
+        return '종료됨';
       case ProjectStatus.ONGOING:
         const daysLeft = calculateDaysLeft(endDate);
         return `${daysLeft}일 남음`;
@@ -63,7 +65,7 @@ const InformationBox: React.FC<InformationBoxProps> = ({
             fill
             alt={`${title} 썸네일`}
             src={thumbnail}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
           />
         ) : null}
       </div>

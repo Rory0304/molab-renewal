@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SnackbarProvider, closeSnackbar } from "notistack";
-import { LazyMotion, domAnimation } from "framer-motion";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LazyMotion, domAnimation } from 'framer-motion';
+import { SnackbarProvider, closeSnackbar } from 'notistack';
 
 interface AppProviderProps {
   children: React.ReactNode;
@@ -29,10 +29,10 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       <SnackbarProvider
         autoHideDuration={5000}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
+          vertical: 'bottom',
+          horizontal: 'right',
         }}
-        action={(snackbarKey) => (
+        action={snackbarKey => (
           <button
             className="btn btn-circle btn-ghost btn-sm"
             onClick={() => closeSnackbar(snackbarKey)}

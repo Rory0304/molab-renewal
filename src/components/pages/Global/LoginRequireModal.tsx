@@ -1,6 +1,7 @@
-import React from "react";
-import { Modal } from "src/components/blocks";
-import Link from "next/link";
+import React from 'react';
+
+import Link from 'next/link';
+import { Modal } from 'src/components/blocks';
 
 interface LoginRequiredModalProps {
   modalRef: React.RefObject<HTMLDialogElement>;

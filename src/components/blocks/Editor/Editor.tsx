@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import dynamic from "next/dynamic";
-import { enqueueSnackbar } from "notistack";
-import type ReactQuillType from "react-quill";
-import { editorImageHandler } from "src/utils/editor";
-import { v4 as uuidV4 } from "uuid";
+import React from 'react';
+import type ReactQuillType from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-import "react-quill/dist/quill.snow.css";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import dynamic from 'next/dynamic';
+import { enqueueSnackbar } from 'notistack';
+import { editorImageHandler } from 'src/utils/editor';
+import { v4 as uuidV4 } from 'uuid';
 
 interface IWrappedComponent
   extends React.ComponentProps<typeof ReactQuillType> {
@@ -19,12 +19,12 @@ const QUILL_MODULES = {
   toolbar: {
     container: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ list: "ordered" }, { list: "bullet" }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
       [{ color: [] }, { background: [] }],
       [{ font: [] }],
       [{ align: [] }],
-      ["bold", "italic", "underline"],
-      ["image"],
+      ['bold', 'italic', 'underline'],
+      ['image'],
     ],
     handlers: { image: {} },
   },
@@ -54,12 +54,12 @@ const Editor: React.FC<EditorProps> = ({
     () =>
       dynamic(
         async () => {
-          const { default: RQ } = await import("react-quill");
-          const { ImageResize } = await import("quill-image-resize-module-ts");
+          const { default: RQ } = await import('react-quill');
+          const { ImageResize } = await import('quill-image-resize-module-ts');
 
           // Register image resize module
           // ref: https://www.npmjs.com/package/quill-image-resize-module-react
-          RQ.Quill.register("modules/imageResize", ImageResize);
+          RQ.Quill.register('modules/imageResize', ImageResize);
 
           const QuillJS = ({ forwardedRef, ...props }: IWrappedComponent) => {
             return <RQ ref={forwardedRef} {...props} />;
@@ -82,35 +82,35 @@ const Editor: React.FC<EditorProps> = ({
 
       if (range) {
         // [TODO]: Add 'alt' property
-        editor.insertEmbed(range.index, "image", url);
+        editor.insertEmbed(range.index, 'image', url);
         editor.setSelection(range.index + 1, range.length);
       }
     }
   }, []);
 
   const editorImageErrorCallback = React.useCallback(() => {
-    enqueueSnackbar("이미지 업로드에 실패했습니다.", {
-      variant: "error",
+    enqueueSnackbar('이미지 업로드에 실패했습니다.', {
+      variant: 'error',
     });
   }, []);
 
   const configuredModules = React.useMemo(
     () => ({
       toolbar: {
-        ...QUILL_MODULES["toolbar"],
+        ...QUILL_MODULES['toolbar'],
         handlers: {
           image: () =>
             editorImageHandler({
               supabase: supabase,
               fileName: `project-image-${uuidV4()}`,
-              successCallback: (url) => editorImageSuccessCallback(url),
+              successCallback: url => editorImageSuccessCallback(url),
               errorCallback: () => editorImageErrorCallback(),
             }),
         },
       },
       // ref: https://www.npmjs.com/package/@looop/quill-image-resize-module-react
       imageResize: {
-        modules: ["Resize", "DisplaySize"],
+        modules: ['Resize', 'DisplaySize'],
       },
     }),
     []
@@ -121,7 +121,7 @@ const Editor: React.FC<EditorProps> = ({
       theme="snow"
       forwardedRef={reactQuillRef}
       value={value}
-      onChange={(value) => onChange(value)}
+      onChange={value => onChange(value)}
       modules={configuredModules}
       placeholder={placeholder}
       style={{

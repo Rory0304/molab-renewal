@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Controller, useWatch } from "react-hook-form";
-import { DatePickerInput } from "src/components/blocks";
-import { ErrorMessage } from "@hookform/error-message";
+import React from 'react';
+import { Controller, useWatch } from 'react-hook-form';
+import type { UseFormReturn } from 'react-hook-form';
 
-import type { ProjectFormValues } from "src/types/project";
-import type { UseFormReturn } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
+import { DatePickerInput } from 'src/components/blocks';
+import type { ProjectFormValues } from 'src/types/project';
 
 interface ProjectDatePickerInputProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;
@@ -15,7 +15,7 @@ interface ProjectDatePickerInputProps {
 const ProjectDatePickerInput: React.FC<ProjectDatePickerInputProps> = ({
   methods: { control },
 }) => {
-  const watchedStartDate = useWatch({ control, name: "payload.startDate" });
+  const watchedStartDate = useWatch({ control, name: 'payload.startDate' });
 
   return (
     <div>
@@ -23,7 +23,7 @@ const ProjectDatePickerInput: React.FC<ProjectDatePickerInputProps> = ({
         name="payload.startDate"
         control={control}
         rules={{
-          required: "필수 입력 항목입니다.",
+          required: '필수 입력 항목입니다.',
         }}
         render={({ field, fieldState: { error } }) => (
           <DatePickerInput
@@ -48,10 +48,10 @@ const ProjectDatePickerInput: React.FC<ProjectDatePickerInputProps> = ({
         name="payload.endDate"
         control={control}
         rules={{
-          required: "필수 입력 항목입니다.",
-          validate: (date) =>
+          required: '필수 입력 항목입니다.',
+          validate: date =>
             new Date(date).getTime() > new Date(watchedStartDate).getTime() ||
-            "종료 일자가 시작 일자보다 빠른 날짜입니다. 올바른 날짜를 선택해 주세요",
+            '종료 일자가 시작 일자보다 빠른 날짜입니다. 올바른 날짜를 선택해 주세요',
         }}
         render={({ field, fieldState: { error } }) => (
           <DatePickerInput
@@ -77,5 +77,4 @@ const ProjectDatePickerInput: React.FC<ProjectDatePickerInputProps> = ({
   );
 };
 
-export default  ProjectDatePickerInput
-
+export default ProjectDatePickerInput;

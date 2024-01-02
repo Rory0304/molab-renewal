@@ -1,17 +1,17 @@
-import React from "react";
-import { fetchNoticeById } from "src/app/api/notice";
+import React from 'react';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { fetchNoticeById } from 'src/app/api/notice';
 import {
+  NoticeDetailAsideSection,
   NoticeDetailHeaderInfoSection,
   NoticeDetailInfoSection,
-  NoticeDetailAsideSection,
-} from "src/components/pages/Notice";
-import { NoticeCategory } from "src/types/notice";
+} from 'src/components/pages/Notice';
+import type { NoticeDetailAsideSectionProps } from 'src/components/pages/Notice/NoticeDetailAsideSection';
+import { NoticeCategory } from 'src/types/notice';
+import { molabApi } from 'src/utils/supabase';
 
-import type { NoticeDetailAsideSectionProps } from "src/components/pages/Notice/NoticeDetailAsideSection";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { molabApi } from "src/utils/supabase";
-
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 const NoticeDetailPage = async ({
   params,
@@ -23,7 +23,9 @@ const NoticeDetailPage = async ({
   const supabaseClient = createClientComponentClient();
   const noticeId = params.slug;
 
-  const noticeData = await molabApi.molabApiFetchNoticeById(supabaseClient)(noticeId).then((res) => res.data);
+  const noticeData = await molabApi
+    .molabApiFetchNoticeById(supabaseClient)(noticeId)
+    .then(res => res.data);
 
   return (
     <div className="py-16 content-layout">
@@ -33,7 +35,7 @@ const NoticeDetailPage = async ({
             title={noticeData.title}
             category={
               NoticeCategory[
-                (noticeData.category as keyof typeof NoticeCategory) ?? "Etc"
+                (noticeData.category as keyof typeof NoticeCategory) ?? 'Etc'
               ]
             }
             area={noticeData.area}
@@ -49,7 +51,7 @@ const NoticeDetailPage = async ({
           endDate={noticeData.endDate}
           registration={noticeData.registration}
           contact={
-            noticeData.contact as NoticeDetailAsideSectionProps["contact"]
+            noticeData.contact as NoticeDetailAsideSectionProps['contact']
           }
         />
       </div>

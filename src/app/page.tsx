@@ -1,10 +1,10 @@
 import {
-  MainBanner,
-  MainAboutLivingLabBanner,
-  HydrateMainReviewList,
   HydrateMainNoticeList,
+  HydrateMainReviewList,
+  MainAboutLivingLabBanner,
+  MainBanner,
   MainCommunicationList,
-} from "src/components/pages";
+} from 'src/components/pages';
 
 const MainPage: React.FC = () => {
   return (

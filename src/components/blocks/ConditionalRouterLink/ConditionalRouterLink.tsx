@@ -1,8 +1,9 @@
-"use clinet";
+'use clinet';
 
-import React from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import React from 'react';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ConditionalRouterLinkProps {
   href: string;
@@ -26,7 +27,7 @@ const ConditionalRouterLink: React.FC<ConditionalRouterLinkProps> = ({
   ) => {
     e.preventDefault();
 
-    if (typeof callback === "function" && when) {
+    if (typeof callback === 'function' && when) {
       return callback();
     }
 
@@ -34,7 +35,7 @@ const ConditionalRouterLink: React.FC<ConditionalRouterLinkProps> = ({
   };
 
   return (
-    <Link href={href} onClick={(e) => handleLinkClick(e)} className={className}>
+    <Link href={href} onClick={e => handleLinkClick(e)} className={className}>
       {children}
     </Link>
   );

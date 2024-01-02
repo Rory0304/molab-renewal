@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
-import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { usePathname } from "next/navigation";
+import React from 'react';
 
-import { AuthContext } from "src/context/AuthProvider";
+import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
+import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
+import ChevronRightIcon from '@heroicons/react/24/solid/ChevronRightIcon';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { AuthContext } from 'src/context/AuthProvider';
 
 interface MobileHeaderProps {
   headerItem: { title: string; href: string }[];
@@ -45,7 +45,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => setIsDrawerOpen((current) => !current)}
+          onChange={() => setIsDrawerOpen(current => !current)}
         />
         <div className="drawer-content">
           {/* Page content here */}
@@ -74,7 +74,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
                     alt="profile image"
                     src="/default-profile-image.png"
                     style={{
-                      objectFit: "cover",
+                      objectFit: 'cover',
                     }}
                   />
                 </div>
@@ -100,7 +100,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
             )}
             <nav>
               <ul className="p-4 menu bg-base-200">
-                {headerItem.map((item) => (
+                {headerItem.map(item => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
@@ -120,7 +120,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
                 {isLoading ? (
                   <span className="loading loading-spinner loading-md"></span>
                 ) : (
-                  "제안하기"
+                  '제안하기'
                 )}
               </button>
               {authorized ? (

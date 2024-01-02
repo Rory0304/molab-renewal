@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import { useSearchParams, usePathname } from "next/navigation";
+import React from 'react';
+
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const NO_FOOTER_PAGE_PATHNAME_REGEX_LIST = [
   /^\/project.*/,
@@ -14,7 +15,7 @@ const GlobalFooter: React.FC = () => {
   const searchParams = useSearchParams();
 
   const hasFooter = NO_FOOTER_PAGE_PATHNAME_REGEX_LIST.every(
-    (regex) => !regex.test(`${pathname}?${searchParams}`)
+    regex => !regex.test(`${pathname}?${searchParams}`)
   );
 
   if (!hasFooter) return null;

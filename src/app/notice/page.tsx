@@ -1,5 +1,6 @@
-import React from "react";
-import { NoticeBanner, NoticeSearchArea } from "src/components/pages/Notice";
+import React from 'react';
+
+import { NoticeBanner, NoticeSearchArea } from 'src/components/pages/Notice';
 
 const NoticePage = () => {
   return (

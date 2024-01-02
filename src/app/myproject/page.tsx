@@ -1,10 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-
-import { MyProposeList } from "src/components/pages/MyProject";
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { MyProposeList } from 'src/components/pages/MyProject';
 
 const MyProjectPage: React.FC = async () => {
   const cookieStore = cookies();
@@ -17,7 +16,7 @@ const MyProjectPage: React.FC = async () => {
   if (!session) {
     // This route can only be accessed by authenticated users.
     // Unauthenticated users will be redirected to the `/login` route.
-    redirect("/login");
+    redirect('/login');
   }
 
   return (

@@ -1,10 +1,11 @@
-"use client";
-import { atom } from "recoil";
+'use client';
+
+import { atom } from 'recoil';
 
 export const UnsaveModalState = atom({
-  key: "UnsaveModalState",
+  key: 'UnsaveModalState',
   default: {
-    link: "/myproject",
+    link: '/myproject',
     isOpen: false,
   },
 });

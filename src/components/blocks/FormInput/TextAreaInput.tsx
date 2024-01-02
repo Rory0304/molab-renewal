@@ -1,10 +1,11 @@
-"use client";
-import React, { TextareaHTMLAttributes } from "react";
+'use client';
+
+import React, { TextareaHTMLAttributes } from 'react';
 
 interface TextAreaInputProps
   extends Pick<
     TextareaHTMLAttributes<HTMLTextAreaElement>,
-    "onChange" | "name" | "value" | "maxLength"
+    'onChange' | 'name' | 'value' | 'maxLength'
   > {
   placeholder: string;
   label?: string;
@@ -33,7 +34,7 @@ const TextAreaInput = React.forwardRef(
           {label ? (
             <span
               className={`text-lg font-bold label-text ${
-                required ? "after:required-star" : ""
+                required ? 'after:required-star' : ''
               }`}
             >
               {label}
@@ -45,7 +46,7 @@ const TextAreaInput = React.forwardRef(
         </label>
         <textarea
           className={`textarea textarea-bordered h-24 ${
-            error ? "input-error" : ""
+            error ? 'input-error' : ''
           }`}
           placeholder={placeholder}
           ref={ref}
@@ -57,6 +58,6 @@ const TextAreaInput = React.forwardRef(
   }
 );
 
-TextAreaInput.displayName = "TextAreaInput";
+TextAreaInput.displayName = 'TextAreaInput';
 
 export default TextAreaInput;

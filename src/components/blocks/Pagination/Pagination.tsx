@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 interface PaginationProps {
   page: number;
@@ -16,7 +16,7 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
 }) => {
   const totalPages = Math.ceil(total / count);
-  
+
   let startPage = Math.max(1, page - Math.floor(visiblePages / 2));
   let endPage = Math.min(startPage + visiblePages - 1, totalPages);
 
@@ -45,13 +45,13 @@ const Pagination: React.FC<PaginationProps> = ({
             이전
           </button>
         </li>
-        {pageRange.map((pageNumber) => (
+        {pageRange.map(pageNumber => (
           <li key={`page-${pageNumber}`}>
             <button
               className={`btn px-4 py-2 rounded-md ${
                 page === pageNumber
-                  ? "btn-primary text-white"
-                  : "bg-gray-200 text-gray-600"
+                  ? 'btn-primary text-white'
+                  : 'bg-gray-200 text-gray-600'
               }`}
               onClick={() => onPageChange(pageNumber)}
             >

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import React from 'react';
 
-import { AuthContext } from "src/context/AuthProvider";
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { AuthContext } from 'src/context/AuthProvider';
 
 interface DesktopHeaderProps {
   headerItem: { title: string; href: string }[];
@@ -38,7 +38,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       </div>
       <nav>
         <ul className="flex">
-          {headerItem.map((item) => (
+          {headerItem.map(item => (
             <li key={item.href}>
               <Link
                 href={item.href}
@@ -58,7 +58,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           {isLoading ? (
             <span className="loading loading-spinner loading-sm"></span>
           ) : (
-            "제안하기"
+            '제안하기'
           )}
         </button>
         {authorized ? (
@@ -68,7 +68,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
               aria-label="my profile dropdown"
               className="cursor-pointer dropdown avatar"
               onClick={() => setOpenProfileDropdown(!openProfileDropdown)}
-              onBlur={(e) => {
+              onBlur={e => {
                 if (!e.relatedTarget) {
                   setOpenProfileDropdown(false);
                 }
@@ -80,7 +80,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                   alt="profile image"
                   src="/default-profile-image.png"
                   style={{
-                    objectFit: "cover",
+                    objectFit: 'cover',
                   }}
                 />
               </div>
@@ -101,7 +101,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                       type="button"
                       className="text-gray-700"
                       onClick={() => {
-                        console.log("sign out");
+                        console.log('sign out');
                         signOut();
                       }}
                     >

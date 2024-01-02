@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import type {Proposetype} from 'src/types/project'
-import { ProjectCard } from "src/components/blocks";
+import React from 'react';
+
+import { ProjectCard } from 'src/components/blocks';
+import type { Proposetype } from 'src/types/project';
 
 interface CommunicationListProps {
   communicationList: Proposetype[];
@@ -17,15 +18,15 @@ const CommunicationList: React.FC<CommunicationListProps> = ({
         <li key={`communication-list-${index}`}>
           <ProjectCard
             link={`/communication/${data.uuid}`}
-            title={data.title || "무제"}
+            title={data.title || '무제'}
             thumbnail={
               `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${data.thumbnail}` ??
-              ""
+              ''
             }
-            startDate={data.startDate ?? ""}
-            endDate={data.endDate ?? ""}
-            siDo={data.siDo ?? ""}
-            siGunGu={data.siGunGu ?? ""}
+            startDate={data.startDate ?? ''}
+            endDate={data.endDate ?? ''}
+            siDo={data.siDo ?? ''}
+            siGunGu={data.siGunGu ?? ''}
           />
         </li>
       ))}

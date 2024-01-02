@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useIntersection, useUpdateEffect } from "react-use";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import React from 'react';
+import { useIntersection, useUpdateEffect } from 'react-use';
+import { useDebounce } from 'react-use';
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import {
-  NoticeCategory,
-  NoticeSort,
-  SortOptionType,
-  NoticeCategoryKeyType,
-} from "src/types/notice";
+import BoltIcon from '@heroicons/react/20/solid/BoltIcon';
+import GlobeAsiaAustraliaIcon from '@heroicons/react/20/solid/GlobeAsiaAustraliaIcon';
+import TruckIcon from '@heroicons/react/20/solid/TruckIcon';
+import UserGroupIcon from '@heroicons/react/20/solid/UserGroupIcon';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { fetchAllNotice } from 'src/app/api/notice';
 import {
   DeferredLoading,
-  LoadingNoticeCard,
   ErrorBox,
-} from "src/components/blocks";
-import { useDebounce } from "react-use";
-import { fetchAllNotice } from "src/app/api/notice";
-import NoticeList from "./NoticeList";
+  LoadingNoticeCard,
+} from 'src/components/blocks';
+import {
+  NoticeCategory,
+  NoticeCategoryKeyType,
+  NoticeSort,
+  SortOptionType,
+} from 'src/types/notice';
+import { molabApi } from 'src/utils/supabase';
 
-import TruckIcon from "@heroicons/react/20/solid/TruckIcon";
-import BoltIcon from "@heroicons/react/20/solid/BoltIcon";
-import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
-import GlobeAsiaAustraliaIcon from "@heroicons/react/20/solid/GlobeAsiaAustraliaIcon";
-import { molabApi } from "src/utils/supabase";
+import NoticeList from './NoticeList';
 
 const COUNT_PER_NOTICE = 8;
 
@@ -41,24 +41,23 @@ const NOTICE_CATEGORY_ICON: Record<
 };
 
 const NoticeSearchArea: React.FC = () => {
-
-  const supabaseClient =createClientComponentClient();
+  const supabaseClient = createClientComponentClient();
   const lastNoticeItemRef = React.useRef<HTMLDivElement>(null);
 
   // Search State (keyword, category, sort)
-  const [searchKeyword, setSearchKeyword] = React.useState("");
-  const [selectedCategory, setSelectedCategory] = React.useState("All");
+  const [searchKeyword, setSearchKeyword] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState('All');
   const [selectedSortOption, setSelectedSortOption] =
-    React.useState<SortOptionType>("desc");
+    React.useState<SortOptionType>('desc');
   const [debouncedSearchKeyword, setDebouncedSearchKeyword] =
-    React.useState("");
+    React.useState('');
 
   //
   // Check if communication list fully intersected
   //
   const lastNoticeItemObserver = useIntersection(lastNoticeItemRef, {
     root: null,
-    rootMargin: "0px",
+    rootMargin: '0px',
     threshold: 0.8,
   });
 
@@ -81,7 +80,7 @@ const NoticeSearchArea: React.FC = () => {
     refetch,
   } = useInfiniteQuery(
     [
-      "fetch-notice-list",
+      'fetch-notice-list',
       debouncedSearchKeyword,
       selectedCategory,
       selectedSortOption,
@@ -89,8 +88,8 @@ const NoticeSearchArea: React.FC = () => {
     async ({ pageParam = 0 }) =>
       await molabApi.molabApiFetchAllNotice(supabaseClient)({
         keyword: debouncedSearchKeyword,
-        category: selectedCategory === "All" ? "" : selectedCategory,
-        ascending: selectedSortOption === "asc",
+        category: selectedCategory === 'All' ? '' : selectedCategory,
+        ascending: selectedSortOption === 'asc',
         offset: pageParam,
         pageCount: COUNT_PER_NOTICE,
       }),
@@ -100,8 +99,8 @@ const NoticeSearchArea: React.FC = () => {
         const offset = list.length * COUNT_PER_NOTICE;
         return lastPage.data.length === 0 ? undefined : offset;
       },
-      select: (data) => ({
-        pages: data?.pages.flatMap((page) => page.data),
+      select: data => ({
+        pages: data?.pages.flatMap(page => page.data),
         pageParams: data.pageParams,
       }),
     }
@@ -124,20 +123,20 @@ const NoticeSearchArea: React.FC = () => {
             type="text"
             placeholder="주변 지역을 검색해보세요"
             className="w-full input input-bordered"
-            onChange={(e) => setSearchKeyword(e.target.value)}
+            onChange={e => setSearchKeyword(e.target.value)}
           />
         </div>
         <div className="flex justify-center w-full">
           <ul className="overflow-scroll join gap-x-3 scrollbar-hide">
-            {Object.keys(NoticeCategory).map((category) => {
+            {Object.keys(NoticeCategory).map(category => {
               return (
                 <li key={category} className="grow-0 shrink-0">
                   <button
                     type="button"
                     className={`btn btn-outline ${
                       category === selectedCategory
-                        ? "btn-active"
-                        : "btn-neutral"
+                        ? 'btn-active'
+                        : 'btn-neutral'
                     } rounded-[30px] min-w-[85px] flex`}
                     onClick={() => setSelectedCategory(category)}
                   >
@@ -161,13 +160,13 @@ const NoticeSearchArea: React.FC = () => {
       {/* NOTICE FILTER OPTIONS */}
       <div className="py-8">
         <ul className="justify-end w-full join gap-x-4">
-          {Object.keys(NoticeSort).map((sort) => (
+          {Object.keys(NoticeSort).map(sort => (
             <li key={sort}>
               <button
                 className={`before:small-circle before:mt-[0.52em] before:mr-[0.62em] before:w-2 before:h-2 ${
                   selectedSortOption === sort
-                    ? "text-primary before:bg-primary"
-                    : "text-gray-800 before:bg-gray-800"
+                    ? 'text-primary before:bg-primary'
+                    : 'text-gray-800 before:bg-gray-800'
                 }`}
                 onClick={() => setSelectedSortOption(sort as SortOptionType)}
               >

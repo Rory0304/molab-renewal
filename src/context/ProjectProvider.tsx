@@ -1,19 +1,20 @@
-"use client";
+'use client';
 
-import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
-import { useAuth } from "src/context/AuthProvider";
-import { convertImageUrltoFile } from "src/utils/file";
-import { fetchProposeById } from "src/app/api/propose";
-import type { ProjectFormValues } from "src/types";
-import { PROJECT_FORM_DEFAULT_VALUES } from "src/constants/projectFormDefaultValues";
-import { useBeforeUnload } from "react-use";
-import { enqueueSnackbar } from "notistack";
-import { RecoilRoot } from "recoil";
-import { molabApi } from "src/utils/supabase";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useBeforeUnload } from 'react-use';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useQuery } from '@tanstack/react-query';
+import { useParams, useRouter } from 'next/navigation';
+import { enqueueSnackbar } from 'notistack';
+import { RecoilRoot } from 'recoil';
+import { fetchProposeById } from 'src/app/api/propose';
+import { PROJECT_FORM_DEFAULT_VALUES } from 'src/constants/projectFormDefaultValues';
+import { useAuth } from 'src/context/AuthProvider';
+import type { ProjectFormValues } from 'src/types';
+import { convertImageUrltoFile } from 'src/utils/file';
+import { molabApi } from 'src/utils/supabase';
 
 interface ProjectProviderProps {
   children: React.ReactNode;
@@ -26,21 +27,22 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
 
   const { userInfo } = useAuth();
 
-  const projectId = params["slug"][0];
+  const projectId = params['slug'][0];
 
   //
   //
   //
   const { data, isFetching, refetch } = useQuery(
-    ["project", projectId, userInfo],
+    ['project', projectId, userInfo],
     async () => {
-      return await molabApi.molabApiFetchProposeById(supabaseClient)(projectId)
-        .then((res) => res.data)
-        .catch((err) => {
-          enqueueSnackbar("프로젝트를 불러올 수 없습니다", {
-            variant: "error",
+      return await molabApi
+        .molabApiFetchProposeById(supabaseClient)(projectId)
+        .then(res => res.data)
+        .catch(err => {
+          enqueueSnackbar('프로젝트를 불러올 수 없습니다', {
+            variant: 'error',
           });
-          router.push("/myproject");
+          router.push('/myproject');
 
           throw new Error();
         });
@@ -55,7 +57,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   //
   //
   const methods = useForm<ProjectFormValues>({
-    mode: "all",
+    mode: 'all',
     defaultValues: {
       payload: PROJECT_FORM_DEFAULT_VALUES.payload,
       isFetching: false,
@@ -69,7 +71,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   //
   useBeforeUnload(
     methods.formState.isDirty,
-    "You have unsaved changes, are you sure?"
+    'You have unsaved changes, are you sure?'
   );
 
   //
@@ -84,7 +86,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
         if (data.thumbnail) {
           await convertImageUrltoFile(
             `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${data.thumbnail}`
-          ).then((res) => {
+          ).then(res => {
             if (res) {
               thumbnailFileList.items.add(res);
             }
@@ -123,7 +125,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   }, [data]);
 
   React.useEffect(() => {
-    methods.setValue("isFetching", isFetching, { shouldDirty: true });
+    methods.setValue('isFetching', isFetching, { shouldDirty: true });
   }, [isFetching]);
 
   return (

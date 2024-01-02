@@ -1,1 +1,1 @@
-export { default as MyProposeList } from "./MyProposeList";
+export { default as MyProposeList } from './MyProposeList';

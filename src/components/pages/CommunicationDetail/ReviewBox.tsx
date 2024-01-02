@@ -1,22 +1,23 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { useQuery } from "@tanstack/react-query";
-import { ReviewType } from "src/app/api/review";
-import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import SpinnerBox from "src/components/blocks/SpinnerBox/SpinnerBox";
-import { ErrorBox } from "src/components/blocks";
-import { checkIsDatePast } from "src/utils/date";
-import { molabApi } from "src/utils/supabase";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useAuth } from "src/context/AuthProvider";
+import React from 'react';
+
+import InformationCircleIcon from '@heroicons/react/24/solid/InformationCircleIcon';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useQuery } from '@tanstack/react-query';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { ReviewType } from 'src/app/api/review';
+import { ErrorBox } from 'src/components/blocks';
+import SpinnerBox from 'src/components/blocks/SpinnerBox/SpinnerBox';
+import { useAuth } from 'src/context/AuthProvider';
+import { checkIsDatePast } from 'src/utils/date';
+import { molabApi } from 'src/utils/supabase';
 
 const DynamicCommunicationDetailReviewSubmitModal = dynamic(
   () =>
     import(
-      "src/components/pages/CommunicationDetail/CommunicationDetailReviewSubmitModal"
+      'src/components/pages/CommunicationDetail/CommunicationDetailReviewSubmitModal'
     )
 );
 
@@ -52,13 +53,13 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   const reviewSubmitModalRef = React.useRef<HTMLDialogElement>(null);
   const loginRequiredModalRef = React.useRef<HTMLDialogElement>(null);
 
-  const [selectedReviewId, setSelectedReviewId] = React.useState("");
+  const [selectedReviewId, setSelectedReviewId] = React.useState('');
 
   //
   //
   //
   const { data, isSuccess, isError, isFetching, refetch } = useQuery(
-    ["review", projectId],
+    ['review', projectId],
     async () =>
       await molabApi.molabApiFetchReviewList(supabaseClient)({
         select: `thumbnail, uuid`,
@@ -106,13 +107,13 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
 
     return reviewList && reviewList?.length > 0 ? (
       <div className="grid w-full grid-cols-4">
-        {reviewList.map((item) =>
+        {reviewList.map(item =>
           item.thumbnail ? (
             <div
               key={item.uuid}
               className="relative cursor-pointer pt-[100%] bg-gray-200"
               onClick={() => {
-                setSelectedReviewId(item?.uuid ?? "");
+                setSelectedReviewId(item?.uuid ?? '');
                 reviewModalRef?.current?.showModal();
               }}
             >
@@ -121,7 +122,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/review_thumbnail/${item.thumbnail}`}
                 alt={`참여 인증-사진`}
                 style={{
-                  objectFit: "cover",
+                  objectFit: 'cover',
                 }}
               />
             </div>

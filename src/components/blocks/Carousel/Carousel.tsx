@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-type PaginationVariantType = "slider" | "number";
+type PaginationVariantType = 'slider' | 'number';
 
 interface CarouselProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({
   children,
-  paginationVariant = "number",
+  paginationVariant = 'number',
 }) => {
   const [activeItemIdx, setActiveItemIdx] = React.useState(0);
   const carouselRef = React.useRef<HTMLUListElement>(null);
@@ -33,11 +33,11 @@ const Carousel: React.FC<CarouselProps> = ({
     };
 
     if (carouselRef.current) {
-      carouselRef.current.addEventListener("scrollend", checkActiveItem);
+      carouselRef.current.addEventListener('scrollend', checkActiveItem);
     }
 
     return () =>
-      carouselRef.current?.removeEventListener("scrollend", checkActiveItem);
+      carouselRef.current?.removeEventListener('scrollend', checkActiveItem);
   }, [carouselRef]);
 
   //
@@ -59,7 +59,7 @@ const Carousel: React.FC<CarouselProps> = ({
     paginationVariant: PaginationVariantType
   ) => {
     switch (paginationVariant) {
-      case "number":
+      case 'number':
         return (
           <div className="flex justify-center w-full gap-2 pt-5">
             {items.map((_, index) => (
@@ -67,7 +67,7 @@ const Carousel: React.FC<CarouselProps> = ({
                 key={`#review-${index}`}
                 aria-label={`슬라이드 ${index + 1}번째로 이동`}
                 className={`btn btn-xs ${
-                  index === activeItemIdx ? "btn-active" : ""
+                  index === activeItemIdx ? 'btn-active' : ''
                 }`}
                 onClick={() => handleCarouselButtonClick(index)}
               >
@@ -77,7 +77,7 @@ const Carousel: React.FC<CarouselProps> = ({
           </div>
         );
 
-      case "slider":
+      case 'slider':
         return (
           <div className="flex justify-center absolute w-fit bottom-[40px] right-[40px]">
             {items.map((_, index) => (
@@ -85,7 +85,7 @@ const Carousel: React.FC<CarouselProps> = ({
                 key={`#review-${index}`}
                 aria-label={`슬라이드 ${index + 1}번째로 이동`}
                 className={`btn carousel-slider-control  ${
-                  index === activeItemIdx ? "opacity-100	" : "opacity-30	"
+                  index === activeItemIdx ? 'opacity-100	' : 'opacity-30	'
                 }`}
                 onClick={() => handleCarouselButtonClick(index)}
               />

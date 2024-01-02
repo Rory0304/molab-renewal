@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import React from "react";
-import { UnsaveModalState } from "src/store/UnsaveModal/atom";
-import { useRecoilState } from "recoil";
+import React from 'react';
+
+import { useRecoilState } from 'recoil';
+import { UnsaveModalState } from 'src/store/UnsaveModal/atom';
 
 const useUnsaveModal = () => {
   const [modalState, setModalState] = useRecoilState(UnsaveModalState);
 
   const handleModalClose = React.useCallback(
     () =>
-      setModalState((current) => ({
+      setModalState(current => ({
         ...current,
         isOpen: false,
       })),
@@ -20,7 +21,7 @@ const useUnsaveModal = () => {
     (link?: string) =>
       setModalState({
         isOpen: true,
-        link: link || "/myproject",
+        link: link || '/myproject',
       }),
     []
   );

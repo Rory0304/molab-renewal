@@ -1,28 +1,28 @@
-import { ProjectFormValues, ProjectStatus } from "src/types/project";
+import { ProjectFormValues, ProjectStatus } from 'src/types/project';
 
 export const PROJECT_FORM_DEFAULT_VALUES: ProjectFormValues = {
   payload: {
-    uuid: "",
-    title: "무제",
+    uuid: '',
+    title: '무제',
     thumbnail: null,
-    siDo: "",
-    siGunGu: "",
+    siDo: '',
+    siGunGu: '',
     projectStatus: ProjectStatus.ONGOING,
     isOpen: false,
-    startDate: "",
-    endDate: "",
+    startDate: '',
+    endDate: '',
     howTo: {
-      content: "",
+      content: '',
     },
     stepDetail: {
       definition: {
-        content: "",
+        content: '',
       },
       preparation: {
-        content: "",
+        content: '',
       },
-      execution: { content: "" },
-      completion: { content: "" },
+      execution: { content: '' },
+      completion: { content: '' },
     },
   },
 };

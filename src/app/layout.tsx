@@ -1,7 +1,8 @@
-import "../constants/styles/global.css";
-import { GlobalFooter, GlobalMain, GlobalHeader } from "src/components/blocks";
-import { AuthProvider } from "src/context/AuthProvider";
-import AppProvider from "src/context/AppProvider";
+import { GlobalFooter, GlobalHeader, GlobalMain } from 'src/components/blocks';
+import AppProvider from 'src/context/AppProvider';
+import { AuthProvider } from 'src/context/AuthProvider';
+
+import '../constants/styles/global.css';
 
 export default function RootLayout({
   children,

@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
+
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import {
-  CommunicationDetailInformationBox,
   CommunicationDetailHowToParticipationBox,
+  CommunicationDetailInformationBox,
   CommunicationDetailProjectStepsBox,
   CommunicationDetailReviewBox,
-} from "src/components/pages";
+} from 'src/components/pages';
+import { ProjectContent } from 'src/types';
+import { molabApi } from 'src/utils/supabase';
 
-import { ProjectContent } from "src/types";
-import { molabApi } from "src/utils/supabase";
-import {  createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from 'next/headers'
-
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 const CommunicationDetailPage = async ({
   params,
@@ -20,13 +20,17 @@ const CommunicationDetailPage = async ({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const cookieStore = cookies()
-  const supabaeClient = createServerComponentClient({ cookies: () => cookieStore });
+  const cookieStore = cookies();
+  const supabaeClient = createServerComponentClient({
+    cookies: () => cookieStore,
+  });
 
   const projectId = params.slug;
-  const isPreview = searchParams?.["preview"] === "Y" ? true : false;
+  const isPreview = searchParams?.['preview'] === 'Y' ? true : false;
 
-  const projectData = await molabApi.molabApiFetchProposeById(supabaeClient)(projectId).then((res) => res.data);
+  const projectData = await molabApi
+    .molabApiFetchProposeById(supabaeClient)(projectId)
+    .then(res => res.data);
 
   return (
     <div className="relative w-full pb-16">
@@ -58,7 +62,7 @@ const CommunicationDetailPage = async ({
               title={projectData.title}
               thumbnail={
                 `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${projectData.thumbnail}` ??
-                ""
+                ''
               }
               siDo={projectData.siDo}
               siGunGu={projectData.siGunGu}
@@ -67,16 +71,16 @@ const CommunicationDetailPage = async ({
             />
             <CommunicationDetailHowToParticipationBox
               content={
-                (projectData.howTo as ProjectContent["howTo"])?.content ?? ""
+                (projectData.howTo as ProjectContent['howTo'])?.content ?? ''
               }
             />
             <CommunicationDetailProjectStepsBox
-              content={projectData.stepDetail as ProjectContent["stepDetail"]}
+              content={projectData.stepDetail as ProjectContent['stepDetail']}
             />
           </div>
           <div className="w-full md:w-[30%]">
             <CommunicationDetailReviewBox
-              endDate={projectData.endDate ?? ""}
+              endDate={projectData.endDate ?? ''}
               projectId={projectData.uuid}
               preview={isPreview}
             />

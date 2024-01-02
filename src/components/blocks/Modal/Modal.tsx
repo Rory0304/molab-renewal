@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { isBrowser } from "src/utils/browser";
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import { isBrowser } from 'src/utils/browser';
 
 interface ModalProps {
   open?: boolean;
@@ -45,13 +46,13 @@ const Modal = React.forwardRef(
       <dialog
         ref={ref}
         id={id}
-        className={`modal ${modalStyles ?? ""}`}
+        className={`modal ${modalStyles ?? ''}`}
         open={open}
       >
         <form
           id={formId}
           method="dialog"
-          className={`modal-box ${modalBoxStyles ?? ""}`}
+          className={`modal-box ${modalBoxStyles ?? ''}`}
         >
           {ModalHeader ? ModalHeader : null}
           {ModalBody ? ModalBody : null}
@@ -73,5 +74,5 @@ const Modal = React.forwardRef(
   }
 );
 
-Modal.displayName = "Modal";
+Modal.displayName = 'Modal';
 export default Modal;

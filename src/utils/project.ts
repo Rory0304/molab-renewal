@@ -1,5 +1,6 @@
-import { ProjectStatus } from "src/types/project";
-import { checkIsDatePast, calculateDaysLeft } from "./date";
+import { ProjectStatus } from 'src/types/project';
+
+import { calculateDaysLeft, checkIsDatePast } from './date';
 
 export const getProjectStatus = (date: Date) => {
   const isEnded = checkIsDatePast(date);

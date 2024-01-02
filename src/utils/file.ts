@@ -1,4 +1,4 @@
-import { getServerSupabase } from "src/utils/supabase";
+import { getServerSupabase } from 'src/utils/supabase';
 
 const supabase = getServerSupabase();
 
@@ -31,7 +31,7 @@ export const downloadFile = async (from: string, url: string) => {
   const { data, error } = await supabase.storage.from(from).download(url);
 
   if (error) {
-    throw new Error("fail to download file");
+    throw new Error('fail to download file');
   }
 
   return data;

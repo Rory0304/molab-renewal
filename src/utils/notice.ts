@@ -1,6 +1,6 @@
-import { NoticeStatus } from "src/types/notice";
+import { NoticeStatus } from 'src/types/notice';
 
-import { checkIsDatePast, calculateDaysLeft } from "./date";
+import { calculateDaysLeft, checkIsDatePast } from './date';
 
 export const getNoticeStatus = (date: Date) => {
   const isEnded = checkIsDatePast(date);

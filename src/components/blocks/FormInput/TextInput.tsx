@@ -1,10 +1,11 @@
-"use client";
-import React from "react";
+'use client';
+
+import React from 'react';
 
 interface TextInputProps
   extends Pick<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "type" | "name" | "value" | "className"
+    'onChange' | 'type' | 'name' | 'value' | 'className'
   > {
   label: string;
   placeholder: string;
@@ -33,7 +34,7 @@ const TextInput = React.forwardRef(
         <label className="label">
           <span
             className={`text-lg font-bold label-text ${
-              required ? "after:required-star" : ""
+              required ? 'after:required-star' : ''
             }`}
           >
             {label}
@@ -44,7 +45,7 @@ const TextInput = React.forwardRef(
         </label>
         <input
           className={`${className} w-full input input-bordered ${
-            error ? "input-error" : ""
+            error ? 'input-error' : ''
           }`}
           placeholder={placeholder}
           ref={ref}
@@ -56,6 +57,6 @@ const TextInput = React.forwardRef(
   }
 );
 
-TextInput.displayName = "TextInput";
+TextInput.displayName = 'TextInput';
 
 export default TextInput;

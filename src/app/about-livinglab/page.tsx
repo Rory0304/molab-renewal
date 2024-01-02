@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 import {
-  WhatIsLivingLabSection,
-  LivingLabExampleSection,
   FutureOfLivingLabBanner,
-} from "src/components/pages/AboutLivingLab";
+  LivingLabExampleSection,
+  WhatIsLivingLabSection,
+} from 'src/components/pages/AboutLivingLab';
 
 const AboutLivingLabPage: React.FC = () => {
   return (

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Controller } from "react-hook-form";
-import { TextInput } from "src/components/blocks";
-import { ErrorMessage } from "@hookform/error-message";
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import type { UseFormReturn } from 'react-hook-form';
 
-import type { ProjectFormValues } from "src/types/project";
-import type { UseFormReturn } from "react-hook-form";
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from "src/constants/proposeTutorial";
+import { ErrorMessage } from '@hookform/error-message';
+import { TextInput } from 'src/components/blocks';
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
+import type { ProjectFormValues } from 'src/types/project';
 
 const PROJECT_TITLE_MAX_LENGTH = 200;
 
@@ -23,10 +23,10 @@ const ProjectTitleInput: React.FC<ProjectTitleInputProps> = ({
       control={control}
       name="payload.title"
       rules={{
-        required: "필수 입력 항목입니다.",
+        required: '필수 입력 항목입니다.',
         maxLength: {
           value: PROJECT_TITLE_MAX_LENGTH,
-          message: "200자 이하로 작성해주세요.",
+          message: '200자 이하로 작성해주세요.',
         },
       }}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
@@ -34,8 +34,8 @@ const ProjectTitleInput: React.FC<ProjectTitleInputProps> = ({
           className={PROPOSE_TUTORIAL_STEPS_SELECTORS[0]}
           value={value}
           onChange={onChange}
-          placeholder={"제목을 입력하세요"}
-          label={"프로젝트 제목"}
+          placeholder={'제목을 입력하세요'}
+          label={'프로젝트 제목'}
           labelTextAlt={`${value.length}/${PROJECT_TITLE_MAX_LENGTH}자`}
           error={Boolean(error?.message)}
           ErrorMessage={

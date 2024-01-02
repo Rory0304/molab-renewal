@@ -1,27 +1,26 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import React from 'react';
+
+import TrashIcon from '@heroicons/react/20/solid/TrashIcon';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import Link from 'next/link';
+import { enqueueSnackbar } from 'notistack';
 import {
+  DeferredLoading,
+  ErrorBox,
+  Modal,
   Pagination,
   SpinnerBox,
-  DeferredLoading,
-  Modal,
-  ErrorBox,
-} from "src/components/blocks";
-import { useAuth } from "src/context/AuthProvider";
-import Image from "next/image";
-import Link from "next/link";
-
-import type { Row } from "src/types/supabase";
-import { EyeSlashIcon, EyeIcon } from "src/components/icons";
-import { enqueueSnackbar } from "notistack";
-
-import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
-import { isBrowser } from "src/utils/browser";
-import { molabApi } from "src/utils/supabase";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import {Proposetype} from 'src/types/project';
+} from 'src/components/blocks';
+import { EyeIcon, EyeSlashIcon } from 'src/components/icons';
+import { useAuth } from 'src/context/AuthProvider';
+import { Proposetype } from 'src/types/project';
+import type { Row } from 'src/types/supabase';
+import { isBrowser } from 'src/utils/browser';
+import { molabApi } from 'src/utils/supabase';
 
 const COUNT_PER_PROPOSE = 8;
 
@@ -54,7 +53,7 @@ const MyProposeCard: React.FC<MyProposeCardProps> = ({
               src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${thumbnail}`}
               alt={`${title} 의 썸네일`}
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           ) : (
@@ -66,7 +65,7 @@ const MyProposeCard: React.FC<MyProposeCardProps> = ({
         <div className="flex flex-col justify-between p-4 h-[calc(100% - 225px)]">
           <div>
             <h4 className="order-2 mb-2 text-lg font-bold line-clamp-2">
-              {title || "무제"}
+              {title || '무제'}
             </h4>
             <p className="order-1 mb-6">
               {isOpen ? (
@@ -97,24 +96,26 @@ const MyProposeCard: React.FC<MyProposeCardProps> = ({
 const MyProposeList: React.FC = () => {
   const supabaseClient = createClientComponentClient();
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
-  const selectedProjectId = React.useRef<string>("");
+  const selectedProjectId = React.useRef<string>('');
 
   const { userInfo } = useAuth();
 
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * COUNT_PER_PROPOSE;
-  
+
   const { isError, data, refetch, isInitialLoading } = useQuery(
-    ["fetch-my-propose-list", offset, userInfo],
+    ['fetch-my-propose-list', offset, userInfo],
     async () =>
-      await molabApi.molabApiFetchMyProposeList(supabaseClient)(
-        userInfo?.id ?? "",
-        offset,
-        COUNT_PER_PROPOSE
-      ).then((res) => ({
-        proposeList: res?.data,
-        count: res?.count,
-      })),
+      await molabApi
+        .molabApiFetchMyProposeList(supabaseClient)(
+          userInfo?.id ?? '',
+          offset,
+          COUNT_PER_PROPOSE
+        )
+        .then(res => ({
+          proposeList: res?.data,
+          count: res?.count,
+        })),
     {
       keepPreviousData: true,
     }
@@ -127,25 +128,23 @@ const MyProposeList: React.FC = () => {
     if (isBrowser) window.scrollTo(0, 0);
   }, [page]);
 
-
   //
   //
   //
   const handleDeleteProject = async (uuid: string) => {
     try {
       await molabApi.molabApiDeleteProposeById(supabaseClient)(uuid);
-      enqueueSnackbar("삭제되었습니다", { variant: "success" });
+      enqueueSnackbar('삭제되었습니다', { variant: 'success' });
 
-      if(proposeList.length === 1 && page > 1){
-        setPage(page-1);
-      }
-      else{
+      if (proposeList.length === 1 && page > 1) {
+        setPage(page - 1);
+      } else {
         refetch();
       }
     } catch (err) {
-      enqueueSnackbar("삭제에 실패했습니다", { variant: "error" });
+      enqueueSnackbar('삭제에 실패했습니다', { variant: 'error' });
     } finally {
-      selectedProjectId.current = "";
+      selectedProjectId.current = '';
       deleteModalRef?.current?.close();
     }
   };
@@ -199,7 +198,7 @@ const MyProposeList: React.FC = () => {
           total={total}
           count={COUNT_PER_PROPOSE}
           visiblePages={5}
-          onPageChange={(value) => setPage(value)}
+          onPageChange={value => setPage(value)}
         />
       </div>
       <Modal
