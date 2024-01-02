@@ -6,13 +6,13 @@
     "clean": "rm -rf .next && rm -rf .next-server",
     "dev": "yarn clean && next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@hookform/error-message": "^2.0.1",
     "@rory0304/molab-renewal-types": "^1.0.11",
-    "@rorysa/prettier-config": "^1.0.2",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
     "@tanstack/react-query": "^4.32.6",
@@ -42,6 +42,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@rorysa/prettier-config": "^1.4.2",
     "@tailwindcss/typography": "^0.5.9",
     "@types/humps": "^2.0.6",
     "@types/node": "20.3.1",
