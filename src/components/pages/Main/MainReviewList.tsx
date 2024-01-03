@@ -31,6 +31,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ content, thumbnail }) => {
           alt={`참여 인증-사진`}
           width={150}
           height={150}
+          loading="lazy"
           style={{
             objectFit: 'cover',
           }}
