@@ -48,7 +48,6 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
           onChange={() => setIsDrawerOpen(current => !current)}
         />
         <div className="drawer-content">
-          {/* Page content here */}
           <label
             htmlFor="my-drawer"
             className="px-1 py-1 cursor-pointer drawer-button btn btn-ghost btn-square w-fit h-fit"
@@ -93,11 +92,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
                   </span>
                 </Link>
               </div>
-            ) : (
-              <Link href="/login">
-                <span className="font-semibold text-gray-700">로그인</span>
-              </Link>
-            )}
+            ) : null}
             <nav>
               <ul className="p-4 menu bg-base-200">
                 {headerItem.map(item => (
@@ -131,7 +126,14 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
                 >
                   로그아웃
                 </button>
-              ) : null}
+              ) : (
+                <Link
+                  href="/login"
+                  className="px-4 py-1 mb-2 text-sm font-semibold border-2 btn border-gray-300 btn-sm btn-block rounded-3xl"
+                >
+                  <span className="font-semibold text-gray-700">로그인</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
