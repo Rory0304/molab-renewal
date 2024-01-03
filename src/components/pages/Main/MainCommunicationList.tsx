@@ -66,7 +66,7 @@ const MainCommunicationList: React.FC = () => {
     <div className="overflow-hidden bg-zinc-900 rounded-xl">
       <Carousel paginationVariant="slider">
         {communicationList?.map(item => (
-          <li className="w-full cursor-pointer carousel-item">
+          <li className="w-full cursor-pointer carousel-item" key={item.uuid}>
             <MainCommunicationCard
               link={`/communication/${item.uuid}`}
               title={item.title || ''}
