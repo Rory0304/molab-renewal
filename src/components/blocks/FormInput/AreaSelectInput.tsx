@@ -42,6 +42,8 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
           selectedSido as unknown as keyof typeof KOREA_ADMNISTRATIVE_DISTRICT
         ]
       );
+    } else {
+      setCurrentSiGunGu([]);
     }
   }, [selectedSido]);
 
