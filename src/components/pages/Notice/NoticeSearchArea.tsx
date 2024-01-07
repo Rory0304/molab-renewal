@@ -32,7 +32,7 @@ const NOTICE_CATEGORY_ICON: Record<
   keyof typeof NoticeCategory,
   React.ReactElement | null
 > = {
-  Environmnet: <GlobeAsiaAustraliaIcon width={20} height={20} />,
+  Environment: <GlobeAsiaAustraliaIcon width={20} height={20} />,
   Traffic: <TruckIcon width={20} height={20} />,
   Welfare: <UserGroupIcon width={20} height={20} />,
   Energy: <BoltIcon width={20} height={20} />,

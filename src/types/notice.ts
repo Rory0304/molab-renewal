@@ -5,7 +5,7 @@ export type NoticeType = Camelized<Omit<Row<'Notice'>, 'created_at'>>;
 export type SortOptionType = 'asc' | 'desc';
 export type NoticeCategoryKeyType =
   | 'All'
-  | 'Environmnet'
+  | 'Environment'
   | 'Welfare'
   | 'Traffic'
   | 'Energy'
@@ -19,7 +19,7 @@ export enum NoticeStatus {
 
 export const NoticeCategory: Record<NoticeCategoryKeyType, string> = {
   All: '전체',
-  Environmnet: '환경',
+  Environment: '환경',
   Traffic: '교통',
   Welfare: '복지',
   Energy: '에너지',
