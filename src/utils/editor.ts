@@ -1,4 +1,3 @@
-import { handleImageUpload } from 'src/app/api/image';
 import { SupabaseClientType } from 'src/types/supabase';
 
 import { molabApi } from './supabase';

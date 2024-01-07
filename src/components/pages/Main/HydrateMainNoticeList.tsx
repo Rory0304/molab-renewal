@@ -7,6 +7,7 @@ import MainNoticeList from './MainNoticeList';
 
 const HydrateMainReviewList: React.FC = async () => {
   const supabaeClient = createClientComponentClient();
+
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(
     ['noticeList'],

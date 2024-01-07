@@ -6,7 +6,6 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { fetchReviewList } from 'src/app/api/review';
 import Carousel from 'src/components/blocks/Carousel/Carousel';
 import { molabApi } from 'src/utils/supabase';
 

@@ -64,7 +64,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           throw new Error('fail to sign out');
         }
         resetUserInfo();
-        router.push('/login');
+        router.push('/');
       });
     } catch (err) {
       console.error(err);
