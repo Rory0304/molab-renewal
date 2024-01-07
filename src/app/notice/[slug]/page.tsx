@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { fetchNoticeById } from 'src/app/api/notice';
 import {
   NoticeDetailAsideSection,
   NoticeDetailHeaderInfoSection,

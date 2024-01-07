@@ -33,7 +33,7 @@ const TextInput = React.forwardRef(
       <div className="pb-8">
         <label className="label">
           <span
-            className={`text-lg font-bold label-text ${
+            className={`text-lg font-semibold label-text ${
               required ? 'after:required-star' : ''
             }`}
           >

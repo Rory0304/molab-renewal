@@ -32,8 +32,8 @@ const CommunicationBanner: React.FC = () => {
         .molabApiCreatePropose(supabaeClient)(id, userInfo?.id)
         .then(data => {
           if (data) {
-            router.push(`/project/${id}/base`);
             setIsLoading(false);
+            router.push(`/project/${id}/base`);
           }
         });
     } catch (err) {
