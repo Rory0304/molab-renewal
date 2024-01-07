@@ -71,12 +71,8 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
 
   const reviewList = data ?? [];
 
-  //
-  //
-  //
-
   const handleReviewSubmitModalOpen = (userId?: string) => {
-    if (!userId && loginRequiredModalRef.current) {
+    if (!userId) {
       return loginRequiredModalRef.current?.showModal();
     }
 
@@ -106,7 +102,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
       );
 
     return reviewList && reviewList?.length > 0 ? (
-      <div className="grid w-full grid-cols-4">
+      <div className="grid w-full grid-cols-4 max-h-40">
         {reviewList.map(item =>
           item.thumbnail ? (
             <div
@@ -148,7 +144,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         참여 인증
       </h4>
       <div className="flex flex-col items-center justify-between p-4 border rounded-lg border-neutral-300">
-        <div className="w-full max-h-40">
+        <div className="w-full">
           {isError ? (
             <ErrorBox
               title="데이터를 가져오는데 실패했습니다."
@@ -171,7 +167,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
           {isFetching ? <SpinnerBox spinnerColor="text-primary" /> : null}
         </div>
       </div>
-      {/* MODAL */}
+      {/* REVIEW MODAL */}
       <DynamicCommunicationDetailReviewSubmitModal
         projectId={projectId}
         modalRef={reviewSubmitModalRef}

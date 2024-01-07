@@ -115,7 +115,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
         ) : (
           <Link
             href="/login"
-            className="px-4 py-1 mr-4 text-sm font-semibold leading-6 border-2 border-gray-300 border-solid rounded-3xl"
+            className="px-4 py-1 text-sm font-semibold leading-6 border-2 border-gray-300 border-solid rounded-3xl"
           >
             <span>로그인</span>
           </Link>

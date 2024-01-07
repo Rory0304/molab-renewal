@@ -1,7 +1,8 @@
 import { Database } from '@rory0304/molab-renewal-types';
 import { createClient } from '@supabase/supabase-js';
-import { handleImageUpload } from 'src/app/api/image';
-import { fetchAllNotice, fetchNoticeById } from 'src/app/api/notice';
+import { handleImageUpload } from 'src/api/image';
+import { fetchAllNotice, fetchNoticeById } from 'src/api/notice';
+import { fetchReviewById, fetchReviewList, uploadReview } from 'src/api/review';
 import {
   createPropose,
   deleteProposeById,
@@ -10,11 +11,6 @@ import {
   fetchProposeList,
   updatePropse,
 } from 'src/app/api/propose';
-import {
-  fetchReviewById,
-  fetchReviewList,
-  uploadReview,
-} from 'src/app/api/review';
 import { SupabaseClientType } from 'src/types/supabase';
 
 export const supabase = createClient<Database>(

@@ -9,7 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { RecoilRoot } from 'recoil';
-import { fetchProposeById } from 'src/app/api/propose';
 import { PROJECT_FORM_DEFAULT_VALUES } from 'src/constants/projectFormDefaultValues';
 import { useAuth } from 'src/context/AuthProvider';
 import type { ProjectFormValues } from 'src/types';
