@@ -1,12 +1,15 @@
 import React from 'react';
 
 import { NoticeBanner, NoticeSearchArea } from 'src/components/pages/Notice';
+import NoticePageProvider from 'src/context/NoticePageProvider';
 
-const NoticePage = () => {
+const NoticePage: React.FC = () => {
   return (
     <div className="w-full">
       <NoticeBanner />
-      <NoticeSearchArea />
+      <NoticePageProvider>
+        <NoticeSearchArea />
+      </NoticePageProvider>
     </div>
   );
 };
