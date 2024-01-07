@@ -2,7 +2,6 @@ import { camelizeKeys } from 'humps';
 import type { NoticeType } from 'src/types/notice';
 import type { Row, SupabaseClientType } from 'src/types/supabase';
 
-
 /**
  *
  */
@@ -27,7 +26,8 @@ export const fetchAllNotice =
       // Filters
       .like('area', `%${keyword}%`)
       .like('category', `%${category}%`)
-      .order('created_at', { ascending: ascending })
+      .order('startDate', { ascending: ascending })
+      .order('endDate', { ascending: ascending })
       .range(offset, offset + pageCount - 1);
 
     if (error) {
