@@ -11,11 +11,11 @@ interface ModalProps {
   formId?: string;
   modalStyles?: string;
   modalBoxStyles?: string;
-  ModalHeader?: React.ReactElement;
-  ModalBody?: React.ReactElement;
-  ModalAction?: React.ReactElement;
+  ModalHeader?: React.ReactNode;
+  ModalBody?: React.ReactNode;
+  ModalAction?: React.ReactNode;
   closeBtn?: boolean;
-  onClose?: () => void;
+  onClose?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Modal = React.forwardRef(
@@ -49,27 +49,31 @@ const Modal = React.forwardRef(
         className={`modal ${modalStyles ?? ''}`}
         open={open}
       >
-        <form
-          id={formId}
-          method="dialog"
-          className={`modal-box ${modalBoxStyles ?? ''}`}
-        >
-          {ModalHeader ? ModalHeader : null}
+        <div className={`modal-box ${modalBoxStyles ?? ''}`}>
+          <header>
+            {ModalHeader ? ModalHeader : null}
+            {closeBtn ? (
+              <form
+                id={formId}
+                method="dialog"
+                className="absolute right-4 top-4"
+              >
+                <button
+                  className="btn btn-sm btn-circle btn-ghost"
+                  onClick={onClose}
+                >
+                  ✕
+                </button>
+              </form>
+            ) : null}
+          </header>
           {ModalBody ? ModalBody : null}
           {ModalAction ? (
             <div className="modal-action">{ModalAction}</div>
           ) : null}
-          {closeBtn ? (
-            <button
-              className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2"
-              onClick={onClose}
-            >
-              ✕
-            </button>
-          ) : null}
-        </form>
+        </div>
       </dialog>,
-      document.body
+      document.body.querySelector('main') || document.body
     );
   }
 );
