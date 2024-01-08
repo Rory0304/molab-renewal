@@ -19,6 +19,8 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           queries: {
             refetchOnWindowFocus: false,
             retry: 3,
+            // globally default to 20 seconds
+            staleTime: 1000 * 20,
           },
         },
       })
