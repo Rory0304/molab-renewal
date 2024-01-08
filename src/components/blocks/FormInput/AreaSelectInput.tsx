@@ -43,7 +43,10 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
         ]
       );
     } else {
-      setCurrentSiGunGu([]);
+      if (typeof onSiGunGuChange === 'function') {
+        onSiGunGuChange('');
+        setCurrentSiGunGu([]);
+      }
     }
   }, [selectedSido]);
 
