@@ -47,16 +47,16 @@ src
  ┃ ┗ not-found: 404 페이지
  ┃ ┗ about-livinglab: 리빙랩 소개 페이지
  ┃ ┗ auth: supabase 기반 auth 설정 GET 요청 처리부
- ┃ ┗ api: 각종 api 스펙
  ┃ ┗ communication: 열린 참여 메인 / 디테일 페이지
  ┃ ┗ login: 로그인 / 회원가입 페이지
  ┃ ┗ mypage: 마이 페이지
  ┃ ┗ notice: 공고 메인 / 디테일 페이지
  ┃ ┗ project: 리빙랩 스튜디오 페이지
- ┣ components
- ┃ ┗ blocks: 전체 페이지에서 사용하게 될 공통 컴포넌트 parts
+ ┣ api: 각종 api 스펙
+ ┣ components: 컴포넌트 관련
+ ┃ ┗ blocks: 전역 페이지에서 사용하게 될 공통 컴포넌트 parts
  ┃ ┗ icons: 아이콘
- ┃ ┗ pages: 개별 페이지에서 사용하게될 컴포넌트
+ ┃ ┗ pages: 지역(개별) 페이지에서 사용하게될 컴포넌트
  ┣ constants
  ┃ ┗ styles: tailwind 스타일 theme
  ┣ context: React.Context 관리
