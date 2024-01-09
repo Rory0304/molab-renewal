@@ -14,12 +14,14 @@ interface MobileHeaderProps {
   headerItem: { title: string; href: string }[];
   isLoading: boolean;
   onProposeBtnClick: () => void;
+  onLoginRequireModalOpen: () => void;
 }
 
 const GlobalHeader: React.FC<MobileHeaderProps> = ({
   headerItem,
   isLoading,
   onProposeBtnClick,
+  onLoginRequireModalOpen,
 }) => {
   const pathname = usePathname();
 
@@ -93,11 +95,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
                   </span>
                 </Link>
               </div>
-            ) : (
-              <Link href="/login">
-                <span className="font-semibold text-gray-700">로그인</span>
-              </Link>
-            )}
+            ) : null}
             <nav>
               <ul className="p-4 menu bg-base-200">
                 {headerItem.map(item => (
@@ -112,7 +110,7 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
                 ))}
               </ul>
             </nav>
-            <div className="p-4 border-t border-gray-500">
+            <div className="p-4 border-t border-gray-300">
               <button
                 className="px-4 py-1 mb-2 text-sm font-semibold btn btn-primary btn-sm btn-block rounded-3xl"
                 onClick={onProposeBtnClick}
@@ -131,7 +129,18 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
                 >
                   로그아웃
                 </button>
-              ) : null}
+              ) : (
+                <button
+                  type="button"
+                  className="px-4 py-1 text-sm font-semibold border-2 border-gray-300 border-solid btn-block rounded-3xl"
+                  onClick={() => {
+                    setIsDrawerOpen(false);
+                    onLoginRequireModalOpen();
+                  }}
+                >
+                  로그인
+                </button>
+              )}
             </div>
           </div>
         </div>
