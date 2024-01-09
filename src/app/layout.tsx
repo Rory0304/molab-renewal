@@ -11,17 +11,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <AuthProvider>
-        <AppProvider>
-          <body>
+      <body>
+        <AuthProvider>
+          <AppProvider>
             <div className="flex flex-col items-center min-h-screenflex">
               <GlobalHeader />
               <GlobalMain>{children}</GlobalMain>
               <GlobalFooter />
             </div>
-          </body>
-        </AppProvider>
-      </AuthProvider>
+          </AppProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
