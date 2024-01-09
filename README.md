@@ -21,6 +21,7 @@
 - typescript - v5.1.3
 - tanstack/react-query - v4.23.6
 - supabase - latest
+- recoil - v0.7.7
 
 
 ## Features
