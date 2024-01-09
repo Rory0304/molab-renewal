@@ -11,7 +11,7 @@ import TextInput from 'src/components/blocks/FormInput/TextInput';
 import { useAuth } from 'src/context/AuthProvider';
 import { ApiStatus } from 'src/types/common';
 
-type AUTH_VIEW_TYPE = 'check-email' | 'sign-in' | 'sign-up';
+type AUTH_VIEW_TYPE = 'check-email' | 'sign-in' | 'sign-up' | 'already-exist';
 
 const EMAIL_VALID_REGEX: RegExp =
   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -36,6 +36,7 @@ const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
     register,
     watch,
     reset,
+    clearErrors,
     handleSubmit,
   } = useForm<{
     email: string;
@@ -68,6 +69,9 @@ const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
     if (modalRef.current) {
       modalRef.current.close();
       reset();
+      clearErrors('root');
+      setView('sign-in');
+      setApiStatus('Idle');
     }
   };
 
@@ -86,7 +90,12 @@ const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
             if (res.error?.name) {
               throw new Error('fail to signup');
             } else {
-              setView('check-email');
+              if (res.data.user?.aud === 'authenticated') {
+                setView('already-exist');
+                reset();
+              } else {
+                setView('check-email');
+              }
             }
           });
       } catch (err) {
@@ -176,16 +185,34 @@ const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
 
   const renderAuthView = (view: AUTH_VIEW_TYPE) => {
     switch (view) {
+      case 'already-exist':
+        return (
+          <div>
+            <p className="text-center text-neutral-400">
+              <span className="font-bold text-primary">
+                이미 회원 정보가 존재합니다. 로그인을 진행해주세요
+              </span>
+            </p>
+            <button
+              type="button"
+              className="w-full px-4 py-2 mb-6 rounded btn-primary"
+              onClick={() => setView('sign-in')}
+            >
+              로그인하기
+            </button>
+          </div>
+        );
       case 'check-email':
         return (
           <div>
             <p className="text-center text-neutral-400">
-              <span className="font-bold text-primary">{watchedEmail}</span> 을
-              확인 후, 아래의 '계속하기' 버튼을 클릭해주세요
+              <span className="font-bold text-primary">{watchedEmail}</span>{' '}
+              {`을
+              확인 후,\n아래의 '계속하기' 버튼을 클릭해주세요`}
             </p>
             <button
+              type="button"
               disabled={!Boolean(userInfo?.id)}
-              type="submit"
               className="w-full px-4 py-2 mb-6 rounded btn-primary"
               onClick={handleModalClose}
             >
