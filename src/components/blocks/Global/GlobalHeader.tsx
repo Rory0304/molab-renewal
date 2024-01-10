@@ -3,19 +3,15 @@
 import React from 'react';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import dynamic from 'next/dynamic';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from 'src/context/AuthProvider';
+import { useModals } from 'src/context/ModalProvider';
 import { molabApi } from 'src/utils/supabase';
 import { v4 as uuidV4 } from 'uuid';
 
 import { DesktopHeader, MobileHeader } from '../Header';
-
-const DynamicLoginRequiredModal = dynamic(
-  () => import(`src/components/pages/Global/LoginRequireModal`)
-);
 
 const NO_HEADER_PAGE_PATHNAME_REGEX_LIST = [
   /^\/project.*/,
@@ -44,7 +40,7 @@ const GlobalHeader: React.FC = () => {
 
   const supabaseClient = createClientComponentClient();
 
-  const loginRequiredModalRef = React.useRef<HTMLDialogElement>(null);
+  const { onModalOpen } = useModals();
 
   const hasHeader = NO_HEADER_PAGE_PATHNAME_REGEX_LIST.every(
     regex => !regex.test(`${pathname}?${searchParams}`)
@@ -58,7 +54,7 @@ const GlobalHeader: React.FC = () => {
    */
   const handleProposeBtnClick = async () => {
     if (!authorized || !userInfo) {
-      return router.push('/login');
+      return onModalOpen('loginRequire');
     }
 
     try {
@@ -85,7 +81,7 @@ const GlobalHeader: React.FC = () => {
    *
    */
   const handleLoginRequireModalOpen = () => {
-    return loginRequiredModalRef.current?.showModal();
+    return onModalOpen('loginRequire');
   };
 
   if (!hasHeader) return null;
@@ -104,7 +100,6 @@ const GlobalHeader: React.FC = () => {
         onProposeBtnClick={handleProposeBtnClick}
         onLoginRequireModalOpen={handleLoginRequireModalOpen}
       />
-      <DynamicLoginRequiredModal modalRef={loginRequiredModalRef} />
     </header>
   );
 };

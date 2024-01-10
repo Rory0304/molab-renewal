@@ -5,7 +5,7 @@ import React from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image';
 import { useAuth } from 'src/context/AuthProvider';
-import { useNoticePageContext } from 'src/context/NoticePageProvider';
+import { useModals } from 'src/context/ModalProvider';
 import useDeleteBookmarkMutation from 'src/hooks/useDeleteBookmarkMutation';
 import useInsertBookmarkMutation from 'src/hooks/useInsertBookmarkMutation';
 import { NoticeStatus } from 'src/types/notice';
@@ -30,7 +30,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
   isBookmarked,
 }) => {
   const { userInfo } = useAuth();
-  const { onLoginRequireModalOpen } = useNoticePageContext();
+  const { onModalOpen } = useModals();
 
   const supabaseClient = createClientComponentClient();
 
@@ -41,7 +41,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
 
   const handleToggleBookmark = (noticeId: number) => {
     if (!userInfo?.id) {
-      onLoginRequireModalOpen();
+      onModalOpen('loginRequire');
       return;
     }
 
