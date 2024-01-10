@@ -24,7 +24,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
 }) => {
   return (
     <Link href={`/notice/${id}`}>
-      <div className="flex flex-col items-center overflow-hidden bg-white shadow-md cursor-pointer hover:shadow-lg md:flex-row rounded-xl">
+      <div className="flex flex-col items-center overflow-hidden bg-white shadow-md cursor-pointer hover:shadow-xl md:flex-row rounded-xl transition ease-in-out">
         <div className="relative pt-[50%] md:pt-[30%] w-full md:w-[30%]">
           {thumbnail ? (
             <Image
@@ -59,7 +59,7 @@ const MainNoticeList: React.FC = () => {
         .molabApiFetchAllNotice(supabaseClient)({
           keyword: '',
           category: '',
-          ascending: true,
+          ascending: false,
           offset: 0,
           pageCount: 4,
         })

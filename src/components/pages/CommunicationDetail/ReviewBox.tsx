@@ -11,6 +11,7 @@ import { ReviewType } from 'src/app/api/review';
 import { ErrorBox } from 'src/components/blocks';
 import SpinnerBox from 'src/components/blocks/SpinnerBox/SpinnerBox';
 import { useAuth } from 'src/context/AuthProvider';
+import { useModals } from 'src/context/ModalProvider';
 import { checkIsDatePast } from 'src/utils/date';
 import { molabApi } from 'src/utils/supabase';
 
@@ -28,10 +29,6 @@ const DynamicCommunicationDetailReviewModal = dynamic(
     )
 );
 
-const DynamicLoginRequiredModal = dynamic(
-  () => import(`src/components/pages/Global/LoginRequireModal`)
-);
-
 interface ReviewBoxProps {
   projectId: string;
   endDate: string;
@@ -46,12 +43,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   const supabaseClient = createClientComponentClient();
 
   const { userInfo } = useAuth();
+  const { onModalOpen } = useModals();
 
   const isProjectEnded = checkIsDatePast(new Date(endDate));
 
   const reviewModalRef = React.useRef<HTMLDialogElement>(null);
   const reviewSubmitModalRef = React.useRef<HTMLDialogElement>(null);
-  const loginRequiredModalRef = React.useRef<HTMLDialogElement>(null);
 
   const [selectedReviewId, setSelectedReviewId] = React.useState('');
 
@@ -73,7 +70,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
 
   const handleReviewSubmitModalOpen = (userId?: string) => {
     if (!userId) {
-      return loginRequiredModalRef.current?.showModal();
+      return onModalOpen('loginRequire');
     }
 
     if (reviewSubmitModalRef.current) {
@@ -102,7 +99,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
       );
 
     return reviewList && reviewList?.length > 0 ? (
-      <div className="grid w-full grid-cols-4 max-h-40">
+      <div className="grid w-full grid-cols-4 max-h-40 overflow-scroll gap-2">
         {reviewList.map(item =>
           item.thumbnail ? (
             <div
@@ -177,7 +174,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         uuid={selectedReviewId}
         modalRef={reviewModalRef}
       />
-      <DynamicLoginRequiredModal modalRef={loginRequiredModalRef} />
     </section>
   );
 };

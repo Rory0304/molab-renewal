@@ -7,6 +7,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from 'src/context/AuthProvider';
+import { useModals } from 'src/context/ModalProvider';
 import { molabApi } from 'src/utils/supabase';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -39,6 +40,8 @@ const GlobalHeader: React.FC = () => {
 
   const supabaseClient = createClientComponentClient();
 
+  const { onModalOpen } = useModals();
+
   const hasHeader = NO_HEADER_PAGE_PATHNAME_REGEX_LIST.every(
     regex => !regex.test(`${pathname}?${searchParams}`)
   );
@@ -51,7 +54,7 @@ const GlobalHeader: React.FC = () => {
    */
   const handleProposeBtnClick = async () => {
     if (!authorized || !userInfo) {
-      return router.push('/login');
+      return onModalOpen('loginRequire');
     }
 
     try {
@@ -74,6 +77,13 @@ const GlobalHeader: React.FC = () => {
     }
   };
 
+  /**
+   *
+   */
+  const handleLoginRequireModalOpen = () => {
+    return onModalOpen('loginRequire');
+  };
+
   if (!hasHeader) return null;
 
   return (
@@ -82,11 +92,13 @@ const GlobalHeader: React.FC = () => {
         headerItem={HEADER_ITEMS}
         isLoading={isLoading}
         onProposeBtnClick={handleProposeBtnClick}
+        onLoginRequireModalOpen={handleLoginRequireModalOpen}
       />
       <DesktopHeader
         headerItem={HEADER_ITEMS}
         isLoading={isLoading}
         onProposeBtnClick={handleProposeBtnClick}
+        onLoginRequireModalOpen={handleLoginRequireModalOpen}
       />
     </header>
   );

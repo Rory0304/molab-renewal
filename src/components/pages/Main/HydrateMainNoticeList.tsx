@@ -16,7 +16,7 @@ const HydrateMainReviewList: React.FC = async () => {
         .molabApiFetchAllNotice(supabaeClient)({
           keyword: '',
           category: '',
-          ascending: true,
+          ascending: false,
           offset: 0,
           pageCount: 4,
         })

@@ -79,12 +79,12 @@ const Carousel: React.FC<CarouselProps> = ({
 
       case 'slider':
         return (
-          <div className="flex justify-center absolute w-fit bottom-[40px] right-[40px]">
+          <div className="flex justify-center absolute w-fit bottom-0 right-[8px]">
             {items.map((_, index) => (
               <button
                 key={`#review-${index}`}
                 aria-label={`슬라이드 ${index + 1}번째로 이동`}
-                className={`btn carousel-slider-control  ${
+                className={`bg-gray-700 fbtn carousel-slider-control  ${
                   index === activeItemIdx ? 'opacity-100	' : 'opacity-30	'
                 }`}
                 onClick={() => handleCarouselButtonClick(index)}

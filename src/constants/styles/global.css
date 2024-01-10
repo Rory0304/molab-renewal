@@ -70,8 +70,8 @@
   .carousel-slider-control {
     position: relative;
     width: 20px;
-    height: 2px;
-    min-height: 2px;
+    height: 4px;
+    min-height: 4px;
     padding: 0px;
     border: 0px;
     opacity: 0.3;

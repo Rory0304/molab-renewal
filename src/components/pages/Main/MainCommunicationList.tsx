@@ -25,8 +25,8 @@ const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
 }) => {
   return (
     <Link href={link} className="w-full">
-      <div className="flex items-center w-full">
-        <div className="relative pt-[30%]  w-[30%]">
+      <div className="flex items-center w-full pt-4">
+        <div className="relative pt-[30%] w-[30%] mr-4">
           <Image
             fill
             src={thumbnail}
@@ -36,12 +36,11 @@ const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
             }}
           />
         </div>
-        <div className="flex flex-col  py-6 pl-6 pr-8 w-[70%]">
-          <span className="pb-1 text-sm text-neutral-500">열린 참여</span>
-          <strong className="pb-4 text-xl font-bold text-white">{title}</strong>
+        <div className="flex flex-col w-[70%]">
           <span className="px-2 text-sm border rounded-md w-fit border-primary text-primary">
             {siDo} {siGunGu}
           </span>
+          <strong className="pt-2 text-base font-semibold">{title}</strong>
         </div>
       </div>
     </Link>
@@ -63,7 +62,14 @@ const MainCommunicationList: React.FC = () => {
   });
 
   return (
-    <div className="overflow-hidden bg-zinc-900 rounded-xl">
+    <div className="overflow-hidden bg-white border-gray-500 shadow-lg rounded-xl p-8">
+      <div className="flex flex-col">
+        <span className="pb-1 text-sm text-neutral-500">열린 참여</span>
+        <strong className="text-lg">
+          <span className="border-b-[3px] border-primary mr-1">시민 주도</span>
+          리빙랩 프로젝트 참여하기
+        </strong>
+      </div>
       <Carousel paginationVariant="slider">
         {communicationList?.map(item => (
           <li className="w-full cursor-pointer carousel-item" key={item.uuid}>

@@ -13,11 +13,11 @@ const MainPage: React.FC = () => {
         <section className="w-full lg:w-[800px] lg:mb-0 mb-10 lg:mr-8 mr-0">
           <MainBanner />
           <HydrateMainNoticeList />
-          <MainCommunicationList />
         </section>
         <section className="w-full lg:w-[370px]">
           <HydrateMainReviewList />
           <MainAboutLivingLabBanner />
+          <MainCommunicationList />
         </section>
       </div>
     </div>

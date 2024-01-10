@@ -6,6 +6,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from 'src/context/AuthProvider';
+import { useModals } from 'src/context/ModalProvider';
 import { molabApi } from 'src/utils/supabase';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -14,6 +15,7 @@ const CommunicationBanner: React.FC = () => {
   const supabaeClient = createClientComponentClient();
 
   const { authorized, userInfo } = React.useContext(AuthContext);
+  const { onModalOpen } = useModals();
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -22,7 +24,7 @@ const CommunicationBanner: React.FC = () => {
    */
   const handleProposeBtnClick = async () => {
     if (!authorized || !userInfo) {
-      return router.push('/login');
+      return onModalOpen('loginRequire');
     }
 
     try {
