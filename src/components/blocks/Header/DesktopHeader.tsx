@@ -11,12 +11,14 @@ interface DesktopHeaderProps {
   headerItem: { title: string; href: string }[];
   isLoading: boolean;
   onProposeBtnClick: () => void;
+  onLoginRequireModalOpen: () => void;
 }
 
 const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   headerItem,
   isLoading,
   onProposeBtnClick,
+  onLoginRequireModalOpen,
 }) => {
   const pathname = usePathname();
 
@@ -113,12 +115,12 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
             ) : null}
           </div>
         ) : (
-          <Link
-            href="/login"
-            className="px-4 py-1 text-sm font-semibold leading-6 border-2 border-gray-300 border-solid rounded-3xl"
+          <button
+            className="px-4 py-1 mr-4 text-sm font-semibold leading-6 border-2 border-gray-300 border-solid rounded-3xl"
+            onClick={onLoginRequireModalOpen}
           >
             <span>로그인</span>
-          </Link>
+          </button>
         )}
       </div>
     </div>
