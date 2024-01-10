@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const AboutLivingLabBanner: React.FC = () => {
   return (
-    <div className="w-auto rounded-xl">
+    <div className="w-auto rounded-xl mb-8">
       <Link href="/main">
         <div className="bg-banner bg-[length:130px_130px] bg-no-repeat bg-right-bottom bg-[#172945] overflow-hidden block pb-[180px] lg:pb-[56.72%] rounded-xl h-0">
           <div className="px-8 py-8">
