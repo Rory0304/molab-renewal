@@ -10,7 +10,7 @@ const MainBanner: React.FC = () => {
   const [index, setIndex] = React.useState(0);
 
   React.useEffect(() => {
-    const loop = setTimeout(() => {
+    const loop = setInterval(() => {
       const next = index === ANIMATED_TEXT.length - 1 ? 0 : index + 1;
       setIndex(next);
     }, 3000);
@@ -29,10 +29,8 @@ const MainBanner: React.FC = () => {
       y: 0,
       opacity: 1,
     },
-    exit: direction => {
-      return {
-        opacity: 0,
-      };
+    exit: {
+      opacity: 0,
     },
   };
 
