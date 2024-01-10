@@ -34,7 +34,7 @@ const CommunicationDetailReviewModal: React.FC<
   };
 
   const modalBody = (
-    <article className="py-5">
+    <article className="py-5 mt-3">
       {isFetching ? (
         <DeferredLoading timedOut={200}>
           <SpinnerBox />
