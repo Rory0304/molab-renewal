@@ -8,11 +8,11 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import TextInput from 'src/components/blocks/FormInput/TextInput';
-import { ApiStatus } from 'src/types';
 import {
   SUPABASE_AUTH_ERROR_CODE,
   SUPABASE_AUTH_ERROR_MESSAGE,
-} from 'src/types/supabaseErrorCode';
+} from 'src/constants/supabaseError';
+import { ApiStatus } from 'src/types';
 
 const ResetPassword: React.FC = () => {
   const router = useRouter();

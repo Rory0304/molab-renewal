@@ -7,11 +7,11 @@ import { ErrorMessage } from '@hookform/error-message';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { enqueueSnackbar } from 'notistack';
 import TextInput from 'src/components/blocks/FormInput/TextInput';
-import { ApiStatus } from 'src/types/common';
 import {
   SUPABASE_AUTH_ERROR_CODE,
   SUPABASE_AUTH_ERROR_MESSAGE,
-} from 'src/types/supabaseErrorCode';
+} from 'src/constants/supabaseError';
+import { ApiStatus } from 'src/types/common';
 
 const EMAIL_VALID_REGEX: RegExp =
   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
