@@ -70,14 +70,12 @@ const LoginPage: React.FC = () => {
             email,
             password,
             options: {
-              emailRedirectTo: `${location.origin}/auth/callback`,
+              emailRedirectTo: `${location.origin}/auth/callback/email-confirm`,
             },
           })
           .then(res => {
             if (!!res.error) {
               throw new Error('fail to signup');
-            } else {
-              setView('check-email');
             }
           });
       } catch (err) {
