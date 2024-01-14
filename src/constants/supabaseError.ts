@@ -1,13 +1,4 @@
-/**
- * Ref: https://github.com/supabase/gotrue/issues/915
- * As supabase dose not define sepecific error code to AuthApiError,
- * need to make this map manually
- */
-export type AuthErrorCodeType =
-  | 'SameWithPrevPassword'
-  | 'AuthSessionMissingError'
-  | 'EmailRateExceed'
-  | 'EmailRequestOverload';
+import type { AuthErrorCodeType } from 'src/types/supabase';
 
 export const SUPABASE_AUTH_ERROR_CODE: Record<string, AuthErrorCodeType> = {
   ['New password should be different from the old password.']:
