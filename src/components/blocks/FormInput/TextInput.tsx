@@ -12,6 +12,7 @@ interface TextInputProps
   labelTextAlt?: string;
   required?: boolean;
   error?: boolean;
+  padding?: boolean;
   ErrorMessage?: React.ReactElement;
 }
 
@@ -25,12 +26,13 @@ const TextInput = React.forwardRef(
       ErrorMessage,
       error = false,
       className,
+      padding = true,
       ...props
     }: TextInputProps,
     ref: React.Ref<HTMLInputElement>
   ) => {
     return (
-      <div className="pb-8">
+      <div className={padding ? 'pb-8' : ''}>
         <label className="label">
           <span
             className={`text-lg font-semibold label-text ${
