@@ -65,6 +65,7 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
           </label>
         ) : null}
         <select
+          aria-label="시도"
           value={selectedSido}
           onChange={e =>
             typeof onSidoChange === 'function'
@@ -98,6 +99,7 @@ const AreaSelectInput: React.FC<AreaSelectInputProps> = ({
           </label>
         ) : null}
         <select
+          aria-label="시군구"
           value={selectedSiGunGu}
           onChange={e =>
             typeof onSiGunGuChange === 'function'

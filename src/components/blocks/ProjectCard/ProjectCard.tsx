@@ -51,7 +51,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           )}
         </div>
         <div className="flex flex-col py-4 h-[calc(100% - 225px)]">
-          <h4 className="mb-2 text-lg font-bold">{title}</h4>
+          <h3 className="mb-2 text-lg font-bold">{title}</h3>
           <p className="text-sm text-neutral-600">{`${new Date(
             startDate
           ).toLocaleDateString()} ~ ${new Date(

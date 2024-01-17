@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useMedia } from 'react-use';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
@@ -13,6 +14,8 @@ import { v4 as uuidV4 } from 'uuid';
 const CommunicationBanner: React.FC = () => {
   const router = useRouter();
   const supabaeClient = createClientComponentClient();
+
+  const isTabletOrSmaller = useMedia('(max-width: 768px)');
 
   const { authorized, userInfo } = React.useContext(AuthContext);
   const { onModalOpen } = useModals();
@@ -49,13 +52,14 @@ const CommunicationBanner: React.FC = () => {
 
   return (
     <div
-      className="flex flex-col justify-center w-full h-72"
+      className="flex flex-col justify-center w-full h-72 bg-gray-100"
       style={{
-        background:
-          "url('/idea-1.svg') 85% 50% / 300px 200px no-repeat, url('/idea-2.svg') 20% 50% / 200px 200px no-repeat rgb(241 245 249 / 1)",
+        background: isTabletOrSmaller
+          ? ''
+          : "url('/idea-1.svg') 85% 50% / 300px 200px no-repeat, url('/idea-2.svg') 20% 50% / 200px 200px no-repeat rgb(241 245 249 / 1)",
       }}
     >
-      <div className="text-center">
+      <div className="text-center content-layout w-full">
         <h3 className="pb-2 text-3xl font-bold ">열린 참여</h3>
         <p className="whitespace-pre-wrap">
           {

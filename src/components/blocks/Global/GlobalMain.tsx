@@ -5,7 +5,7 @@ interface GlobalMainProps {
 }
 
 const GlobalMain: React.FC<GlobalMainProps> = ({ children }) => {
-  return <main className="w-full min-h-[80vh]">{children}</main>;
+  return <main className="w-full">{children}</main>;
 };
 
 export default GlobalMain;

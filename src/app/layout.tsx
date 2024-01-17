@@ -12,6 +12,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <title>MOLAB | 모두의 리빙랩</title>
+      <meta name="description" content="MOLAB | 모두의 리빙랩" />
       <body>
         <AuthProvider>
           <AppProvider>

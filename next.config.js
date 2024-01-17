@@ -4,6 +4,8 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
+    // for: fill and responsive image
+    deviceSizes: [640, 768, 1080, 1280],
     remotePatterns: [
       {
         protocol: 'https',
