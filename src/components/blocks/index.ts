@@ -5,7 +5,6 @@ export * from './Pagination';
 export * from './Modal';
 export * from './OverlayLoading';
 export * from './NoticeCard';
-export * from './ProjectCard';
 export * from './ErrorBox';
 export * from './SpinnerBox';
 export * from './DeferredLoading';
