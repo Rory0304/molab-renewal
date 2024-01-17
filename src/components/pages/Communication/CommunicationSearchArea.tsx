@@ -9,8 +9,11 @@ import { AreaSelectInput, ErrorBox } from 'src/components/blocks';
 import { DeferredLoading } from 'src/components/blocks';
 import { molabApi } from 'src/utils/supabase';
 
-const LaodingProjectCard = React.lazy(
-  () => import('src/components/blocks/ProjectCard/LoadingProjectCard')
+const LoadingCommunicationCard = React.lazy(
+  () =>
+    import(
+      'src/components/pages/Communication/CommunicationCard/LoadingCommunicationCard'
+    )
 );
 const CommunicationList = React.lazy(() => import('./CommunicationList'));
 
@@ -116,7 +119,7 @@ const CommunicationSearchArea: React.FC = () => {
                 {isFetching ? (
                   <DeferredLoading timedOut={200}>
                     {[...Array(COUNT_PER_COMMUNCATION)].map((_, index) => (
-                      <LaodingProjectCard key={index} />
+                      <LoadingCommunicationCard key={index} />
                     ))}
                   </DeferredLoading>
                 ) : null}
