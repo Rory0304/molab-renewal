@@ -43,8 +43,8 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
       </div>
       <div className="w-auto drawer drawer-end">
         <input
-          id="my-drawer"
           type="checkbox"
+          id="mobile-drawer"
           className="drawer-toggle"
           checked={isDrawerOpen}
           onChange={() => setIsDrawerOpen(current => !current)}
@@ -52,14 +52,14 @@ const GlobalHeader: React.FC<MobileHeaderProps> = ({
         <div className="drawer-content">
           {/* Page content here */}
           <label
-            htmlFor="my-drawer"
+            htmlFor="mobile-drawer"
             className="px-1 py-1 cursor-pointer drawer-button btn btn-ghost btn-square w-fit h-fit"
           >
             <Bars3Icon width={32} height={32} />
           </label>
         </div>
         <div className="drawer-side">
-          <label htmlFor="my-drawer" className="drawer-overlay"></label>
+          <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
           <div className="h-full p-0 bg-white menu w-80 bg-base-200 text-base-content">
             <button
               aria-label="close drawer"
