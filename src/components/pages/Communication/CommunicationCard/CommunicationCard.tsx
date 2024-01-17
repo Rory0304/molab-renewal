@@ -4,8 +4,11 @@ import React from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { getProjectStatus } from 'src/utils/project';
 
-interface ProjectCardProps {
+import ProjectStatusBadge from '../ProjectStatusBadge';
+
+interface CommunicationCardProps {
   link: string;
   title: string;
   thumbnail: string;
@@ -15,7 +18,7 @@ interface ProjectCardProps {
   siGunGu: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const CommunicationCard: React.FC<CommunicationCardProps> = ({
   link,
   title,
   thumbnail,
@@ -25,14 +28,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   endDate,
 }) => {
   const [isThumbnailExist, setIsThumbnailExist] = React.useState(true);
+  const projectStatus = getProjectStatus(new Date(endDate as string));
 
   return (
     <Link href={link}>
       <div className="overflow-hidden bg-white rounded-xl">
-        <div className="relative pt-[70%] rounded-xl overflow-hidden bg-slate-200">
-          <span className="absolute z-10 px-2 font-semibold rounded-md text-md text-primary bg-zinc-800 top-3 left-3">
-            {siDo} {siGunGu}
-          </span>
+        <div className="relative pt-[70%] rounded-xl overflow-hidden bg-slate-200 border border-gray-200">
+          <div className="absolute z-10 top-0 left-0 p-3 flex flex-row items-center justify-between w-full">
+            <span className="px-2 py-1 font-semibold rounded-md text-md text-primary bg-zinc-800">
+              {siDo} {siGunGu}
+            </span>
+            <ProjectStatusBadge
+              endDate={new Date(endDate)}
+              status={projectStatus}
+            />
+          </div>
           {isThumbnailExist ? (
             <Image
               fill
@@ -63,4 +73,4 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   );
 };
 
-export default ProjectCard;
+export default CommunicationCard;

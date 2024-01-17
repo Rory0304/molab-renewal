@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LaodingProjectCard: React.FC = () => {
+const LoadingCommunicationCard: React.FC = () => {
   return (
     <div className="bg-white animate-pulse rounded-xl">
       <div className="relative pt-[70%]">
@@ -14,4 +14,4 @@ const LaodingProjectCard: React.FC = () => {
   );
 };
 
-export default LaodingProjectCard;
+export default LoadingCommunicationCard;

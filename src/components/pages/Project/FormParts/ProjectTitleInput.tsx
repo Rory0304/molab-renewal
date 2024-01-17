@@ -31,6 +31,7 @@ const ProjectTitleInput: React.FC<ProjectTitleInputProps> = ({
       }}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <TextInput
+          required
           className={PROPOSE_TUTORIAL_STEPS_SELECTORS[0]}
           value={value}
           onChange={onChange}
