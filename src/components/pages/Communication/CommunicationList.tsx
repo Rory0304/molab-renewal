@@ -2,8 +2,9 @@
 
 import React from 'react';
 
-import { ProjectCard } from 'src/components/blocks';
 import type { Proposetype } from 'src/types/project';
+
+import { CommunicationCard } from './CommunicationCard';
 
 interface CommunicationListProps {
   communicationList: Proposetype[];
@@ -16,7 +17,7 @@ const CommunicationList: React.FC<CommunicationListProps> = ({
     <>
       {communicationList.map((data, index) => (
         <li key={`communication-list-${index}`}>
-          <ProjectCard
+          <CommunicationCard
             link={`/communication/${data.uuid}`}
             title={data.title || '무제'}
             thumbnail={
