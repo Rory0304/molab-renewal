@@ -29,6 +29,8 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
           {thumbnail ? (
             <Image
               fill
+              sizes="240/240"
+              loading="lazy"
               src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/notice_thumbnail${thumbnail}`}
               alt={`${title} 공고 썸네일`}
               style={{
