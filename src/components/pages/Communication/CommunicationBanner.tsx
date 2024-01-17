@@ -63,7 +63,7 @@ const CommunicationBanner: React.FC = () => {
         <h3 className="pb-2 text-3xl font-bold ">열린 참여</h3>
         <p className="whitespace-pre-wrap">
           {
-            '자신이 살고 있는 도시를 더 발전시키고 싶나요?\n당신의 아이디어를 지역 사회에 공유해보세요'
+            '자신이 살고 있는 지역을 발전시키고 싶나요?\n당신의 아이디어를 공유해보세요'
           }
         </p>
         <button
