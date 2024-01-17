@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -21,6 +22,9 @@ module.exports = {
     ],
   },
   theme: {
+    fontFamily: {
+      pretendard: ['Pretendard', ...fontFamily.sans],
+    },
     colors: {
       ...colors,
       primary: 'var(--color-primary)',
