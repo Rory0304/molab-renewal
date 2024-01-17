@@ -86,6 +86,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
             src={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/notice_thumbnail${thumbnail}`}
             alt={`${title} 공고 썸네일`}
             style={{ objectFit: 'cover' }}
+            loading="lazy"
           />
         ) : null}
       </div>

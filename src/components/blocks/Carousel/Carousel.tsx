@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRafState } from 'react-use';
 
 type PaginationVariantType = 'slider' | 'number';
 
@@ -13,7 +14,8 @@ const Carousel: React.FC<CarouselProps> = ({
   children,
   paginationVariant = 'number',
 }) => {
-  const [activeItemIdx, setActiveItemIdx] = React.useState(0);
+  const [activeItemIdx, setActiveItemIdx] = useRafState(0);
+
   const carouselRef = React.useRef<HTMLUListElement>(null);
 
   const carouselItems = React.Children.toArray(children);
@@ -33,11 +35,11 @@ const Carousel: React.FC<CarouselProps> = ({
     };
 
     if (carouselRef.current) {
-      carouselRef.current.addEventListener('scrollend', checkActiveItem);
+      carouselRef.current.addEventListener('scroll', checkActiveItem);
     }
 
     return () =>
-      carouselRef.current?.removeEventListener('scrollend', checkActiveItem);
+      carouselRef.current?.removeEventListener('scroll', checkActiveItem);
   }, [carouselRef]);
 
   //

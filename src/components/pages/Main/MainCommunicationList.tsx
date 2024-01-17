@@ -26,7 +26,7 @@ const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
   return (
     <Link href={link} className="w-full">
       <div className="flex items-center w-full pt-4">
-        <div className="relative pt-[30%] w-[30%] mr-4">
+        <div className="relative pt-[30%] w-[30%] mr-4 rounded-md overflow-hidden">
           <Image
             fill
             src={thumbnail}
