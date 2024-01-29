@@ -32,13 +32,16 @@ const CommunicationBanner: React.FC = () => {
 
     try {
       setIsLoading(true);
+      onModalOpen('proposeLoading');
+
       const id = uuidV4();
       await molabApi
         .molabApiCreatePropose(supabaeClient)(id, userInfo?.id)
         .then(data => {
           if (data) {
-            setIsLoading(false);
-            router.push(`/project/${id}/base`);
+            setTimeout(() => {
+              router.push(`/project/${id}/base`);
+            }, 1500);
           }
         });
     } catch (err) {
@@ -47,6 +50,8 @@ const CommunicationBanner: React.FC = () => {
         '프로젝트 생성에 실패했습니다. 잠시후 다시 시도해주세요',
         { variant: 'error' }
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 

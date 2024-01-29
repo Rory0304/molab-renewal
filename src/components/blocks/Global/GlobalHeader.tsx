@@ -3,8 +3,7 @@
 import React from 'react';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from 'src/context/AuthProvider';
 import { useModals } from 'src/context/ModalProvider';
@@ -59,13 +58,16 @@ const GlobalHeader: React.FC = () => {
 
     try {
       setIsLoading(true);
+      onModalOpen('proposeLoading');
+
       const id = uuidV4();
       await molabApi
         .molabApiCreatePropose(supabaseClient)(id, userInfo?.id)
         .then(data => {
           if (data) {
-            router.push(`/project/${id}/base`);
-            setIsLoading(false);
+            setTimeout(() => {
+              router.push(`/project/${id}/base`);
+            }, 1500);
           }
         });
     } catch (err) {
@@ -74,6 +76,8 @@ const GlobalHeader: React.FC = () => {
         '프로젝트 생성에 실패했습니다. 잠시후 다시 시도해주세요',
         { variant: 'error' }
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
