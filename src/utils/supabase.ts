@@ -1,4 +1,4 @@
-import { Database } from '@rory0304/molab-renewal-types';
+import { Database } from '@rory0304/molab-project-types';
 import { createClient } from '@supabase/supabase-js';
 import { handleImageUpload } from 'src/api/image';
 import { fetchAllNotice, fetchNoticeById } from 'src/api/notice';
