@@ -41,7 +41,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@rory0304/molab-renewal-types": "^1.1.0",
+    "@rory0304/molab-project-types": "1.1.0",
     "@rorysa/prettier-config": "^1.4.2",
     "@tailwindcss/typography": "^0.5.9",
     "@types/humps": "^2.0.6",

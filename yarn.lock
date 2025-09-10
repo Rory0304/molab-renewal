@@ -299,10 +299,10 @@
   resolved "https://registry.npmjs.org/@rooks/use-mutation-observer/-/use-mutation-observer-4.11.2.tgz"
   integrity sha512-vpsdrZdr6TkB1zZJcHx+fR1YC/pHs2BaqcuYiEGjBVbwY5xcC49+h0hAUtQKHth3oJqXfIX/Ng8S7s5HFHdM/A==
 
-"@rory0304/molab-renewal-types@^1.1.0":
+"@rory0304/molab-project-types@1.1.0":
   version "1.1.0"
-  resolved "https://npm.pkg.github.com/download/@rory0304/molab-renewal-types/1.1.0/e6a8a64d998da0e8d2be9be1574cf675d43a2841#e6a8a64d998da0e8d2be9be1574cf675d43a2841"
-  integrity sha512-vboIxk9cssYm7yoL8EPMXuRUHWQTT2InJcpROW2865PsByh/3DvsGLtp9X6YOGCZD+wA+eRdnZ2n4647s4Mjfw==
+  resolved "https://npm.pkg.github.com/download/@rory0304/molab-project-types/1.1.0/a6bc68dbb30fddf49fe410c4b687e350089bf8b1#a6bc68dbb30fddf49fe410c4b687e350089bf8b1"
+  integrity sha512-i9aPQuruhPWr+fMLI43sFo6wDhwVCMZa0PD8M6N0PMeuRj9lXCveH0+9oothxmkAFLOPsqo+4zR+E41NRhStpg==
 
 "@rorysa/prettier-config@^1.4.2":
   version "1.4.2"

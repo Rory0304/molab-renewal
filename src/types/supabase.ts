@@ -1,4 +1,4 @@
-import { Database } from '@rory0304/molab-renewal-types';
+import { Database } from '@rory0304/molab-project-types';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export type Row<T extends keyof Database['public']['Tables']> =
