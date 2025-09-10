@@ -7,7 +7,7 @@
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Usage](#usage)
-* [Room for Improvement](#room-for-improvement)
+* [DEMO](#DEMO)
 
 
 ## Technologies Used
@@ -67,7 +67,41 @@ src
  ┗ package.json
 ```
 
-## Room for Improvement
-To do
-- Study Serverless functions and migrate with supabase
-- Need to fix some private routers 
+## DEMO
+<details>
+  <summary><b>리빙랩 스튜디오 (에디터)</b></summary>
+  <div markdown="1">
+    <ul>
+      <li>리빙랩 스튜디오 사용방법</li>
+      <img src="./docs/studio/studio-1.gif" width=100%>
+      <li>리빙랩 프로젝트 등록</li>
+      <img src="./docs/studio/studio-2.gif" width=100%>
+      <img src="./docs/studio/studio-3.gif" width=100%>
+      <li>페이지 이탈 및 데이터 소실 방지</li>
+      <img src="./docs/studio/studio-4.gif" width=100%>
+      <li>미리보기</li>
+      <img src="./docs/studio/studio-5.gif" width=100%>
+      <li>저장 내용 확인</li>
+      <img src="./docs/studio/studio-6.gif" width=100%>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary><b>리빙랩 프로젝트 상세/검색</b></summary>
+  <div markdown="2">
+    <ul>
+      <li>내가 생성한 프로젝트 Read/Delete</li>
+      <img src="./docs/search/search-1.gif" width=100%>
+      <li>공개 프로젝트 검색</li>
+      <img src="./docs/search/search-2.gif" width=100%>
+      <img src="./docs/search/search-5.gif" width=100%>
+      <li>공개 프로젝트 북마크</li>
+      <img src="./docs/search/search-3.gif" width=100%>
+      <li>공개 프로젝트 상세보기</li>
+      <img src="./docs/search/search-4.gif" width=100%>
+      <li>프로젝트 참여 후기 남기기</li>
+      <img src="./docs/search/search-6.gif" width=100%>
+    </ul>
+  </div>
+</details>
