@@ -2,7 +2,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useMutation } from '@tanstack/react-query';
 import { enqueueSnackbar } from 'notistack';
 import type { ProjectFormValues } from 'src/types/project';
-import { molabApi } from 'src/utils/supabase';
+import { ProposeUseCase } from 'src/useCases/propose';
 
 interface useUpdateProjectProps {
   projectId: string;
@@ -11,11 +11,12 @@ interface useUpdateProjectProps {
 
 const useUpdateProject = ({ projectId, refetch }: useUpdateProjectProps) => {
   const supabseClient = createClientComponentClient();
+  const proposeUsecase = new ProposeUseCase(supabseClient);
 
   return useMutation(
     async (formData: ProjectFormValues) =>
-      await molabApi
-        .molabApiUpdatePropse(supabseClient)(projectId, formData)
+      await proposeUsecase
+        .updatePropose(projectId, formData)
         .then(res => {
           enqueueSnackbar('성공적으로 저장되었습니다.', {
             variant: 'success',

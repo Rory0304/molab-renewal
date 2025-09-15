@@ -9,7 +9,7 @@ import {
   CommunicationDetailReviewBox,
 } from 'src/components/pages';
 import { ProjectContent } from 'src/types';
-import { molabApi } from 'src/utils/supabase';
+import { ProposeUseCase } from 'src/useCases/propose';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,12 +24,13 @@ const CommunicationDetailPage = async ({
   const supabaeClient = createServerComponentClient({
     cookies: () => cookieStore,
   });
+  const proposeUsecase = new ProposeUseCase(supabaeClient);
 
   const projectId = params.slug;
   const isPreview = searchParams?.['preview'] === 'Y' ? true : false;
 
-  const projectData = await molabApi
-    .molabApiFetchProposeById(supabaeClient)(projectId)
+  const projectData = await proposeUsecase
+    .fetchProposeById(projectId)
     .then(res => res.data);
 
   return (

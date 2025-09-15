@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from 'src/context/AuthProvider';
 import { useModals } from 'src/context/ModalProvider';
-import { molabApi } from 'src/utils/supabase';
+import { ProposeUseCase } from 'src/useCases/propose';
 import { v4 as uuidV4 } from 'uuid';
 
 import { DesktopHeader, MobileHeader } from '../Header';
@@ -53,6 +53,8 @@ const GlobalHeader: React.FC = () => {
    *
    */
   const handleProposeBtnClick = async () => {
+    const proposeUseCase = new ProposeUseCase(supabaseClient);
+
     if (!authorized || !userInfo) {
       return onModalOpen('loginRequire');
     }
@@ -60,14 +62,13 @@ const GlobalHeader: React.FC = () => {
     try {
       setIsLoading(true);
       const id = uuidV4();
-      await molabApi
-        .molabApiCreatePropose(supabaseClient)(id, userInfo?.id)
-        .then(data => {
-          if (data) {
-            router.push(`/project/${id}/base`);
-            setIsLoading(false);
-          }
-        });
+
+      await proposeUseCase.createPropose(id, userInfo?.id).then(data => {
+        if (data) {
+          router.push(`/project/${id}/base`);
+          setIsLoading(false);
+        }
+      });
     } catch (err) {
       setIsLoading(false);
       enqueueSnackbar(

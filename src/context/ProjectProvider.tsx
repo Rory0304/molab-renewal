@@ -12,8 +12,8 @@ import { RecoilRoot } from 'recoil';
 import { PROJECT_FORM_DEFAULT_VALUES } from 'src/constants/projectFormDefaultValues';
 import { useAuth } from 'src/context/AuthProvider';
 import type { ProjectFormValues } from 'src/types';
+import { ProposeUseCase } from 'src/useCases/propose';
 import { convertImageUrltoFile } from 'src/utils/file';
-import { molabApi } from 'src/utils/supabase';
 
 interface ProjectProviderProps {
   children: React.ReactNode;
@@ -23,6 +23,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   const router = useRouter();
   const params = useParams();
   const supabaseClient = createClientComponentClient();
+  const proposeUsecase = new ProposeUseCase(supabaseClient);
 
   const { userInfo } = useAuth();
 
@@ -34,8 +35,8 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
   const { data, isFetching, refetch } = useQuery(
     ['project', projectId, userInfo],
     async () => {
-      return await molabApi
-        .molabApiFetchProposeById(supabaseClient)(projectId)
+      return await proposeUsecase
+        .fetchProposeById(projectId)
         .then(res => res.data)
         .catch(err => {
           enqueueSnackbar('프로젝트를 불러올 수 없습니다', {
@@ -84,7 +85,7 @@ const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
 
         if (data.thumbnail) {
           await convertImageUrltoFile(
-            `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${data.thumbnail}`
+            `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/propose_thumbnail/${data.thumbnail}`
           ).then(res => {
             if (res) {
               thumbnailFileList.items.add(res);

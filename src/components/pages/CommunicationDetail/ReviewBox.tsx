@@ -7,13 +7,13 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { ReviewType } from 'src/app/api/review';
 import { ErrorBox } from 'src/components/blocks';
 import SpinnerBox from 'src/components/blocks/SpinnerBox/SpinnerBox';
 import { useAuth } from 'src/context/AuthProvider';
 import { useModals } from 'src/context/ModalProvider';
+import { ReviewType } from 'src/types/review';
+import { ReviewUseCase } from 'src/useCases/review';
 import { checkIsDatePast } from 'src/utils/date';
-import { molabApi } from 'src/utils/supabase';
 
 const DynamicCommunicationDetailReviewSubmitModal = dynamic(
   () =>
@@ -41,6 +41,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   preview = false,
 }) => {
   const supabaseClient = createClientComponentClient();
+  const reviewUseCase = new ReviewUseCase(supabaseClient);
 
   const { userInfo } = useAuth();
   const { onModalOpen } = useModals();
@@ -58,7 +59,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   const { data, isSuccess, isError, isFetching, refetch } = useQuery(
     ['review', projectId],
     async () =>
-      await molabApi.molabApiFetchReviewList(supabaseClient)({
+      await reviewUseCase.fetchReviewList({
         select: `thumbnail, uuid`,
         offset: 0,
         pageCount: 16,
@@ -99,7 +100,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
       );
 
     return reviewList && reviewList?.length > 0 ? (
-      <div className="grid w-full grid-cols-4 max-h-40 overflow-scroll gap-2">
+      <div className="grid w-full grid-cols-4 gap-2 overflow-scroll max-h-40">
         {reviewList.map(item =>
           item.thumbnail ? (
             <div

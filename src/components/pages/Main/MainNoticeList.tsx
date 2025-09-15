@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { NoticeCategory } from 'src/types/notice';
 import type { NoticeType } from 'src/types/notice';
-import { molabApi } from 'src/utils/supabase';
+import { NoticeUseCase } from 'src/useCases/notice';
 
 interface NoticeCardProps extends NoticeType {}
 
@@ -24,7 +24,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
 }) => {
   return (
     <Link href={`/notice/${id}`}>
-      <div className="flex flex-col items-center overflow-hidden bg-white shadow-md cursor-pointer hover:shadow-xl md:flex-row rounded-xl transition ease-in-out">
+      <div className="flex flex-col items-center overflow-hidden transition ease-in-out bg-white shadow-md cursor-pointer hover:shadow-xl md:flex-row rounded-xl">
         <div className="relative pt-[50%] md:pt-[30%] w-full md:w-[30%]">
           {thumbnail ? (
             <Image
@@ -51,12 +51,13 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
 
 const MainNoticeList: React.FC = () => {
   const supabaseClient = createClientComponentClient();
+  const noticeUsecase = new NoticeUseCase(supabaseClient);
 
   const { data: noticeList } = useQuery({
     queryKey: ['noticeList'],
     queryFn: async () =>
-      await molabApi
-        .molabApiFetchAllNotice(supabaseClient)({
+      await noticeUsecase
+        .fetchAllNotice({
           keyword: '',
           category: '',
           ascending: false,

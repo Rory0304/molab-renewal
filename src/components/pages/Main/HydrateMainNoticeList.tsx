@@ -1,19 +1,20 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
+import { NoticeUseCase } from 'src/useCases/notice';
 import getQueryClient from 'src/utils/queryClient';
-import { molabApi } from 'src/utils/supabase';
 
 import MainNoticeList from './MainNoticeList';
 
 const HydrateMainReviewList: React.FC = async () => {
   const supabaeClient = createClientComponentClient();
+  const noticeUsecase = new NoticeUseCase(supabaeClient);
 
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(
     ['noticeList'],
     async () =>
-      await molabApi
-        .molabApiFetchAllNotice(supabaeClient)({
+      await noticeUsecase
+        .fetchAllNotice({
           keyword: '',
           category: '',
           ascending: false,

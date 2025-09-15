@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Carousel from 'src/components/blocks/Carousel/Carousel';
 import type { ProjectContent } from 'src/types/project';
-import { molabApi } from 'src/utils/supabase';
+import { ProposeUseCase } from 'src/useCases/propose';
 
 interface MainCommunicationCardProps
   extends Pick<ProjectContent, 'title' | 'siDo' | 'siGunGu'> {
@@ -49,11 +49,12 @@ const MainCommunicationCard: React.FC<MainCommunicationCardProps> = ({
 
 const MainCommunicationList: React.FC = () => {
   const supabaseClient = createClientComponentClient();
+  const proposeUseCase = new ProposeUseCase(supabaseClient);
 
   const { data: communicationList } = useQuery({
     queryKey: ['communicationList'],
     queryFn: async () =>
-      await molabApi.molabApiFetchProposeList(supabaseClient)({
+      await proposeUseCase.paginateProposeList({
         offset: 0,
         pageCount: 3,
         siDo: '',
@@ -62,7 +63,7 @@ const MainCommunicationList: React.FC = () => {
   });
 
   return (
-    <div className="overflow-hidden bg-white border-gray-500 shadow-lg rounded-xl p-8">
+    <div className="p-8 overflow-hidden bg-white border-gray-500 shadow-lg rounded-xl">
       <div className="flex flex-col">
         <span className="pb-1 text-sm text-neutral-500">열린 참여</span>
         <strong className="text-lg">

@@ -10,7 +10,6 @@ import TruckIcon from '@heroicons/react/20/solid/TruckIcon';
 import UserGroupIcon from '@heroicons/react/20/solid/UserGroupIcon';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchAllNotice } from 'src/app/api/notice';
 import {
   DeferredLoading,
   ErrorBox,
@@ -22,7 +21,7 @@ import {
   NoticeSort,
   SortOptionType,
 } from 'src/types/notice';
-import { molabApi } from 'src/utils/supabase';
+import { NoticeUseCase } from 'src/useCases/notice';
 
 import NoticeList from './NoticeList';
 
@@ -42,6 +41,7 @@ const NOTICE_CATEGORY_ICON: Record<
 
 const NoticeSearchArea: React.FC = () => {
   const supabaseClient = createClientComponentClient();
+  const noticeUsecase = new NoticeUseCase(supabaseClient);
   const lastNoticeItemRef = React.useRef<HTMLDivElement>(null);
 
   // Search State (keyword, category, sort)
@@ -86,7 +86,7 @@ const NoticeSearchArea: React.FC = () => {
       selectedSortOption,
     ],
     async ({ pageParam = 0 }) =>
-      await molabApi.molabApiFetchAllNotice(supabaseClient)({
+      await noticeUsecase.fetchAllNotice({
         keyword: debouncedSearchKeyword,
         category: selectedCategory === 'All' ? '' : selectedCategory,
         ascending: selectedSortOption === 'asc',
