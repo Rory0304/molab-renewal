@@ -8,7 +8,7 @@ import {
 } from 'src/components/pages/Notice';
 import type { NoticeDetailAsideSectionProps } from 'src/components/pages/Notice/NoticeDetailAsideSection';
 import { NoticeCategory } from 'src/types/notice';
-import { molabApi } from 'src/utils/supabase';
+import { NoticeUseCase } from 'src/useCases/notice';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,9 +21,10 @@ const NoticeDetailPage = async ({
 }) => {
   const supabaseClient = createClientComponentClient();
   const noticeId = params.slug;
+  const noticeUsecase = new NoticeUseCase(supabaseClient);
 
-  const noticeData = await molabApi
-    .molabApiFetchNoticeById(supabaseClient)(noticeId)
+  const noticeData = await noticeUsecase
+    .fetchNoticeById(noticeId)
     .then(res => res.data);
 
   return (

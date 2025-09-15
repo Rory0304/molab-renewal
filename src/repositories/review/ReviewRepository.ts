@@ -1,17 +1,19 @@
 import { decamelizeKeys } from 'humps';
+import { MolabApiClient } from 'src/repositories/api/molab/MolabApiClient';
 import type { Row, SupabaseClientType } from 'src/types/supabase';
-
-import { handleImageUpload } from './image';
+import { ImageUseCase } from 'src/useCases/image';
 
 export type ReviewType = Row<'Review'>;
 
-/**
- *
- */
-export const fetchReviewById =
-  (supabase: SupabaseClientType) =>
-  async ({ uuid }: { uuid: string }) => {
-    const { data, error } = await supabase
+export class ReviewRepository extends MolabApiClient {
+  constructor(client?: SupabaseClientType) {
+    super({ client: client });
+  }
+  /**
+   *
+   */
+  public async fetchReviewById({ uuid }: { uuid: string }) {
+    const { data, error } = await this.client
       .from('Review')
       .select('*')
       .eq('uuid', uuid)
@@ -21,25 +23,20 @@ export const fetchReviewById =
     if (error) throw Error('fail to fetch review');
 
     return data;
-  };
+  }
 
-/**
- *
- */
-export const fetchReviewList =
-  (supabase: SupabaseClientType) =>
-  async ({
-    offset,
-    pageCount,
-    select,
-    projectId,
-  }: {
+  /**
+   *
+   */
+  public async fetchReviewList(props: {
     select: string;
     offset: number;
     pageCount: number;
     projectId?: string;
-  }) => {
-    let query = supabase
+  }) {
+    const { select, offset, pageCount, projectId } = props;
+
+    let query = this.client
       .from('Review')
       .select(select)
       // Filters
@@ -55,29 +52,24 @@ export const fetchReviewList =
       throw Error('fail to fetch review list');
     }
     return data as Partial<ReviewType>[];
-  };
+  }
 
-/**
- * Upload Review
- */
-export const uploadReview =
-  (supabase: SupabaseClientType) =>
-  async ({
-    projectId,
-    uuid,
-    userId,
-    content,
-    imageFile,
-  }: {
+  /**
+   * Upload Review
+   */
+  public async uploadReview(props: {
     projectId: string;
     uuid: string;
     content: string;
     userId: string;
     imageFile?: File;
-  }) => {
+  }) {
+    const { projectId, uuid, content, userId, imageFile } = props;
+    const imageUsecase = new ImageUseCase(this.client);
+
     // upload image
     const thumbnailFilePath = imageFile
-      ? await handleImageUpload(supabase)(
+      ? await imageUsecase.uploadImage(
           'review_thumbnail',
           `${uuid}-thumbnail`,
           imageFile
@@ -92,7 +84,7 @@ export const uploadReview =
       thumbnail: thumbnailFilePath,
     }) as ReviewType;
 
-    const { data, error } = await supabase
+    const { data, error } = await this.client
       .from('Review')
       .insert(configuredData)
       .returns<Row<'Review'>>();
@@ -102,4 +94,5 @@ export const uploadReview =
     }
 
     return data;
-  };
+  }
+}

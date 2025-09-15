@@ -18,9 +18,8 @@ import {
 import { EyeIcon, EyeSlashIcon } from 'src/components/icons';
 import { useAuth } from 'src/context/AuthProvider';
 import { Proposetype } from 'src/types/project';
-import type { Row } from 'src/types/supabase';
+import { ProposeUseCase } from 'src/useCases/propose';
 import { isBrowser } from 'src/utils/browser';
-import { molabApi } from 'src/utils/supabase';
 
 const COUNT_PER_PROPOSE = 8;
 
@@ -95,6 +94,8 @@ const MyProposeCard: React.FC<MyProposeCardProps> = ({
 
 const MyProposeList: React.FC = () => {
   const supabaseClient = createClientComponentClient();
+  const proposeUsecase = new ProposeUseCase(supabaseClient);
+
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
   const selectedProjectId = React.useRef<string>('');
 
@@ -106,12 +107,12 @@ const MyProposeList: React.FC = () => {
   const { isError, data, refetch, isInitialLoading } = useQuery(
     ['fetch-my-propose-list', offset, userInfo],
     async () =>
-      await molabApi
-        .molabApiFetchMyProposeList(supabaseClient)(
-          userInfo?.id ?? '',
+      await proposeUsecase
+        .paginateMyProposeList({
+          userId: userInfo?.id ?? '',
           offset,
-          COUNT_PER_PROPOSE
-        )
+          pageCount: COUNT_PER_PROPOSE,
+        })
         .then(res => ({
           proposeList: res?.data,
           count: res?.count,
@@ -133,7 +134,9 @@ const MyProposeList: React.FC = () => {
   //
   const handleDeleteProject = async (uuid: string) => {
     try {
-      await molabApi.molabApiDeleteProposeById(supabaseClient)(uuid);
+      const proposeUsecase = new ProposeUseCase(supabaseClient);
+
+      await proposeUsecase.deleteProposeById(uuid);
       enqueueSnackbar('삭제되었습니다', { variant: 'success' });
 
       if (proposeList.length === 1 && page > 1) {

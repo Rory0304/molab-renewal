@@ -12,7 +12,7 @@ import { enqueueSnackbar } from 'notistack';
 import TextAreaInput from 'src/components/blocks/FormInput/TextAreaInput';
 import Modal from 'src/components/blocks/Modal/Modal';
 import { useAuth } from 'src/context/AuthProvider';
-import { molabApi } from 'src/utils/supabase';
+import { ReviewUseCase } from 'src/useCases/review';
 import { v4 as uuidV4 } from 'uuid';
 
 interface CommunicationDetailReviewSubmitModalProps {
@@ -30,6 +30,7 @@ const CommunicationDetailReviewSubmitModal: React.FC<
   CommunicationDetailReviewSubmitModalProps
 > = ({ projectId, modalRef, submitCallback }) => {
   const supabaseClient = createClientComponentClient();
+  const reviewUseCase = new ReviewUseCase(supabaseClient);
 
   const { userInfo } = useAuth();
   const [isLoading, setIsLoading] = React.useState(false);
@@ -109,8 +110,8 @@ const CommunicationDetailReviewSubmitModal: React.FC<
       } else {
         if (!userInfo?.id) throw Error('fail to get user id');
 
-        await molabApi
-          .molabApiUploadReview(supabaseClient)({
+        await reviewUseCase
+          .uploadReview({
             projectId,
             userId: userInfo?.id,
             uuid: uuidV4(),

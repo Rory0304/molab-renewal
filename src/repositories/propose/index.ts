@@ -1,0 +1,1 @@
+export { ProposeRepository } from './ProposeRepository';

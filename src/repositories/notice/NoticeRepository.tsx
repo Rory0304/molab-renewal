@@ -1,26 +1,24 @@
-import { camelizeKeys } from 'humps';
-import type { NoticeType } from 'src/types/notice';
+import { camelizeKeys, decamelizeKeys } from 'humps';
+import { MolabApiClient } from 'src/repositories/api/molab/MolabApiClient';
+import { NoticeType } from 'src/types/notice';
 import type { Row, SupabaseClientType } from 'src/types/supabase';
 
-/**
- *
- */
-export const fetchAllNotice =
-  (supabase: SupabaseClientType) =>
-  async ({
-    keyword,
-    category,
-    ascending,
-    offset,
-    pageCount,
-  }: {
+export class NoticeRepository extends MolabApiClient {
+  constructor(client?: SupabaseClientType) {
+    super({ client: client });
+  }
+  /**
+   *
+   */
+  public async fetchAllNotice(_: {
     keyword: string;
     category: string;
     ascending: boolean;
     offset: number;
     pageCount: number;
-  }) => {
-    const { data, error } = await supabase
+  }) {
+    const { keyword, category, ascending, offset, pageCount } = _;
+    const { data, error } = await this.client
       .from('Notice')
       .select('*')
       // Filters
@@ -35,14 +33,13 @@ export const fetchAllNotice =
     }
 
     return { data: camelizeKeys(data) as NoticeType[] };
-  };
+  }
 
-/**
- *
- */
-export const fetchNoticeById =
-  (supabase: SupabaseClientType) => async (noticeId: string) => {
-    const { data, error } = await supabase
+  /**
+   *
+   */
+  public async fetchNoticeById(noticeId: string) {
+    const { data, error } = await this.client
       .from('Notice')
       .select('*')
       //Filters
@@ -55,4 +52,5 @@ export const fetchNoticeById =
     }
 
     return { data: camelizeKeys(data) as NoticeType };
-  };
+  }
+}

@@ -1,0 +1,1 @@
+export { NoticeRepository } from './NoticeRepository';

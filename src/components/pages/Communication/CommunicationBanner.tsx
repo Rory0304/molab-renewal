@@ -7,12 +7,13 @@ import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from 'src/context/AuthProvider';
 import { useModals } from 'src/context/ModalProvider';
-import { molabApi } from 'src/utils/supabase';
+import { ProposeUseCase } from 'src/useCases/propose';
 import { v4 as uuidV4 } from 'uuid';
 
 const CommunicationBanner: React.FC = () => {
   const router = useRouter();
   const supabaeClient = createClientComponentClient();
+  const proposeUsecase = new ProposeUseCase(supabaeClient);
 
   const { authorized, userInfo } = React.useContext(AuthContext);
   const { onModalOpen } = useModals();
@@ -30,14 +31,12 @@ const CommunicationBanner: React.FC = () => {
     try {
       setIsLoading(true);
       const id = uuidV4();
-      await molabApi
-        .molabApiCreatePropose(supabaeClient)(id, userInfo?.id)
-        .then(data => {
-          if (data) {
-            setIsLoading(false);
-            router.push(`/project/${id}/base`);
-          }
-        });
+      await proposeUsecase.createPropose(id, userInfo?.id).then(data => {
+        if (data) {
+          setIsLoading(false);
+          router.push(`/project/${id}/base`);
+        }
+      });
     } catch (err) {
       setIsLoading(false);
       enqueueSnackbar(

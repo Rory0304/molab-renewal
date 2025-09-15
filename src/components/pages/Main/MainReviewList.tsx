@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Carousel from 'src/components/blocks/Carousel/Carousel';
-import { molabApi } from 'src/utils/supabase';
+import { ReviewUseCase } from 'src/useCases/review';
 
 const DynamicCommunicationDetailReviewModal = dynamic(
   () =>
@@ -43,6 +43,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ content, thumbnail }) => {
 
 const MainReviewList: React.FC = () => {
   const supabaeClient = createClientComponentClient();
+  const reviewUseCase = new ReviewUseCase(supabaeClient);
+
   const reviewModalRef = React.useRef<HTMLDialogElement>(null);
   const [selectedReviewId, setSelectedReviewId] = React.useState('');
 
@@ -51,7 +53,7 @@ const MainReviewList: React.FC = () => {
   const { data } = useQuery({
     queryKey: ['reviewList'],
     queryFn: async () =>
-      await molabApi.molabApiFetchReviewList(supabaeClient)({
+      await reviewUseCase.fetchReviewList({
         select: `thumbnail, content, uuid`,
         offset: 0,
         pageCount: 3,

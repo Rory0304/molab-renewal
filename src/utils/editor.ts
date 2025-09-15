@@ -1,6 +1,5 @@
 import { SupabaseClientType } from 'src/types/supabase';
-
-import { molabApi } from './supabase';
+import { ImageUseCase } from 'src/useCases/image';
 
 export const editorImageHandler = ({
   supabase,
@@ -13,6 +12,8 @@ export const editorImageHandler = ({
   successCallback?: (url: string) => void;
   errorCallback?: () => void;
 }) => {
+  const imageUsecase = new ImageUseCase(supabase);
+
   const input = document.createElement('input');
   input.setAttribute('type', 'file');
   input.setAttribute('accept', 'image/*');
@@ -23,7 +24,7 @@ export const editorImageHandler = ({
       const imageFile = input?.files[0];
 
       try {
-        const imgUrl = await molabApi.molabApiHandleImageUpload(supabase)(
+        const imgUrl = await imageUsecase.uploadImage(
           'project_image',
           // encode file name to handle Korean
           fileName,

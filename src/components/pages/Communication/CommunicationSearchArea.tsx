@@ -7,7 +7,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { AreaSelectInput, ErrorBox } from 'src/components/blocks';
 import { DeferredLoading } from 'src/components/blocks';
-import { molabApi } from 'src/utils/supabase';
+import { ProposeUseCase } from 'src/useCases/propose';
 
 const LaodingProjectCard = React.lazy(
   () => import('src/components/blocks/ProjectCard/LoadingProjectCard')
@@ -24,6 +24,8 @@ const COUNT_PER_COMMUNCATION = 6;
 //
 const CommunicationSearchArea: React.FC = () => {
   const supabaeClient = createClientComponentClient();
+  const proposeUseCase = new ProposeUseCase(supabaeClient);
+
   const communicationListRef = React.useRef<HTMLDivElement>(null);
 
   const [selectedSido, setSelectedSido] = React.useState('');
@@ -54,7 +56,7 @@ const CommunicationSearchArea: React.FC = () => {
   } = useInfiniteQuery(
     ['fetch-propose-list', selectedSiGunGu, selectedSido],
     async ({ pageParam = 0 }) =>
-      await molabApi.molabApiFetchProposeList(supabaeClient)({
+      await proposeUseCase.paginateProposeList({
         offset: pageParam,
         pageCount: COUNT_PER_COMMUNCATION,
         siDo: selectedSido,

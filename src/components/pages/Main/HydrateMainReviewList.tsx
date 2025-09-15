@@ -1,18 +1,17 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
+import { ReviewUseCase } from 'src/useCases/review';
 import getQueryClient from 'src/utils/queryClient';
-import { molabApi } from 'src/utils/supabase';
 
 import MainReviewList from './MainReviewList';
 
 const HydrateMainReviewList: React.FC = async () => {
-  const supabaseClient = createClientComponentClient();
+  const reviewUseCase = new ReviewUseCase();
 
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(
     ['reviewList'],
     async () =>
-      await molabApi.molabApiFetchReviewList(supabaseClient)({
+      await reviewUseCase.fetchReviewList({
         select: `thumbnail, content, uuid`,
         offset: 0,
         pageCount: 3,

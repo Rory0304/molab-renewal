@@ -6,7 +6,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { DeferredLoading, Modal, SpinnerBox } from 'src/components/blocks';
-import { molabApi } from 'src/utils/supabase';
+import { ReviewUseCase } from 'src/useCases/review';
 
 interface CommunicationDetailReviewModalProps {
   uuid: string;
@@ -17,10 +17,10 @@ const CommunicationDetailReviewModal: React.FC<
   CommunicationDetailReviewModalProps
 > = ({ uuid, modalRef }) => {
   const supabaseClient = createClientComponentClient();
+  const reviewUseCase = new ReviewUseCase(supabaseClient);
 
   const { data, isFetching } = useQuery(['review', uuid], async () => {
-    if (uuid)
-      return await molabApi.molabApiFetchReviewById(supabaseClient)({ uuid });
+    if (uuid) return await reviewUseCase.fetchReviewById(uuid);
     return null;
   });
 

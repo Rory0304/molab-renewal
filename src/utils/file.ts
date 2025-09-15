@@ -1,6 +1,4 @@
-import { getServerSupabase } from 'src/utils/supabase';
-
-const supabase = getServerSupabase();
+import { SupabaseClientSingleton } from 'src/supabase/SupabaseClientSingleton';
 
 /**
  * Convert supabse image url to file blob type
@@ -28,7 +26,9 @@ export const convertImageUrltoFile = async (url: string) => {
  * Download supabase file
  */
 export const downloadFile = async (from: string, url: string) => {
-  const { data, error } = await supabase.storage.from(from).download(url);
+  const { data, error } = await SupabaseClientSingleton.getClient()
+    .storage.from(from)
+    .download(url);
 
   if (error) {
     throw new Error('fail to download file');
