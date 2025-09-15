@@ -1,13 +1,16 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 import { NoticeUseCase } from 'src/useCases/notice';
 import getQueryClient from 'src/utils/queryClient';
 
 import MainNoticeList from './MainNoticeList';
 
 const HydrateMainReviewList: React.FC = async () => {
-  const supabaeClient = createClientComponentClient();
-  const noticeUsecase = new NoticeUseCase(supabaeClient);
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
+  const noticeUsecase = new NoticeUseCase(supabase);
 
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(

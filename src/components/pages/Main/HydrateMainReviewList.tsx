@@ -1,13 +1,16 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 import { ReviewUseCase } from 'src/useCases/review';
 import getQueryClient from 'src/utils/queryClient';
 
 import MainReviewList from './MainReviewList';
 
 const HydrateMainReviewList: React.FC = async () => {
-  const supabaseClient = createClientComponentClient();
-  const reviewUseCase = new ReviewUseCase(supabaseClient);
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
+  const reviewUseCase = new ReviewUseCase(supabase);
 
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(
