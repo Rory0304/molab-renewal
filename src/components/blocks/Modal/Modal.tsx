@@ -40,7 +40,9 @@ const Modal = React.forwardRef(
       setMounted(true);
     }, []);
 
-    if (!isBrowser || !mounted) return <></>;
+    if (!isBrowser || !mounted) return null;
+
+    if (open === false) return null;
 
     return ReactDOM.createPortal(
       <dialog
