@@ -4,8 +4,8 @@ import React from 'react';
 
 import dynamic from 'next/dynamic';
 
-const DynamicLoginRequiredModal = dynamic(
-  () => import(`src/components/pages/Global/LoginRequireModal`)
+const DynamicSignInModal = dynamic(
+  () => import(`src/components/pages/SignIn/SignInModal`)
 );
 
 type modalType = 'loginRequire';
@@ -15,6 +15,7 @@ type modalType = 'loginRequire';
 //
 export const ModalsContext = React.createContext({
   onModalOpen: (_: modalType) => {},
+  onModalClose: (_: modalType) => {},
 });
 
 interface NoticeProviderProps {
@@ -22,20 +23,34 @@ interface NoticeProviderProps {
 }
 
 const ModalsProvider: React.FC<NoticeProviderProps> = ({ children }) => {
-  const loginRequiredModalRef = React.useRef<HTMLDialogElement>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
 
   const onModalOpen = (modalType: modalType) => {
     switch (modalType) {
       case 'loginRequire':
-        return loginRequiredModalRef.current?.showModal();
+        setIsLoginModalOpen(true);
+
+      default:
+        return;
+    }
+  };
+
+  const onModalClose = (modalType: modalType) => {
+    switch (modalType) {
+      case 'loginRequire':
+        setIsLoginModalOpen(false);
+
       default:
         return;
     }
   };
 
   return (
-    <ModalsContext.Provider value={{ onModalOpen: onModalOpen }}>
-      {children} <DynamicLoginRequiredModal modalRef={loginRequiredModalRef} />
+    <ModalsContext.Provider
+      value={{ onModalOpen: onModalOpen, onModalClose: onModalClose }}
+    >
+      {children}
+      <DynamicSignInModal isOpen={isLoginModalOpen} />
     </ModalsContext.Provider>
   );
 };
