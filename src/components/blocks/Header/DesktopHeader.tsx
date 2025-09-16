@@ -31,6 +31,11 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
     setOpenProfileDropdown(false);
   }, [pathname]);
 
+  const handleSignInModalOpen = () => {
+    setOpenProfileDropdown(false);
+    onLoginRequireModalOpen();
+  };
+
   return (
     <div className="items-center justify-between hidden py-5 md:flex content-layout">
       <div>
@@ -103,7 +108,6 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                       type="button"
                       className="text-gray-700"
                       onClick={() => {
-                        console.log('sign out');
                         signOut();
                       }}
                     >
@@ -117,7 +121,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
         ) : (
           <button
             className="px-4 py-1 mr-4 text-sm font-semibold leading-6 border-2 border-gray-300 border-solid rounded-3xl"
-            onClick={onLoginRequireModalOpen}
+            onClick={handleSignInModalOpen}
           >
             <span>로그인</span>
           </button>
