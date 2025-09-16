@@ -2,9 +2,8 @@
 
 import React from 'react';
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { User } from '@supabase/auth-helpers-nextjs';
-import { useRouter } from 'next/navigation';
+import { SupabaseClientSingleton } from 'src/supabase/SupabaseClientSingleton';
 
 type AuthProviderProps = { children: React.ReactNode };
 
@@ -27,8 +26,7 @@ const AuthContext = React.createContext<AuthContextType>({
 //
 //
 function AuthProvider({ children }: AuthProviderProps) {
-  const supabaseClient = createClientComponentClient();
-  const router = useRouter();
+  const supabaseClient = SupabaseClientSingleton.getClient();
 
   const [authorized, setAuthorized] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState<User | null>(null);
@@ -41,31 +39,35 @@ function AuthProvider({ children }: AuthProviderProps) {
     setUserInfo(null);
   };
 
-  const resolveSession = React.useCallback(async () => {
-    const {
-      data: { session },
-      error,
-    } = await supabaseClient.auth.getSession();
+  const resolveSession = async () => {
+    try {
+      const {
+        data: { session },
+        error,
+      } = await supabaseClient.auth.getSession();
 
-    if (error) {
-      console.error('fail to resolve session key');
+      if (error) {
+        console.error('fail to resolve session key', error);
+        resetUserInfo();
+        return;
+      }
+
+      setAuthorized(Boolean(session?.user));
+      setUserInfo(session?.user || null);
+    } catch (err) {
+      console.error('Error resolving session:', err);
       resetUserInfo();
     }
-
-    setAuthorized(Boolean(session?.user));
-    setUserInfo(session?.user || null);
-  }, []);
+  };
 
   const signOut = async () => {
-    console.log('sign out');
     try {
-      await supabaseClient.auth.signOut().then(res => {
-        if (res.error) {
-          throw new Error('fail to sign out');
-        }
-        resetUserInfo();
-        router.push('/');
-      });
+      await supabaseClient.auth.signOut();
+
+      resetUserInfo();
+
+      localStorage.removeItem('sb-yjizvhkbeyqrgkaaodgh-auth-token');
+      window.location.href = '/';
     } catch (err) {
       console.error(err);
     }
@@ -75,15 +77,18 @@ function AuthProvider({ children }: AuthProviderProps) {
   //
   //
   React.useEffect(() => {
+    const initializeAuth = async () => {
+      await resolveSession();
+    };
+
+    initializeAuth();
+
     const { data: listener } = supabaseClient.auth.onAuthStateChange(
       (_event, session) => {
-        console.log(_event);
         setUserInfo(session?.user || null);
         setAuthorized(Boolean(session?.user));
       }
     );
-
-    resolveSession();
 
     return () => {
       listener?.subscription.unsubscribe();
