@@ -17,8 +17,8 @@ import {
 } from 'src/components/blocks';
 import { EyeIcon, EyeSlashIcon } from 'src/components/icons';
 import { useAuth } from 'src/context/AuthProvider';
+import { Proposetype } from 'src/data/types/project';
 import { ProposeUseCase } from 'src/domain/useCases/propose';
-import { Proposetype } from 'src/types/project';
 import { isBrowser } from 'src/utils/browser';
 
 const COUNT_PER_PROPOSE = 8;

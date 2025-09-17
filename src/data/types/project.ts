@@ -1,5 +1,5 @@
 import { Camelized } from 'humps';
-import type { Row } from 'src/types/supabase';
+import type { Row } from 'src/data/types/supabase';
 
 export enum ProjectStatus {
   ONGOING = 'Ongoing',
