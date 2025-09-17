@@ -1,5 +1,5 @@
 import { Hydrate, dehydrate } from '@tanstack/react-query';
-import { NoticeUseCase } from 'src/useCases/notice';
+import { NoticeUseCase } from 'src/domain/useCases/notice';
 import getQueryClient from 'src/utils/queryClient';
 
 import MainNoticeList from './MainNoticeList';

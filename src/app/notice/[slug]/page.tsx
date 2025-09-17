@@ -7,8 +7,8 @@ import {
   NoticeDetailInfoSection,
 } from 'src/components/pages/Notice';
 import type { NoticeDetailAsideSectionProps } from 'src/components/pages/Notice/NoticeDetailAsideSection';
-import { NoticeCategory } from 'src/types/notice';
-import { NoticeUseCase } from 'src/useCases/notice';
+import { NoticeCategory } from 'src/data/types/notice';
+import { NoticeUseCase } from 'src/domain/useCases/notice';
 
 export const dynamic = 'force-dynamic';
 

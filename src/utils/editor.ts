@@ -1,5 +1,5 @@
+import { ImageUseCase } from 'src/domain/useCases/image';
 import { SupabaseClientType } from 'src/types/supabase';
-import { ImageUseCase } from 'src/useCases/image';
 
 export const editorImageHandler = ({
   supabase,

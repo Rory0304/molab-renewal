@@ -6,11 +6,11 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image';
 import { useAuth } from 'src/context/AuthProvider';
 import { useModals } from 'src/context/ModalProvider';
+import { NoticeStatus } from 'src/data/types/notice';
+import { NoticeCategory } from 'src/data/types/notice';
+import { NoticeType } from 'src/data/types/notice';
 import useDeleteBookmarkMutation from 'src/hooks/useDeleteBookmarkMutation';
 import useInsertBookmarkMutation from 'src/hooks/useInsertBookmarkMutation';
-import { NoticeStatus } from 'src/types/notice';
-import { NoticeCategory } from 'src/types/notice';
-import { NoticeType } from 'src/types/notice';
 import { getNoticeStatus } from 'src/utils/notice';
 
 import BookmarkButton from '../BookmarkButton/BookmarkButton';
@@ -67,7 +67,7 @@ const NoticeCard: React.FC<NoticeCardProps> = ({
       }`}
     >
       <div className="relative w-full pt-[81%]">
-        <div className="z-10 absolute flex flex-items w-full top-4 right-0 justify-between px-4">
+        <div className="absolute right-0 z-10 flex justify-between w-full px-4 flex-items top-4">
           <NoticeStatusBadge
             endDate={new Date(endDate)}
             noticeStatus={noticeStatus}

@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
-import { ProposeRepository } from 'src/repositories/propose/ProposeRepository';
-import { ProjectFormValues } from 'src/types';
+import { ProjectFormValues } from 'src/data/types';
+import { ProposeRepository } from 'src/domain/repositories/propose/ProposeRepository';
 
 export class ProposeUseCase {
   private proposeRepository: ProposeRepository;

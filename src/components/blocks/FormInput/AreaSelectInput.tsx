@@ -1,7 +1,7 @@
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-import { KOREA_ADMNISTRATIVE_DISTRICT } from 'src/constants/area';
+import { KOREA_ADMNISTRATIVE_DISTRICT } from 'src/data/constants/area';
 
 interface AreaSelectInputProps {
   selectedSido?: string;

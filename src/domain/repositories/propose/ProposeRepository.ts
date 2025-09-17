@@ -1,8 +1,8 @@
 import { camelizeKeys, decamelizeKeys } from 'humps';
-import { MolabApiClient } from 'src/repositories/api/molab/MolabApiClient';
-import type { ProjectFormValues } from 'src/types/project';
-import type { Proposetype } from 'src/types/project';
-import type { Row, SupabaseClientType } from 'src/types/supabase';
+import type { ProjectFormValues } from 'src/data/types/project';
+import type { Proposetype } from 'src/data/types/project';
+import type { Row, SupabaseClientType } from 'src/data/types/supabase';
+import { MolabApiClient } from 'src/domain/repositories/api/molab/MolabApiClient';
 
 export class ProposeRepository extends MolabApiClient {
   constructor(client?: SupabaseClientType) {

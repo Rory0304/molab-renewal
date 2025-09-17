@@ -3,8 +3,8 @@
 import React from 'react';
 
 import Image from 'next/image';
-import { NoticeCategory } from 'src/types/notice';
-import { NoticeType } from 'src/types/notice';
+import { NoticeCategory } from 'src/data/types/notice';
+import { NoticeType } from 'src/data/types/notice';
 
 export interface NoticeCardProps extends NoticeType {}
 

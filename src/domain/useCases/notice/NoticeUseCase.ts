@@ -1,5 +1,5 @@
 import { SupabaseClient } from '@supabase/supabase-js';
-import { NoticeRepository } from 'src/repositories/notice';
+import { NoticeRepository } from 'src/domain/repositories/notice';
 
 export class NoticeUseCase {
   private noticeRepository: NoticeRepository;

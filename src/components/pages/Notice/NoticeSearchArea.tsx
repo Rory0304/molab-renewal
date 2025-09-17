@@ -15,13 +15,13 @@ import {
   ErrorBox,
   LoadingNoticeCard,
 } from 'src/components/blocks';
+import { NoticeUseCase } from 'src/domain/useCases/notice';
 import {
   NoticeCategory,
   NoticeCategoryKeyType,
   NoticeSort,
   SortOptionType,
 } from 'src/types/notice';
-import { NoticeUseCase } from 'src/useCases/notice';
 
 import NoticeList from './NoticeList';
 

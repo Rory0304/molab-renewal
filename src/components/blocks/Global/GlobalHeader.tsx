@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from 'src/context/AuthProvider';
 import { useModals } from 'src/context/ModalProvider';
-import { ProposeUseCase } from 'src/useCases/propose';
+import { ProposeUseCase } from 'src/domain/useCases/propose';
 import { v4 as uuidV4 } from 'uuid';
 
 import { DesktopHeader, MobileHeader } from '../Header';

@@ -1,5 +1,5 @@
+import { SupabaseClientType } from 'src/data/types/supabase';
 import { SupabaseClientSingleton } from 'src/supabase/SupabaseClientSingleton';
-import { SupabaseClientType } from 'src/types/supabase';
 
 export abstract class MolabApiClient {
   protected readonly client: SupabaseClientType;

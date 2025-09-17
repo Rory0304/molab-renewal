@@ -1,8 +1,8 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useMutation } from '@tanstack/react-query';
 import { enqueueSnackbar } from 'notistack';
+import { ProposeUseCase } from 'src/domain/useCases/propose';
 import type { ProjectFormValues } from 'src/types/project';
-import { ProposeUseCase } from 'src/useCases/propose';
 
 interface useUpdateProjectProps {
   projectId: string;

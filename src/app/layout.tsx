@@ -3,7 +3,7 @@ import AppProvider from 'src/context/AppProvider';
 import { AuthProvider } from 'src/context/AuthProvider';
 import ModalProvider from 'src/context/ModalProvider';
 
-import '../constants/styles/global.css';
+import '../styles/global.css';
 
 export default function RootLayout({
   children,

@@ -1,7 +1,7 @@
 import { decamelizeKeys } from 'humps';
-import { MolabApiClient } from 'src/repositories/api/molab/MolabApiClient';
-import type { Row, SupabaseClientType } from 'src/types/supabase';
-import { ImageUseCase } from 'src/useCases/image';
+import type { Row, SupabaseClientType } from 'src/data/types/supabase';
+import { MolabApiClient } from 'src/domain/repositories/api/molab/MolabApiClient';
+import { ImageUseCase } from 'src/domain/useCases/image';
 
 export type ReviewType = Row<'Review'>;
 

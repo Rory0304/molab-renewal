@@ -6,9 +6,9 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import { NoticeCategory } from 'src/types/notice';
-import type { NoticeType } from 'src/types/notice';
-import { NoticeUseCase } from 'src/useCases/notice';
+import type { NoticeType } from 'src/data/types/notice';
+import { NoticeCategory } from 'src/data/types/notice';
+import { NoticeUseCase } from 'src/domain/useCases/notice';
 
 interface NoticeCardProps extends NoticeType {}
 

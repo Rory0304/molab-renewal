@@ -1,4 +1,4 @@
-import { ProjectStatus } from 'src/types/project';
+import { ProjectStatus } from 'src/data/types/project';
 
 import { calculateDaysLeft, checkIsDatePast } from './date';
 

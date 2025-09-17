@@ -6,8 +6,8 @@ import type { UseFormReturn } from 'react-hook-form';
 
 import { ErrorMessage } from '@hookform/error-message';
 import { TextInput } from 'src/components/blocks';
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
-import type { ProjectFormValues } from 'src/types/project';
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/data/constants/proposeTutorial';
+import type { ProjectFormValues } from 'src/data/types/project';
 
 const PROJECT_TITLE_MAX_LENGTH = 200;
 
