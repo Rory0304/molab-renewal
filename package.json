@@ -7,7 +7,10 @@
     "dev": "yarn clean && next dev",
     "build": "next build",
     "start": "next start",
-    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "ci:build": "next build",
+    "ci:format": "pretty",
+    "ci:lint": "next lint"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -41,6 +44,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.35.0",
     "@rory0304/molab-project-types": "1.1.0",
     "@rorysa/prettier-config": "^1.4.2",
     "@tailwindcss/typography": "^0.5.9",
@@ -50,6 +54,11 @@
     "@types/react-dom": "18.2.5",
     "@types/reactour": "^1.18.4",
     "@types/uuid": "^9.0.2",
-    "daisyui": "^3.1.7"
+    "daisyui": "^3.1.7",
+    "eslint": "^9.35.0",
+    "eslint-config-next": "15.5.3",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "typescript-eslint": "^8.44.0"
   }
 }
