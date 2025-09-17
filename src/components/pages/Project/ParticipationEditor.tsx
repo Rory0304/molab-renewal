@@ -4,8 +4,8 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { DeferredLoading, Editor, OverlayLoading } from 'src/components/blocks';
+import type { ProjectFormValues } from 'src/data/types/project';
 import useUpdateProject from 'src/hooks/useUpdateProject';
-import type { ProjectFormValues } from 'src/types/project';
 
 const ParticipationEditor: React.FC = () => {
   const {

@@ -6,7 +6,7 @@ import type { UseFormReturn } from 'react-hook-form';
 
 import { ErrorMessage } from '@hookform/error-message';
 import { ThumbnailInput } from 'src/components/blocks';
-import type { ProjectFormValues } from 'src/types/project';
+import type { ProjectFormValues } from 'src/data/types/project';
 
 interface ProjectThumbnailInputProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;

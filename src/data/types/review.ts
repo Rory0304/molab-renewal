@@ -1,3 +1,3 @@
-import type { Row } from 'src/types/supabase';
+import type { Row } from 'src/data/types/supabase';
 
 export type ReviewType = Row<'Review'>;

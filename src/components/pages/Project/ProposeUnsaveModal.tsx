@@ -7,9 +7,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { Modal } from 'src/components/blocks';
+import type { ProjectFormValues } from 'src/data/types/project';
 import useUnsaveModal from 'src/hooks/useUnsaveModal';
 import useUpdateProject from 'src/hooks/useUpdateProject';
-import type { ProjectFormValues } from 'src/types/project';
 
 const ProposeUnsaveModal: React.FC = () => {
   const router = useRouter();
