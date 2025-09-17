@@ -8,7 +8,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import TextInput from 'src/components/blocks/FormInput/TextInput';
-import { ApiStatus } from 'src/types/common';
+import { ApiStatus } from 'src/data/types/common';
 
 type AUTH_VIEW_TYPE = 'check-email' | 'sign-in' | 'sign-up';
 

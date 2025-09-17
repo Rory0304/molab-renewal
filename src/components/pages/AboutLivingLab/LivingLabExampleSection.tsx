@@ -4,7 +4,7 @@ import React from 'react';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { fadeInUp } from 'src/constants/styles/animation';
+import { fadeInUp } from 'src/styles/animation';
 
 const LIVING_LAB_EXMPLES = [
   {

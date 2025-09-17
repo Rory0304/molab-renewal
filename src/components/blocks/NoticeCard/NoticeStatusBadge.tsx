@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NoticeStatus } from 'src/types/notice';
+import { NoticeStatus } from 'src/data/types/notice';
 import { calculateDaysLeft } from 'src/utils/date';
 
 interface NoticeStatusBadgeProps {

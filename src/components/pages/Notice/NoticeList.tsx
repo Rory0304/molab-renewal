@@ -7,9 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { getBookmarkIdListByuserId } from 'src/api/bookmark';
 import VerticalNoticeCard from 'src/components/blocks/NoticeCard/VerticalNoticeCard';
-import queryKeys from 'src/constants/queryKeys';
 import { useAuth } from 'src/context/AuthProvider';
-import { NoticeType } from 'src/types/notice';
+import queryKeys from 'src/data/constants/queryKeys';
+import { NoticeType } from 'src/data/types/notice';
 
 interface NoticeListProps {
   noticeList: NoticeType[];

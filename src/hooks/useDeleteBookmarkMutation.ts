@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteBookmarkById } from 'src/api/bookmark';
-import queryKeys from 'src/constants/queryKeys';
-import { SupabaseClientType } from 'src/types/supabase';
+import queryKeys from 'src/data/constants/queryKeys';
+import { SupabaseClientType } from 'src/data/types/supabase';
 
 const useDeleteBookMarkMutation = (supabaseClient: SupabaseClientType) => {
   const queryClient = useQueryClient();

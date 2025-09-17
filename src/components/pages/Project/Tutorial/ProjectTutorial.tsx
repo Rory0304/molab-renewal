@@ -3,7 +3,7 @@
 import React from 'react';
 
 import dynamic from 'next/dynamic';
-import { PROPOSE_TUTORIAL_STEPS } from 'src/constants/proposeTutorial';
+import { PROPOSE_TUTORIAL_STEPS } from 'src/data/constants/proposeTutorial';
 
 const ReactTour = dynamic(() => import('reactour'), { ssr: false });
 

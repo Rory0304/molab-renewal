@@ -1,5 +1,5 @@
 import { Camelized, camelizeKeys } from 'humps';
-import type { Row, SupabaseClientType } from 'src/types/supabase';
+import type { Row, SupabaseClientType } from 'src/data/types/supabase';
 
 export type BookmarkType = Camelized<Omit<Row<'Bookmark'>, 'created_at'>>;
 
