@@ -1,4 +1,4 @@
-import { NoticeStatus } from 'src/types/notice';
+import { NoticeStatus } from 'src/data/types/notice';
 
 import { calculateDaysLeft, checkIsDatePast } from './date';
 

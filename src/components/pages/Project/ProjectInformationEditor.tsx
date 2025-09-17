@@ -4,7 +4,7 @@ import React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 import { DeferredLoading, OverlayLoading } from 'src/components/blocks';
-import type { ProjectFormValues } from 'src/types/project';
+import type { ProjectFormValues } from 'src/data/types/project';
 
 import ProjectAreaSelect from './FormParts/ProjectAreaSelect';
 import ProjectDatePickerInput from './FormParts/ProjectDatePickerInput';

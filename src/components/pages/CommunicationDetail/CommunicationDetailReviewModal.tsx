@@ -6,7 +6,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { DeferredLoading, Modal, SpinnerBox } from 'src/components/blocks';
-import { ReviewUseCase } from 'src/useCases/review';
+import { ReviewUseCase } from 'src/domain/useCases/review';
 
 interface CommunicationDetailReviewModalProps {
   uuid: string;

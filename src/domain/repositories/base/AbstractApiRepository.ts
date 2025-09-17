@@ -1,4 +1,4 @@
-import { SupabaseClientType } from '../../types/supabase';
+import { SupabaseClientType } from 'src/data/types/supabase';
 
 export abstract class AbstractApiRepository<T extends SupabaseClientType> {
   protected client: T;

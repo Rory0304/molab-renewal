@@ -1,5 +1,5 @@
 import { SupabaseClient } from '@supabase/supabase-js';
-import { ReviewRepository } from 'src/repositories/review/ReviewRepository';
+import { ReviewRepository } from 'src/domain/repositories/review/ReviewRepository';
 
 export class ReviewUseCase {
   private reviewRepository: ReviewRepository;

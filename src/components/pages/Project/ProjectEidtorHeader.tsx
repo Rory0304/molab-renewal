@@ -5,9 +5,9 @@ import { useFormContext } from 'react-hook-form';
 
 import Link from 'next/link';
 import ConditionalRouterLink from 'src/components/blocks/ConditionalRouterLink/ConditionalRouterLink';
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/data/constants/proposeTutorial';
+import type { ProjectFormValues } from 'src/data/types/project';
 import useUnsaveModal from 'src/hooks/useUnsaveModal';
-import type { ProjectFormValues } from 'src/types/project';
 
 const ProjectEidtorHeader: React.FC = () => {
   const {

@@ -7,8 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import Carousel from 'src/components/blocks/Carousel/Carousel';
+import { ProposeUseCase } from 'src/domain/useCases/propose';
 import type { ProjectContent } from 'src/types/project';
-import { ProposeUseCase } from 'src/useCases/propose';
 
 interface MainCommunicationCardProps
   extends Pick<ProjectContent, 'title' | 'siDo' | 'siGunGu'> {

@@ -1,5 +1,5 @@
-import { PROJETC_DETAIL_STEP } from 'src/constants/projectSteps';
-import { ProduceStepType } from 'src/types/common';
+import { PROJETC_DETAIL_STEP } from 'src/data/constants/projectSteps';
+import { ProduceStepType } from 'src/data/types/common';
 
 export const PROPOSE_STEPS: {
   key: ProduceStepType;

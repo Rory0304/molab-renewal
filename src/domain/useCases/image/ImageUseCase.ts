@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
-import { ImageRepository } from 'src/repositories/image';
-import { StorageType } from 'src/types/supabase';
+import { StorageType } from 'src/data/types/supabase';
+import { ImageRepository } from 'src/domain/repositories/image';
 
 export class ImageUseCase {
   private imageRepository: ImageRepository;

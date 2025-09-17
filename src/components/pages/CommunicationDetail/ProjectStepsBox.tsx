@@ -3,8 +3,8 @@
 import React from 'react';
 import 'react-quill/dist/quill.snow.css';
 
-import { PROJETC_DETAIL_STEP } from 'src/constants/projectSteps';
-import { ProjectContent } from 'src/types/project';
+import { PROJETC_DETAIL_STEP } from 'src/data/constants/projectSteps';
+import { ProjectContent } from 'src/data/types/project';
 
 interface ProjectStepsBoxProps {
   content: ProjectContent['stepDetail'];

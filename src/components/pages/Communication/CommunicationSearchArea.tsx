@@ -7,7 +7,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { AreaSelectInput, ErrorBox } from 'src/components/blocks';
 import { DeferredLoading } from 'src/components/blocks';
-import { ProposeUseCase } from 'src/useCases/propose';
+import { ProposeUseCase } from 'src/domain/useCases/propose';
 
 const LaodingProjectCard = React.lazy(
   () => import('src/components/blocks/ProjectCard/LoadingProjectCard')

@@ -10,9 +10,9 @@ import {
   Modal,
   OverlayLoading,
 } from 'src/components/blocks';
-import { PROJETC_DETAIL_STEP } from 'src/constants/projectSteps';
+import { PROJETC_DETAIL_STEP } from 'src/data/constants/projectSteps';
+import type { ProjectFormValues } from 'src/data/types/project';
 import useUpdateProject from 'src/hooks/useUpdateProject';
-import type { ProjectFormValues } from 'src/types';
 
 const EDITOR_PLACE_HOLDER =
   '[문제 해결의 필요성 : 왜 문제에 관심을 가지게 되었고, 왜 해결되어야 하는가?]\n[문제와 관련된 이해관계자]\n[실행 계획]';

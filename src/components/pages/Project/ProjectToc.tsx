@@ -4,9 +4,9 @@ import React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 import ConditionalRouterLink from 'src/components/blocks/ConditionalRouterLink/ConditionalRouterLink';
-import { PROPOSE_STEPS } from 'src/constants/proposeSteps';
+import { PROPOSE_STEPS } from 'src/data/constants/proposeSteps';
+import type { ProjectFormValues } from 'src/data/types/project';
 import useUnsaveModal from 'src/hooks/useUnsaveModal';
-import type { ProjectFormValues } from 'src/types/project';
 
 interface ProjectTocParams {
   currentStep: string;

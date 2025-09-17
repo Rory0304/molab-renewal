@@ -1,4 +1,4 @@
-import { ProjectFormValues, ProjectStatus } from 'src/types/project';
+import { ProjectFormValues, ProjectStatus } from 'src/data/types/project';
 
 export const PROJECT_FORM_DEFAULT_VALUES: ProjectFormValues = {
   payload: {

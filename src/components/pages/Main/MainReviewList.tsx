@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Carousel from 'src/components/blocks/Carousel/Carousel';
-import { ReviewUseCase } from 'src/useCases/review';
+import { ReviewUseCase } from 'src/domain/useCases/review';
 
 const DynamicCommunicationDetailReviewModal = dynamic(
   () =>

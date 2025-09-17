@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Image from 'next/image';
-import { ProjectStatus, Proposetype } from 'src/types';
+import { ProjectStatus, Proposetype } from 'src/data/types';
 import { calculateDaysLeft } from 'src/utils/date';
 import { getProjectStatus } from 'src/utils/project';
 

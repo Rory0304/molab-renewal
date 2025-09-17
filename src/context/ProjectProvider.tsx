@@ -9,10 +9,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { RecoilRoot } from 'recoil';
-import { PROJECT_FORM_DEFAULT_VALUES } from 'src/constants/projectFormDefaultValues';
 import { useAuth } from 'src/context/AuthProvider';
-import type { ProjectFormValues } from 'src/types';
-import { ProposeUseCase } from 'src/useCases/propose';
+import { PROJECT_FORM_DEFAULT_VALUES } from 'src/data/constants/projectFormDefaultValues';
+import type { ProjectFormValues } from 'src/data/types/project';
+import { ProposeUseCase } from 'src/domain/useCases/propose';
 import { convertImageUrltoFile } from 'src/utils/file';
 
 interface ProjectProviderProps {

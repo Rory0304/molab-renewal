@@ -11,8 +11,8 @@ import { ErrorBox } from 'src/components/blocks';
 import SpinnerBox from 'src/components/blocks/SpinnerBox/SpinnerBox';
 import { useAuth } from 'src/context/AuthProvider';
 import { useModals } from 'src/context/ModalProvider';
-import { ReviewType } from 'src/types/review';
-import { ReviewUseCase } from 'src/useCases/review';
+import { ReviewType } from 'src/data/types/review';
+import { ReviewUseCase } from 'src/domain/useCases/review';
 import { checkIsDatePast } from 'src/utils/date';
 
 const DynamicCommunicationDetailReviewSubmitModal = dynamic(

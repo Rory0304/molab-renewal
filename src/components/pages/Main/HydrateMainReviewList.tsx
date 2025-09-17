@@ -1,5 +1,5 @@
 import { Hydrate, dehydrate } from '@tanstack/react-query';
-import { ReviewUseCase } from 'src/useCases/review';
+import { ReviewUseCase } from 'src/domain/useCases/review';
 import getQueryClient from 'src/utils/queryClient';
 
 import MainReviewList from './MainReviewList';

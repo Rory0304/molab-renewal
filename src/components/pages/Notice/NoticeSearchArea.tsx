@@ -20,8 +20,8 @@ import {
   NoticeCategoryKeyType,
   NoticeSort,
   SortOptionType,
-} from 'src/types/notice';
-import { NoticeUseCase } from 'src/useCases/notice';
+} from 'src/data/types/notice';
+import { NoticeUseCase } from 'src/domain/useCases/notice';
 
 import NoticeList from './NoticeList';
 

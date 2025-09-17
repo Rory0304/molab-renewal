@@ -1,4 +1,4 @@
-import { ProjectDetailStepType } from 'src/types/common';
+import { ProjectDetailStepType } from 'src/data/types/common';
 
 export const PROJETC_DETAIL_STEP: {
   key: ProjectDetailStepType;

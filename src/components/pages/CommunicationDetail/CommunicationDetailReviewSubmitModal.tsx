@@ -12,7 +12,7 @@ import { enqueueSnackbar } from 'notistack';
 import TextAreaInput from 'src/components/blocks/FormInput/TextAreaInput';
 import Modal from 'src/components/blocks/Modal/Modal';
 import { useAuth } from 'src/context/AuthProvider';
-import { ReviewUseCase } from 'src/useCases/review';
+import { ReviewUseCase } from 'src/domain/useCases/review';
 import { v4 as uuidV4 } from 'uuid';
 
 interface CommunicationDetailReviewSubmitModalProps {

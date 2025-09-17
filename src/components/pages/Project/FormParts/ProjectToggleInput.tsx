@@ -5,8 +5,8 @@ import { Controller } from 'react-hook-form';
 import type { UseFormReturn } from 'react-hook-form';
 
 import { ToggleInput } from 'src/components/blocks';
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
-import type { ProjectFormValues } from 'src/types/project';
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/data/constants/proposeTutorial';
+import type { ProjectFormValues } from 'src/data/types/project';
 
 interface ProjectToggleInputProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;

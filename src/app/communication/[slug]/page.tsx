@@ -8,8 +8,8 @@ import {
   CommunicationDetailProjectStepsBox,
   CommunicationDetailReviewBox,
 } from 'src/components/pages';
-import { ProjectContent } from 'src/types';
-import { ProposeUseCase } from 'src/useCases/propose';
+import { ProjectContent } from 'src/data/types';
+import { ProposeUseCase } from 'src/domain/useCases/propose';
 
 export const dynamic = 'force-dynamic';
 

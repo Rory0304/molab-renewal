@@ -3,9 +3,9 @@
 import React from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
-import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/constants/proposeTutorial';
+import { PROPOSE_TUTORIAL_STEPS_SELECTORS } from 'src/data/constants/proposeTutorial';
+import type { ProjectFormValues } from 'src/data/types/project';
 import useUpdateProject from 'src/hooks/useUpdateProject';
-import type { ProjectFormValues } from 'src/types/project';
 
 interface ProjectSubmitButtonProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;

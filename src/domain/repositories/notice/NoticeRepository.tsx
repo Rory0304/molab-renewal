@@ -1,7 +1,7 @@
 import { camelizeKeys, decamelizeKeys } from 'humps';
-import { MolabApiClient } from 'src/repositories/api/molab/MolabApiClient';
-import { NoticeType } from 'src/types/notice';
-import type { Row, SupabaseClientType } from 'src/types/supabase';
+import { NoticeType } from 'src/data/types/notice';
+import type { Row, SupabaseClientType } from 'src/data/types/supabase';
+import { MolabApiClient } from 'src/domain/repositories/api/molab/MolabApiClient';
 
 export class NoticeRepository extends MolabApiClient {
   constructor(client?: SupabaseClientType) {

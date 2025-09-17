@@ -1,5 +1,9 @@
-import { MolabApiClient } from 'src/repositories/api/molab/MolabApiClient';
-import type { Row, StorageType, SupabaseClientType } from 'src/types/supabase';
+import type {
+  Row,
+  StorageType,
+  SupabaseClientType,
+} from 'src/data/types/supabase';
+import { MolabApiClient } from 'src/domain/repositories/api/molab/MolabApiClient';
 
 export type ReviewType = Row<'Review'>;
 
