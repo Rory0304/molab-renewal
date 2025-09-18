@@ -7,8 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import Carousel from 'src/components/blocks/Carousel/Carousel';
+import type { ProjectContent } from 'src/data/types/project';
 import { ProposeUseCase } from 'src/domain/useCases/propose';
-import type { ProjectContent } from 'src/types/project';
 
 interface MainCommunicationCardProps
   extends Pick<ProjectContent, 'title' | 'siDo' | 'siGunGu'> {
@@ -77,10 +77,7 @@ const MainCommunicationList: React.FC = () => {
             <MainCommunicationCard
               link={`/communication/${item.uuid}`}
               title={item.title || ''}
-              thumbnail={
-                `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${item.thumbnail}` ??
-                ''
-              }
+              thumbnail={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${item.thumbnail}`}
               siDo={item.siDo ?? ''}
               siGunGu={item.siGunGu ?? ''}
             />

@@ -1,7 +1,7 @@
-import { QueryCache, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { inserBookmarkByIds } from 'src/api/bookmark';
-import queryKeys from 'src/constants/queryKeys';
-import { SupabaseClientType } from 'src/types/supabase';
+import queryKeys from 'src/data/constants/queryKeys';
+import { SupabaseClientType } from 'src/data/types/supabase';
 
 const useInsertBookmarkMutation = (supabaseClient: SupabaseClientType) => {
   const queryClient = useQueryClient();

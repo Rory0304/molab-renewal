@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { ProjectCard } from 'src/components/blocks';
-import type { Proposetype } from 'src/types/project';
+import type { Proposetype } from 'src/data/types/project';
 
 interface CommunicationListProps {
   communicationList: Proposetype[];
@@ -19,10 +19,7 @@ const CommunicationList: React.FC<CommunicationListProps> = ({
           <ProjectCard
             link={`/communication/${data.uuid}`}
             title={data.title || '무제'}
-            thumbnail={
-              `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${data.thumbnail}` ??
-              ''
-            }
+            thumbnail={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${data.thumbnail}`}
             startDate={data.startDate ?? ''}
             endDate={data.endDate ?? ''}
             siDo={data.siDo ?? ''}

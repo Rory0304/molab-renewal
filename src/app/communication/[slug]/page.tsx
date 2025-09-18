@@ -61,10 +61,7 @@ const CommunicationDetailPage = async ({
           <div className="w-full md:w-[70%] mr-8">
             <CommunicationDetailInformationBox
               title={projectData.title}
-              thumbnail={
-                `${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${projectData.thumbnail}` ??
-                ''
-              }
+              thumbnail={`${process.env.NEXT_PUBLIC_SUPABASE_STORE_URL}/public/propose_thumbnail/${projectData.thumbnail}`}
               siDo={projectData.siDo}
               siGunGu={projectData.siGunGu}
               startDate={projectData.startDate}

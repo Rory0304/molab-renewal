@@ -5,7 +5,7 @@ import { UseFormReturn, useWatch } from 'react-hook-form';
 
 import { ErrorMessage } from '@hookform/error-message';
 import { AreaSelectInput } from 'src/components/blocks';
-import type { ProjectFormValues } from 'src/types/project';
+import type { ProjectFormValues } from 'src/data/types/project';
 
 interface ProjectAreaSelectProps {
   methods: UseFormReturn<ProjectFormValues, any, undefined>;

@@ -1,5 +1,5 @@
 import { Camelized } from 'humps';
-import { Row } from 'src/types/supabase';
+import { Row } from 'src/data/types/supabase';
 
 export type NoticeType = Camelized<Omit<Row<'Notice'>, 'created_at'>>;
 export type SortOptionType = 'asc' | 'desc';
