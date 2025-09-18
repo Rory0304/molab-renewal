@@ -2,7 +2,10 @@
 
 import React from 'react';
 
-import type { User } from '@supabase/auth-helpers-nextjs';
+import {
+  type User,
+  createClientComponentClient,
+} from '@supabase/auth-helpers-nextjs';
 import { SupabaseClientSingleton } from 'src/supabase/SupabaseClientSingleton';
 
 type AuthProviderProps = { children: React.ReactNode };
@@ -26,7 +29,7 @@ const AuthContext = React.createContext<AuthContextType>({
 //
 //
 function AuthProvider({ children }: AuthProviderProps) {
-  const supabaseClient = SupabaseClientSingleton.getClient();
+  const supabaseClient = createClientComponentClient();
 
   const [authorized, setAuthorized] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState<User | null>(null);
