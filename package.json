@@ -10,7 +10,8 @@
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "ci:build": "next build",
     "ci:format": "pretty",
-    "ci:lint": "next lint"
+    "ci:lint": "next lint",
+    "ci:sort-package-json": "npx sort-package-json"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
