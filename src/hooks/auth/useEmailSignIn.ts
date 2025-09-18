@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AuthError, AuthResponse } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
 import { AuthErrorCode } from 'src/constants/api/auth/AuthErrorCode';
 import { AuthErrorCodeFactory } from 'src/factories/api/auth/AuthErrorCodeFactory';
-import { SupabaseClientSingleton } from 'src/supabase/SupabaseClientSingleton';
 
 type AUTH_STATUS = 'check-email' | 'already-exist' | 'not_found' | 'fail';
 
@@ -13,9 +12,7 @@ interface UseEmailSignInProps {
 }
 
 export const useEmailSignIn = ({ onSuccessSignIn }: UseEmailSignInProps) => {
-  const supabase = SupabaseClientSingleton.getClient();
-
-  const router = useRouter();
+  const supabase = createClientComponentClient();
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [status, setStatus] = React.useState<AUTH_STATUS | null>(null);
