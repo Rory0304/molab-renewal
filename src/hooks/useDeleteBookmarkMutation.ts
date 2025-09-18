@@ -3,38 +3,16 @@ import { deleteBookmarkById } from 'src/api/bookmark';
 import queryKeys from 'src/data/constants/queryKeys';
 import { SupabaseClientType } from 'src/data/types/supabase';
 
+import { useOptimisticMutation } from './query';
+
 const useDeleteBookMarkMutation = (supabaseClient: SupabaseClientType) => {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation(deleteBookmarkById(supabaseClient), {
-    onMutate: async newBookMark => {
-      await queryClient.cancelQueries([queryKeys.GET_BOOKMARK_ID_LIST]);
-
-      const previousBookMark = queryClient.getQueryData([
-        queryKeys.GET_BOOKMARK_ID_LIST,
-      ]);
-
-      queryClient.setQueriesData(
-        [queryKeys.GET_BOOKMARK_ID_LIST],
-        (prev: number[] | undefined) =>
-          prev?.filter(id => id !== newBookMark.noticeId)
-      );
-
-      return { previousBookMark };
+  const mutation = useOptimisticMutation({
+    mutationFn: deleteBookmarkById(supabaseClient),
+    queryKey: [queryKeys.GET_BOOKMARK_ID_LIST],
+    updater: (prevData: number[], newBookMark) => {
+      return prevData?.filter(id => id !== newBookMark.noticeId);
     },
-
-    onError: (_error, _newBookMark, context) => {
-      queryClient.setQueriesData(
-        [queryKeys.GET_BOOKMARK_ID_LIST],
-        context?.previousBookMark
-      );
-    },
-
-    onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: [queryKeys.GET_BOOKMARK_ID_LIST],
-      });
-    },
+    invalidates: [queryKeys.GET_BOOKMARK_ID_LIST],
   });
 
   return mutation;

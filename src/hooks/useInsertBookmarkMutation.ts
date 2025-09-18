@@ -1,40 +1,17 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { inserBookmarkByIds } from 'src/api/bookmark';
 import queryKeys from 'src/data/constants/queryKeys';
 import { SupabaseClientType } from 'src/data/types/supabase';
 
+import { useOptimisticMutation } from './query';
+
 const useInsertBookmarkMutation = (supabaseClient: SupabaseClientType) => {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation(inserBookmarkByIds(supabaseClient), {
-    onMutate: async newBookMark => {
-      await queryClient.cancelQueries([queryKeys.GET_BOOKMARK_ID_LIST]);
-
-      const previousBookMark = queryClient.getQueryData([
-        queryKeys.GET_BOOKMARK_ID_LIST,
-      ]);
-
-      queryClient.setQueriesData(
-        [queryKeys.GET_BOOKMARK_ID_LIST],
-        (prev: number[] | undefined) => {
-          return [...(prev || []), newBookMark.noticeId];
-        }
-      );
-      return { previousBookMark };
+  const mutation = useOptimisticMutation({
+    mutationFn: inserBookmarkByIds(supabaseClient),
+    queryKey: [queryKeys.GET_BOOKMARK_ID_LIST],
+    updater: (prevData: number[], newBookMark) => {
+      return [...(prevData || []), newBookMark.noticeId];
     },
-
-    onError: (error, newBookMark, context) => {
-      queryClient.setQueriesData(
-        [queryKeys.GET_BOOKMARK_ID_LIST],
-        context?.previousBookMark
-      );
-    },
-
-    onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: [queryKeys.GET_BOOKMARK_ID_LIST],
-      });
-    },
+    invalidates: [queryKeys.GET_BOOKMARK_ID_LIST],
   });
 
   return mutation;
