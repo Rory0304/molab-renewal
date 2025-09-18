@@ -6,8 +6,7 @@ import { redirect } from 'next/navigation';
 import { MyProposeList } from 'src/components/pages/MyProject';
 
 const MyProjectPage: React.FC = async () => {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient({ cookies });
 
   const {
     data: { session },
