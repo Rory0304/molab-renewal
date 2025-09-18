@@ -50,6 +50,16 @@ jobs:
           commit_message: 'chore: lint'
           push_options: --force
 
+      - name: Create .env file
+        run: |
+          touch .env
+
+          echo NEXT_PUBLIC_SUPABASE_STORE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_STORE_URL }} >> .env
+          echo NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} >> .env
+          echo NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} >> .env
+          
+          cat .env
+
       - name: Build
         run: |
           npm run ci:build
