@@ -5,12 +5,11 @@
   "scripts": {
     "build": "next build",
     "ci:build": "next build",
-    "ci:format": "pretty",
+    "ci:format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "ci:lint": "next lint",
     "ci:sort-package-json": "npx sort-package-json",
     "clean": "rm -rf .next && rm -rf .next-server",
     "dev": "yarn clean && next dev",
-    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "start": "next start"
   },
   "dependencies": {
