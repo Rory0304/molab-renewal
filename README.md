@@ -1,6 +1,7 @@
 # MOLAB
 > MOLAB(모두의 리빙랩)은 국내 스마트시티 커뮤니티 플랫폼입니다.
 > 한국의 스마트시티 프로젝트는 시민 참여가 부족하다는 문제점을 해결해보고자 시작한, 스마트시티 분야의 네트워킹을 지원하는 웹 플랫폼입니다.
+> 관련 뉴스: https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0002618618
 
 
 ## Table of Contents
